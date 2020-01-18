@@ -22,7 +22,7 @@ export default class UserSideBar extends Component<Props, any>{
                 <div className="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
                     <div className="logo">
                         <a href="http://www.creative-tim.com" className="simple-text logo-normal">
-                            Creative Tim
+                            Therapy on Demand
                         </a>
                     </div>
                     <div className="sidebar-wrapper">
