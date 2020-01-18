@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import history from "./mHistory";
 import UserDahboardRoutes from './users/UserDashboardRoutes';
 import HomePage from 'home/HomePage';
+import LoginPage from 'login/LoginPage';
+import RegisterPage from 'register/RegisterPage';
 
 const App: React.FC = () => {
   return (
@@ -13,8 +15,8 @@ const App: React.FC = () => {
       <div>
         <Switch>
           <Route path="/home"><HomePage/></Route>
-          <Route path="/login"></Route>
-          <Route path="/register"></Route>
+          <Route path="/login"><LoginPage /></Route>
+          <Route path="/register"><RegisterPage /></Route>
           <Route path="/user">
             <UserDahboardRoutes/>
           </Route>
