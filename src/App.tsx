@@ -1,24 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
-import { Router, Switch, Route } from 'react-router';
+import { Router, Switch, Route, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import history from "./history";
+import history from "./mHistory";
+import UserDahboardRoutes from './users/UserDashboardRoutes';
 
 const App: React.FC = () => {
   return (
     <Router history={history}>
       <div>
         <Switch>
-          <Route path="/about">
-            
+          <Route path="/home"></Route>
+          <Route path="/login"></Route>
+          <Route path="/register"></Route>
+          <Route path="/user">
+            <UserDahboardRoutes/>
           </Route>
-          <Route path="/users">
-            
-          </Route>
-          <Route path="/">
-            
-          </Route>
+          <Route path="/admin"></Route>
+          <Route path="/hr"></Route>
+          <Route path="/provider"></Route>
+          <Redirect from="/" to="/home"/>
         </Switch>
       </div>
     </Router>
