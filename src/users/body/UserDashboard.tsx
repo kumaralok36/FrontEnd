@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import LoaderContext from 'utility/LoaderContext';
+import HttpCall from 'utility/HttpCall';
+import Utility from 'utility/Utility';
 
 export default class UserDashboard extends Component {
     state = {
@@ -10,7 +12,12 @@ export default class UserDashboard extends Component {
     setLoaderState: any;
     componentDidMount(){
         console.log("Mounting");
-        // this.setLoaderState(true);
+        this.setLoaderState(true);
+        HttpCall.callUrl("https://www.google.com", "GET", undefined, (data)=>{
+            this.setLoaderState(false);
+        }, (err)=>{
+            this.setLoaderState(false);
+        })
     }
     componentWillUnmount() {
         console.log("Un Mounting");
