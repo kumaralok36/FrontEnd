@@ -3,7 +3,7 @@ import routes from "../routes";
 
 export interface Props {
     changeSelection: (n: number) => any,
-    activeIndex:number
+    activeIndex: number
 }
 
 export default class UserSideBar extends Component<Props, any>{
@@ -19,7 +19,7 @@ export default class UserSideBar extends Component<Props, any>{
     render() {
         return (
             <>
-                <div className="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+                <div className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
                     <div className="logo">
                         <a href="http://www.creative-tim.com" className="simple-text logo-normal">
                             Therapy on Demand
@@ -29,7 +29,9 @@ export default class UserSideBar extends Component<Props, any>{
                         <ul className="nav">
                             {routes.map((route, index, routes) => {
                                 return (
-                                    <li className={`nav-item ${(this.props.activeIndex==index)?"active":""}`} key={index}>
+                                    <li style={{
+                                        cursor:"pointer"
+                                    }} className={`nav-item ${(this.props.activeIndex == index) ? "active" : ""}`} key={index}>
                                         <a className="nav-link" onClick={() => { this.props.changeSelection(index) }}>
                                             <i className="material-icons">{route.icon}</i>
                                             <p>{route.name}</p>

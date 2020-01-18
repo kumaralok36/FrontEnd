@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+import LoaderContext from 'utility/LoaderContext';
 
 export default class UserDashboard extends Component {
-    state={
-        pendingReviews:[1],
-        currentBooking:[2,4],
-        pendingPayments:[1]
+    state = {
+        pendingReviews: [1],
+        currentBooking: [2, 4],
+        pendingPayments: [1]
     }
-    componentWillMount() {
+    setLoaderState: any;
+    componentDidMount(){
         console.log("Mounting");
-
+        // this.setLoaderState(true);
     }
     componentWillUnmount() {
         console.log("Un Mounting");
@@ -16,7 +18,15 @@ export default class UserDashboard extends Component {
     render() {
         return (
             <>
-                {this.state.pendingReviews.length>0&&<div className="container" >
+                <LoaderContext.Consumer>
+                    {
+                        (value) => {
+                            this.setLoaderState = value;
+                            return (<></>);
+                        }
+                    }
+                </LoaderContext.Consumer>
+                {this.state.pendingReviews.length > 0 && <div className="container" >
                     <div className="header">
                         Pending Reviews
                 </div>
@@ -41,10 +51,10 @@ export default class UserDashboard extends Component {
                             )
                         })}
                     </div>
-                    <br/>
+                    <br />
                 </div>}
 
-                {this.state.currentBooking.length>0&&<div className="container" >
+                {this.state.currentBooking.length > 0 && <div className="container" >
                     <div className="header">
                         Current Bookings
                 </div>
@@ -69,10 +79,10 @@ export default class UserDashboard extends Component {
                             )
                         })}
                     </div>
-                    <br/>
+                    <br />
                 </div>}
-                
-                {this.state.pendingPayments.length>0&&<div className="container" >
+
+                {this.state.pendingPayments.length > 0 && <div className="container" >
                     <div className="header">
                         Current Bookings
                 </div>
