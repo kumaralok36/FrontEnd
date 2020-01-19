@@ -8,6 +8,7 @@ export class BackendUrls{
 
     static URLS={
         Login:"/web/login",
+        Register:"/web/register",
         User:{
             Sessions:"",
             Clients:"",
