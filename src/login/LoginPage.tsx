@@ -1,24 +1,65 @@
 import React, { Component } from 'react'
+import LoaderContext from 'utility/LoaderContext';
+import HttpCall from 'utility/HttpCall';
+import BackendUrls from 'utility/BackendUrls';
+import Utility from 'utility/Utility';
+import MessageUtility from 'utility/MessageUtility';
+import mHistory from 'mHistory';
 
 export default class LoginPage extends Component {
+    state={
+        loginForm:{
+            email:"",
+            password:""
+        }
+    }
+    setLoaderState:any
+    changeLoginFormData = (event)=>{
+        this.setState({
+            loginForm:{[event.target.name]:event.target.value}
+        }) 
+    }
+
+    submitLogin = (event)=>{
+        this.setLoaderState(true);
+
+        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.URLS.Login), "POST", this.state.loginForm, data=>{
+            this.setLoaderState(false);            
+            Utility.signIn(data.data.sessionToken, data.data.userType, data.data.userName);
+            mHistory.push("/user")
+        }, error=>{
+            this.setLoaderState(false);
+            Utility.showNotification("danger", MessageUtility.messages.ERROR_GENERAL);
+        })
+        event.preventDefault();
+    }
+
     render() {
         return (
             <>
+            <LoaderContext.Consumer>
+                {
+                    value=>{
+                        this.setLoaderState=value;
+                        return <></>
+                    }
+                }
+            </LoaderContext.Consumer>
   <div className="container">
     <div className="row">
       <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div className="card card-signin my-5">
           <div className="card-body">
             <h5 className="card-title text-center">Sign In</h5>
-            <form className="form-signin">
+            <form className="form-signin" onSubmit={()=>{this.submitLogin(event)}}>
               <div className="form-label-group">
                 <label>Email address</label>
-                <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required />
+                <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={()=>{this.changeLoginFormData(event)}} required />
               </div>
 
               <div className="form-label-group">
                 <label>Password</label>
-                <input type="password" id="inputPassword" className="form-control" placeholder="Password" required />
+                <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={()=>{this.changeLoginFormData(event)}} required />
               </div>
 
               <div className="custom-control custom-checkbox mb-3">

@@ -22,6 +22,7 @@ const App: React.FC = () => {
 	return (
 		<>
 			<div id="loader">
+				{/* <div className="loading">Loading...</div> */}
 				{loadingState&&<div className="loading">Loading...</div>}
 			</div>
 			<LoaderContext.Provider value={setLoaderState}>

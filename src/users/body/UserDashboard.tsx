@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import LoaderContext from 'utility/LoaderContext';
 import HttpCall from 'utility/HttpCall';
 import Utility from 'utility/Utility';
+import BackendUrls from 'utility/BackendUrls';
 
 export default class UserDashboard extends Component {
     state = {
@@ -11,12 +12,14 @@ export default class UserDashboard extends Component {
     }
     setLoaderState: any;
     componentDidMount(){
-        console.log("Mounting");
+        // console.log("Mounting");
         this.setLoaderState(true);
-        HttpCall.callUrl("https://www.google.com", "GET", undefined, (data)=>{
+        HttpCall.callUrl(BackendUrls.URLS.User.Booking, "GET", undefined, data=>{
             this.setLoaderState(false);
-        }, (err)=>{
+            
+        }, error=>{
             this.setLoaderState(false);
+            
         })
     }
     componentWillUnmount() {
@@ -38,7 +41,20 @@ export default class UserDashboard extends Component {
                         Pending Reviews
                 </div>
                     <hr />
-
+                    <button onClick={()=>{
+                        this.setLoaderState(true);
+                        HttpCall.callUrl("https://www.geeksforgeeks.org", "get", undefined, (succ)=>{
+                            this.setLoaderState(false);
+                            Utility.showNotification("success", "Done");
+                            console.log(succ);
+                        }, (error)=>{
+                            this.setLoaderState(false);
+                            Utility.showNotification("danger", "Error");
+                            console.log(error);
+                        })
+                    }}>
+                    Test Button
+                    </button>
                     <div className="row">
                         {this.state.pendingReviews.map((ele) => {
                             return (

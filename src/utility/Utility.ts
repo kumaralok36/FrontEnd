@@ -20,6 +20,21 @@ export default class Utility{
         }
         return undefined;
     }
+    public static getHeader(){
+        let json={
+            mac: "REACT_WEB",
+            sessiontoken: Utility.getCookie("sessiontoken"),
+            accounttoken: Utility.getCookie("accounttoken")?Utility.getCookie("accounttoken"):undefined
+        }
+        return json
+    }
+    public static setAccountToken(token:string){
+        Utility.setCookie("accounttoken", token);
+    }
+    public static setSessionToken(token:string){
+        Utility.setCookie("sessiontoken", token);
+    }
+
     static signOut() {
         Utility.setCookie("sessiontoken", "", 0);
         Utility.setCookie("userType", "", 0)
@@ -31,7 +46,7 @@ export default class Utility{
         Utility.setCookie("sessiontoken", sessionToken);
         Utility.setCookie("userType", ""+userType)
         Utility.setCookie("userName", userName)
-    
+        
         if(userType===1){
             // location.href = "/admins";
         }else if(userType){

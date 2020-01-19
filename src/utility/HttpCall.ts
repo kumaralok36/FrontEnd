@@ -1,6 +1,11 @@
 import Utility from "./Utility";
+import BackendUrls from "./BackendUrls";
 
 export default class HttpCall{
+    static errorCodes={
+        accountToken:551,
+        sessionToken:552,
+    }
     static callUrl(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false) {
         if (hasFiles) {
             //"Content-Type": 'multipart/form-data',
@@ -17,14 +22,16 @@ export default class HttpCall{
             };
             oReq.setRequestHeader("mac", "RNE_WEB");
             oReq.setRequestHeader("sessiontoken", Utility.getCookie("sessiontoken"));
+            if(Utility.getCookie("accounttoken"))
+                oReq.setRequestHeader("accounttoken", Utility.getCookie("accounttoken"));
+            
             let uploadableDocForm=undefined
             oReq.send(uploadableDocForm);
             return;
         } else {
             var headers = {
+                ...Utility.getHeader(),
                 "Content-Type": "application/json; charset=UTF-8",
-                mac: "RNE_WEB",
-                "sessiontoken": Utility.getCookie("sessiontoken")
             };
         }
     
@@ -40,11 +47,24 @@ export default class HttpCall{
             successCallback(data);
         }).catch(error => {
             console.error(error)
-            if (error.errorCode == 552) {
+            if(error.errorCode == HttpCall.errorCodes.accountToken){
+                HttpCall.fetchAccountToken(path, method, body, successCallback, errorCallback, hasFiles);
+            }else if (error.errorCode == HttpCall.errorCodes.sessionToken) {
                 Utility.signOut();
             } else {
                 errorCallback(error);
             }
+        })
+    }
+    private static fetchAccountToken(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false){
+        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.TokenUrl), "GET", undefined, (data)=>{
+            
+            HttpCall.callUrl(path, method, body, successCallback, errorCallback, hasFiles);
+        }, (error)=>{
+            errorCallback({
+                error:error,
+                message:"Error Fetching the Session Token"
+            });
         })
     }
 }
