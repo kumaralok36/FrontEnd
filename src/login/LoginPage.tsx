@@ -51,15 +51,15 @@ export default class LoginPage extends Component {
         <div className="card card-signin my-5">
           <div className="card-body">
             <h5 className="card-title text-center">Sign In</h5>
-            <form className="form-signin" onSubmit={()=>{this.submitLogin(event)}}>
+            <form className="form-signin" onSubmit={(event)=>{this.submitLogin(event)}}>
               <div className="form-label-group">
                 <label>Email address</label>
-                <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={()=>{this.changeLoginFormData(event)}} required />
+                <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={(event)=>{this.changeLoginFormData(event)}} required />
               </div>
 
               <div className="form-label-group">
                 <label>Password</label>
-                <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={()=>{this.changeLoginFormData(event)}} required />
+                <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={(event)=>{this.changeLoginFormData(event)}} required />
               </div>
 
               <div className="custom-control custom-checkbox mb-3">

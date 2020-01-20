@@ -41,20 +41,6 @@ export default class UserDashboard extends Component {
                         Pending Reviews
                 </div>
                     <hr />
-                    <button onClick={()=>{
-                        this.setLoaderState(true);
-                        HttpCall.callUrl("https://www.geeksforgeeks.org", "get", undefined, (succ)=>{
-                            this.setLoaderState(false);
-                            Utility.showNotification("success", "Done");
-                            console.log(succ);
-                        }, (error)=>{
-                            this.setLoaderState(false);
-                            Utility.showNotification("danger", "Error");
-                            console.log(error);
-                        })
-                    }}>
-                    Test Button
-                    </button>
                     <div className="row">
                         {this.state.pendingReviews.map((ele) => {
                             return (
