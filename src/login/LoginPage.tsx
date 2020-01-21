@@ -23,7 +23,7 @@ export default class LoginPage extends Component {
     submitLogin = (event)=>{
         this.setLoaderState(true);
 
-        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.URLS.Login), "POST", this.state.loginForm, data=>{
+        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.URLS.User.Login.url), "POST", this.state.loginForm, data=>{
             this.setLoaderState(false);            
             Utility.signIn(data.data.sessionToken, data.data.userType, data.data.userName);
             mHistory.push("/user")

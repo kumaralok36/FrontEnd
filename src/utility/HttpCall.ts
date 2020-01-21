@@ -3,7 +3,7 @@ import BackendUrls from "./BackendUrls";
 
 export default class HttpCall{
     static errorCodes={
-        accountToken:551,
+        accountToken:513,
         sessionToken:552,
     }
     static callUrl(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false) {
@@ -42,7 +42,7 @@ export default class HttpCall{
         }).then(
             response => response.json()
         ).then(data => {
-            if (!data.data)
+            if (data.error)
                 throw (data)
             successCallback(data);
         }).catch(error => {
@@ -57,8 +57,10 @@ export default class HttpCall{
         })
     }
     private static fetchAccountToken(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false){
+        console.log("Fetching Account Token : ", BackendUrls.formUrl(BackendUrls.TokenUrl));
         HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.TokenUrl), "GET", undefined, (data)=>{
-            
+            console.log(data.data.accountToken)
+            Utility.setAccountToken(data.data.accountToken)
             HttpCall.callUrl(path, method, body, successCallback, errorCallback, hasFiles);
         }, (error)=>{
             errorCallback({
