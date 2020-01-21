@@ -3,23 +3,25 @@ import LoaderContext from 'utility/LoaderContext';
 import HttpCall from 'utility/HttpCall';
 import Utility from 'utility/Utility';
 import BackendUrls from 'utility/BackendUrls';
+import SessionCard from './cards/SessionCard';
+
 
 export default class UserDashboard extends Component {
+
     state = {
-        pendingReviews: [1],
-        currentBooking: [2, 4],
-        pendingPayments: [1]
+        pendingReviews: [],
+        currentBooking: [],
+        pendingPayments: []
     }
     setLoaderState: any;
     componentDidMount(){
         // console.log("Mounting");
         this.setLoaderState(true);
-        HttpCall.callUrl(BackendUrls.URLS.User.Booking, "GET", undefined, data=>{
-            this.setLoaderState(false);
-            
+        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "GET", undefined, data=>{
+            this.setLoaderState(false);       
         }, error=>{
             this.setLoaderState(false);
-            
+
         })
     }
     componentWillUnmount() {
@@ -38,25 +40,13 @@ export default class UserDashboard extends Component {
                 </LoaderContext.Consumer>
                 {this.state.pendingReviews.length > 0 && <div className="container" >
                     <div className="header">
-                        Pending Reviews
+                        Pending Bookings
                 </div>
                     <hr />
                     <div className="row">
                         {this.state.pendingReviews.map((ele) => {
                             return (
-                                <div className="col-sm-4">
-                                    <div className="card" key={ele}>
-                                        <div className="card-header card-header-warning">
-                                            Something Here
-                            </div>
-                                        <div className="card-body">
-                                            The body is here....
-                            </div>
-                                        <div className="card-footer">
-                                            Woohooo!!!
-                            </div>
-                                    </div>
-                                </div>
+                                <SessionCard session={ele} sessionType={0} key={ele.sessionId}/>
                             )
                         })}
                     </div>
@@ -65,26 +55,14 @@ export default class UserDashboard extends Component {
 
                 {this.state.currentBooking.length > 0 && <div className="container" >
                     <div className="header">
-                        Current Bookings
+                        Present Bookings
                 </div>
                     <hr />
 
                     <div className="row">
                         {this.state.currentBooking.map((ele) => {
                             return (
-                                <div className="col-sm-4">
-                                    <div className="card" key={ele}>
-                                        <div className="card-header card-header-warning">
-                                            Something Here
-                            </div>
-                                        <div className="card-body">
-                                            The body is here....
-                            </div>
-                                        <div className="card-footer">
-                                            Woohooo!!!
-                            </div>
-                                    </div>
-                                </div>
+                                <SessionCard session={ele} sessionType={1} key={ele.sessionId}/>
                             )
                         })}
                     </div>
@@ -93,26 +71,14 @@ export default class UserDashboard extends Component {
 
                 {this.state.pendingPayments.length > 0 && <div className="container" >
                     <div className="header">
-                        Current Bookings
+                        Past Bookings
                 </div>
                     <hr />
 
                     <div className="row">
                         {this.state.pendingPayments.map((ele) => {
                             return (
-                                <div className="col-sm-4">
-                                    <div className="card" key={ele}>
-                                        <div className="card-header card-header-warning">
-                                            Something Here
-                            </div>
-                                        <div className="card-body">
-                                            The body is here....
-                            </div>
-                                        <div className="card-footer">
-                                            Woohooo!!!
-                            </div>
-                                    </div>
-                                </div>
+                                <SessionCard session={ele} sessionType={2} key={ele.sessionId}/>
                             )
                         })}
                     </div>

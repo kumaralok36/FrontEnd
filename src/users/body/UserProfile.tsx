@@ -8,8 +8,8 @@ export default class UserProfile extends Component {
 
     componentDidMount(){
         this.setLoaderState(true);
-        
-        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.URLS.User.Profile), "GET", undefined, data=>{
+
+        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.URLS.User.Profile.Get.url), "GET", undefined, data=>{
             this.setLoaderState(false);
         }, err=>{
             this.setLoaderState(false);

@@ -9,7 +9,7 @@ export default class UserPastSessions extends Component {
     setLoaderState:any;
     componentDidMount(){
         this.setLoaderState(true);
-        HttpCall.callUrl(BackendUrls.URLS.User.Sessions, "GET", undefined, (data)=>{
+        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "GET", undefined, (data)=>{
             this.setLoaderState(false);
 
         }, (err)=>{
