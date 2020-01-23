@@ -1,8 +1,24 @@
 import React, { Component } from 'react'
+import routes from 'users/routes';
+import UserProfile from 'users/body/UserProfile';
 
-export default class UserNavBar extends Component {
+interface Props{
+    changeSelection:(n:number)=>any
+}
+export default class UserNavBar extends Component<Props, any> {
     state={
         notifications:[1,2,3]
+    }
+    goToProfile = ()=>{
+        for(let i=0;i<routes.length;i++){
+            if(routes[i].component==UserProfile){
+                this.props.changeSelection(i);
+                break;
+            }
+        }
+    }
+    logout = ()=>{
+        this.props.changeSelection(routes.length-1);
     }
     render() {
         return (
@@ -42,10 +58,13 @@ export default class UserNavBar extends Component {
                   </p>
                                     </a>
                                     <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                        <a className="dropdown-item" href="#">Profile</a>
-                                        <a className="dropdown-item" href="#">Settings</a>
+                                        <a className="dropdown-item" style={{
+                                            cursor:"pointer"
+                                        }} onClick={()=>{this.goToProfile()}}>Profile</a>
                                         <div className="dropdown-divider"></div>
-                                        <a className="dropdown-item" href="#">Log out</a>
+                                        <a className="dropdown-item" style={{
+                                            cursor:"pointer"
+                                        }} onClick={()=>{this.logout()}}>Log out</a>
                                     </div>
                                 </li>
                             </ul>

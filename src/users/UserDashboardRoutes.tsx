@@ -32,6 +32,7 @@ export default class UserDahboardRoutes extends React.Component {
                 activeBody:routes[n].component
             })
         }else{
+            Utility.signOut();
             history.push("/")
         }
         
@@ -42,7 +43,7 @@ export default class UserDahboardRoutes extends React.Component {
             <div className="wrapper ">
                 <UserSideBar changeSelection={this.changeSelection} activeIndex={this.state.activeIndex}/>
                 <div className="main-panel">
-                    <UserNavBar />
+                    <UserNavBar changeSelection={this.changeSelection}/>
                     <div className="content">
                         <div className="container-fluid">
                             {<this.state.activeBody />}
