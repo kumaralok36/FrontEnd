@@ -4,6 +4,7 @@ import HttpCall from 'utility/HttpCall';
 import Utility from 'utility/Utility';
 import BackendUrls from 'utility/BackendUrls';
 import SessionCard from './cards/SessionCard';
+import AddressModal from './modals/AddressModal';
 
 
 export default class UserDashboard extends Component {
@@ -11,7 +12,9 @@ export default class UserDashboard extends Component {
     state = {
         pendingReviews: [],
         currentBooking: [],
-        pendingPayments: []
+        pendingPayments: [],
+        showModal: false,
+        modalContainer: undefined
     }
     setLoaderState: any;
     componentDidMount(){
@@ -27,6 +30,12 @@ export default class UserDashboard extends Component {
     componentWillUnmount() {
         console.log("Un Mounting");
     }
+    showModal=(component:any)=>{
+        this.setState({
+            showModal:true,
+            modalContainer:component
+        })
+    }
     render() {
         return (
             <>
@@ -38,6 +47,8 @@ export default class UserDashboard extends Component {
                         }
                     }
                 </LoaderContext.Consumer>
+                <button className="btn btn-primary" data-toggle="modal" data-target="#myModal" onClick={()=>{this.showModal(AddressModal)}}>Check Modal</button>
+                {this.state.showModal&&<this.state.modalContainer />}
                 {this.state.pendingReviews.length > 0 && <div className="container" >
                     <div className="header">
                         Pending Bookings
