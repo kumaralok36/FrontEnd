@@ -19,11 +19,12 @@ export default class UserDashboard extends Component {
     componentDidMount(){
         // console.log("Mounting");
         this.setLoaderState(true);
-        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "GET", undefined, data=>{
+        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "POST", undefined, data=>{
             this.setLoaderState(false);       
+            console.log(data);
         }, error=>{
             this.setLoaderState(false);
-
+            Utility.showNotification("danger", "Something Went Wrong!!");
         })
     }
     componentWillUnmount() {

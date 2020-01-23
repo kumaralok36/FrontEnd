@@ -9,9 +9,11 @@ export default class UserPastSessions extends Component {
     setLoaderState:any;
     componentDidMount(){
         this.setLoaderState(true);
-        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "GET", undefined, (data)=>{
+        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "POST", {
+            x:""
+        }, (data)=>{
             this.setLoaderState(false);
-
+            console.log(data);
         }, (err)=>{
             this.setLoaderState(false);
             Utility.showNotification("danger", MessageUtility.messages.ERROR_GENERAL)

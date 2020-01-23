@@ -16,6 +16,9 @@ export class BackendUrls {
     }
 
     public static formUrl(path: string): string {
+        if (path.startsWith("https://") || path.startsWith("http://")) {
+            return path
+        }
         if (path.startsWith("/")) {
             return BackendUrls.backEndUrl + path
         }

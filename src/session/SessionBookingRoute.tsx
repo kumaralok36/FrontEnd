@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 export default class SessionBookingRoute extends Component {
     render() {
         return (
-            <div>
+            <div style={{
+                backgroundColor:"white"
+            }}>
                 <div className="container">
 
                     <div className="row">

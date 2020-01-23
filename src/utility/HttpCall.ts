@@ -7,6 +7,7 @@ export default class HttpCall{
         sessionToken:552,
     }
     static callUrl(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false) {
+        path=BackendUrls.formUrl(path);
         if (hasFiles) {
             //"Content-Type": 'multipart/form-data',
             var oReq = new XMLHttpRequest();
