@@ -1,3 +1,5 @@
+import mHistory from "mHistory";
+
 export default class Utility{
     static setCookie(cname:string, cvalue:string, exdays = 30) {
         var d = new Date();
@@ -20,6 +22,13 @@ export default class Utility{
         }
         return undefined;
     }
+    public static redirectToCorrectUrl(){
+		switch(Utility.getUserType()){
+			case Utility.userTypes.user:
+                mHistory.push("/user");
+                break;
+		}
+	}
     public static getHeader(){
         let json={
             mac: "REACT_WEB",
@@ -28,6 +37,22 @@ export default class Utility{
         }
         return json
     }
+
+    public static userTypes={
+        hr:"hr",
+        sales:"sales",
+        admin:"admin",
+        provider:"provider",
+        user:"user"
+    }
+
+    public static getUserType():string{
+        return Utility.getCookie("userType");
+    }
+    public static getUserName():string{
+        return Utility.getCookie("userName");
+    }
+
     public static setAccountToken(token:string){
         Utility.setCookie("accounttoken", token);
     }

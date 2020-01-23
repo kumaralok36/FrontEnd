@@ -6,6 +6,8 @@ import { Switch, Router, Route, Redirect } from "react-router";
 import history from "mHistory";
 import UserDashboard from "./body/UserDashboard";
 import routes from "./routes";
+import Utility from "utility/Utility";
+import mHistory from "mHistory";
 
 export default class UserDahboardRoutes extends React.Component {
     state = {
@@ -14,6 +16,13 @@ export default class UserDahboardRoutes extends React.Component {
     }
     constructor(props:any) {
         super(props)    
+    }
+
+    componentWillMount(){
+        if(Utility.getUserType()!=Utility.userTypes.user){
+            Utility.signOut();
+            mHistory.push("/");
+        }
     }
     
     changeSelection = (n:number)=>{
