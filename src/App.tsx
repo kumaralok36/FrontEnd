@@ -13,6 +13,7 @@ import LoaderContext from 'utility/LoaderContext';
 import "./assets/css/css-loader.css"
 import TemplateModal from 'utility/TemplateModal';
 import ModalContext from 'utility/ModalContext';
+import SessionBookingRoute from 'session/SessionBookingRoute';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
@@ -54,6 +55,7 @@ class App extends React.Component {
 									<Route path="/home"><HomePage /></Route>
 									<Route path="/login"><LoginPage /></Route>
 									<Route path="/register"><RegisterPage /></Route>
+									<Route path="/book"><SessionBookingRoute /></Route>
 									<Route path="/user">
 										<UserDahboardRoutes />
 									</Route>

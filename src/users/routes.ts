@@ -4,6 +4,11 @@ import UserPastSessions from "./body/UserPastSessions";
 
 let routes=[
     {
+        name:"Book New Session",
+        icon:"dashboard",
+        component:""
+    },
+    {
         name:"Dashboard",
         icon:"dashboard",
         component:UserDashboard

@@ -11,7 +11,7 @@ import mHistory from "mHistory";
 
 export default class UserDahboardRoutes extends React.Component {
     state = {
-        activeIndex:0,
+        activeIndex:1,
         activeBody:UserDashboard
     }
     constructor(props:any) {
@@ -26,7 +26,9 @@ export default class UserDahboardRoutes extends React.Component {
     }
     
     changeSelection = (n:number)=>{
-        if(n<routes.length-1){
+        if(n==0){
+            history.push("/book")
+        }else if(n<routes.length-1){
             this.setState({
                 activeIndex:n,
                 activeBody:routes[n].component
