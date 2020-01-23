@@ -16,7 +16,7 @@ export default class LoginPage extends Component {
     setLoaderState:any
     changeLoginFormData = (event)=>{
         this.setState({
-            loginForm:{[event.target.name]:event.target.value}
+            loginForm:{...this.state.loginForm, [event.target.name]:event.target.value}
         }) 
     }
 
