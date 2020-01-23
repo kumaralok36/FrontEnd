@@ -2,18 +2,15 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 
 interface Props {
-    callback: (newAddress:any) => any
+    callback: () => any
 }
 
-export default class AddressModal extends Component<Props, any> {
+export default class TemplateModal extends Component<Props, any> {
 
     componentDidMount() {
-        console.log("Mounting Address Component...");;
+        
     }
-    
-    onAddedNewAddress(address:any){
-        this.props.callback(address)
-    }
+
     render() {
         return ReactDOM.createPortal(
             <>
