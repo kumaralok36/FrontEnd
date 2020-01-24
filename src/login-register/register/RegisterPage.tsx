@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LoaderContext from 'utility/LoaderContext';
 import UserRegistrationForm from './components/UserRegistrationForm';
+import ProviderRegisterForm from './components/ProviderRegisterForm';
 
 export default class RegisterPage extends Component {
 
@@ -36,7 +37,8 @@ export default class RegisterPage extends Component {
         <div className="card card-signin my-5">
           <div className="card-body">
             <h5 className="card-title text-center">Sign In</h5>
-            <UserRegistrationForm />
+            <br />
+            <ProviderRegisterForm />
           </div>
         </div>
       </div>

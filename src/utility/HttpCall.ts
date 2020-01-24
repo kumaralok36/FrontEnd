@@ -1,14 +1,14 @@
 import Utility from "./Utility";
 import BackendUrls from "./BackendUrls";
 
-export default class HttpCall{
-    static errorCodes={
-        accountToken:513,
-        sessionToken:552,
+export default class HttpCall {
+    static errorCodes = {
+        accountToken: 513,
+        sessionToken: 552,
     }
-    static callUrl(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false) {
-        path=BackendUrls.formUrl(path);
-        if (hasFiles) {
+    static callUrl(path: string, method: string, body: any, successCallback: (data: any) => any, errorCallback: (data: any) => any, formData: FormData = undefined) {
+        path = BackendUrls.formUrl(path);
+        if (formData) {
             //"Content-Type": 'multipart/form-data',
             var oReq = new XMLHttpRequest();
             oReq.open(method, path, true);
@@ -21,13 +21,23 @@ export default class HttpCall{
                     // oOutput.innerHTML = "Error " + oReq.status + " occurred when trying to upload your file.<br \/>";
                 }
             };
-            oReq.setRequestHeader("mac", "RNE_WEB");
-            oReq.setRequestHeader("sessiontoken", Utility.getCookie("sessiontoken"));
-            if(Utility.getCookie("accounttoken"))
-                oReq.setRequestHeader("accounttoken", Utility.getCookie("accounttoken"));
-            
-            let uploadableDocForm=undefined
-            oReq.send(uploadableDocForm);
+            let headers = Utility.getHeader();
+            for (var i in headers) {
+                oReq.setRequestHeader(i, headers[i]);
+            }
+
+            // Define what happens on successful data submission
+            oReq.addEventListener('load', function (event) {
+                
+            });
+
+            // Define what happens in case of error
+            oReq.addEventListener(' error', function (event) {
+                
+            });
+
+            console.log(formData);
+            oReq.send(formData);
             return;
         } else {
             var headers = {
@@ -35,7 +45,7 @@ export default class HttpCall{
                 "Content-Type": "application/json; charset=UTF-8",
             };
         }
-    
+
         fetch(path, {
             method: method,
             headers: headers,
@@ -48,25 +58,25 @@ export default class HttpCall{
             successCallback(data);
         }).catch(error => {
             console.error(error)
-            if(error.errorCode == HttpCall.errorCodes.accountToken){
-                HttpCall.fetchAccountToken(path, method, body, successCallback, errorCallback, hasFiles);
-            }else if (error.errorCode == HttpCall.errorCodes.sessionToken) {
+            if (error.errorCode == HttpCall.errorCodes.accountToken) {
+                HttpCall.fetchAccountToken(path, method, body, successCallback, errorCallback, formData);
+            } else if (error.errorCode == HttpCall.errorCodes.sessionToken) {
                 Utility.signOut();
             } else {
                 errorCallback(error);
             }
         })
     }
-    private static fetchAccountToken(path:string, method:string, body:any, successCallback:(data:any)=>any, errorCallback:(data:any)=>any, hasFiles:boolean = false){
+    private static fetchAccountToken(path: string, method: string, body: any, successCallback: (data: any) => any, errorCallback: (data: any) => any, formData: FormData = undefined) {
         console.log("Fetching Account Token : ", BackendUrls.formUrl(BackendUrls.TokenUrl));
-        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.TokenUrl), "GET", undefined, (data)=>{
+        HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.TokenUrl), "GET", undefined, (data) => {
             console.log(data.data.accountToken)
             Utility.setAccountToken(data.data.accountToken)
-            HttpCall.callUrl(path, method, body, successCallback, errorCallback, hasFiles);
-        }, (error)=>{
+            HttpCall.callUrl(path, method, body, successCallback, errorCallback, formData);
+        }, (error) => {
             errorCallback({
-                error:error,
-                message:"Error Fetching the Session Token"
+                error: error,
+                message: "Error Fetching the Session Token"
             });
         })
     }

@@ -1,4 +1,4 @@
-let ProviderCalls:{
+let ProviderCalls={
     Register:{
         url:"/provider/signup",
         type:"POST"

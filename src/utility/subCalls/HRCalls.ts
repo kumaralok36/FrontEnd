@@ -1,4 +1,4 @@
-let HRCalls:{
+let HRCalls={
     Register:{
         url:"/hr/register",
         type:"POST"

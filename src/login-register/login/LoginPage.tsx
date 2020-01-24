@@ -19,7 +19,7 @@ export default class LoginPage extends Component {
 			loginForm: { ...this.state.loginForm, [event.target.name]: event.target.value }
 		})
 	}
-	
+
 
 	submitLogin = (event) => {
 		this.setLoaderState(true);
@@ -53,14 +53,14 @@ export default class LoginPage extends Component {
 							<div className="card card-signin my-5">
 								<div className="card-body">
 									<h5 className="card-title text-center">Sign In</h5>
+									<br />
 									<form className="form-signin" onSubmit={(event) => { this.submitLogin(event) }}>
-										<div className="form-label-group">
-											<label>Email address</label>
+										<div className="form-group label-floating">
+											<label className="control-label bmd-label-floating">Email Address</label>
 											<input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={(event) => { this.changeLoginFormData(event) }} required />
 										</div>
-
-										<div className="form-label-group">
-											<label>Password</label>
+										<div className="form-group label-floating">
+											<label className="control-label bmd-label-floating">Password</label>
 											<input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={(event) => { this.changeLoginFormData(event) }} required />
 										</div>
 
