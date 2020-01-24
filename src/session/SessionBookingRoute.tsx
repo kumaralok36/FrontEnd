@@ -1,6 +1,47 @@
 import React, { Component } from 'react'
+import SessionType from './SessionType';
+import SessionTypeComponent from './components/SessionTypeComponent';
+import SessionSubTypeComponent from './components/SessionSubTypeComponent';
+import ProviderSelectionComponent from './components/ProviderSelectionComponent';
+import LoginPage from 'login/LoginPage';
+import PaymentComponent from './components/PaymentComponent';
+import Utility from 'utility/Utility';
 
 export default class SessionBookingRoute extends Component {
+
+    state={
+        state:0,
+        sessionType:0,
+        subCategory:[],
+        providerId:""
+    }
+    onSelectSessionType=(ind:number)=>{
+        this.setState({
+            state:1,
+            sessionType:ind
+        })
+
+    }
+    onSelectSessionSubType=(sInds:string[])=>{
+        if(sInds.length==0){
+            this.setState({
+                state:0,
+                subCategory:[]
+            })
+        }else{
+            this.setState({
+                state:2,
+                subCategory:sInds
+            })
+        }
+    }
+    onSelectProviders=(providerID:string)=>{
+        if(Utility.isLoggedIn()){
+            this.setState({state:4});
+        }else{
+            this.setState({state:3});
+        }
+    }
     render() {
         return (
             <div style={{
@@ -10,7 +51,7 @@ export default class SessionBookingRoute extends Component {
 
                     <div className="row">
                         <div className="mx-auto">
-                            <img src="logo512.png" width="100px" />
+                            <img src="assets/img/new_logo.png" width="100px" className="img rounded-circle"/>
                         </div>
 
                     </div>
@@ -27,30 +68,12 @@ export default class SessionBookingRoute extends Component {
                 </div>
 
                 <br />
-                <div className="container">
-                    <h5>
-                        Booking Types
-                        </h5>
-                    {/* <hr /> */}
-                    <div className="row">
-                        {
-                            [1, 2, 3, 5, 6, 7, 8, 9, 10].map((val) => {
-                                return (
-                                    <div className="col-md-2" key={val}>
-                                        <div className="card">
-                                            <div className="card-header">
-                                                <img src="logo512.png" width="100%" />
-                                            </div>
-                                            <div className="card-body">
-                                                Body Massage
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
+
+                {this.state.state==0&&<SessionTypeComponent callback={this.onSelectSessionType}/>}
+                {this.state.state==1&&<SessionSubTypeComponent callback={this.onSelectSessionSubType} ind={this.state.sessionType}/>}
+                {this.state.state==2&&<ProviderSelectionComponent callback={this.onSelectProviders} sessionType={this.state.sessionType}/>}
+                {this.state.state==3&&<LoginPage/>}
+                {this.state.state==4&&<PaymentComponent/>}
             </div>
         )
     }

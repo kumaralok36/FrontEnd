@@ -52,6 +52,9 @@ export default class Utility{
     public static getUserName():string{
         return Utility.getCookie("userName");
     }
+    public static isLoggedIn():boolean{
+        return !(!Utility.getUserType())
+    }
 
     public static setAccountToken(token:string){
         Utility.setCookie("accounttoken", token);
