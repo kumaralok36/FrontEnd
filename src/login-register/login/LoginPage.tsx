@@ -64,10 +64,7 @@ export default class LoginPage extends Component {
 											<input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={(event) => { this.changeLoginFormData(event) }} required />
 										</div>
 
-										<div className="custom-control custom-checkbox mb-3">
-											<input type="checkbox" className="custom-control-input" id="customCheck1" />
-											<label className="custom-control-label">Remember password</label>
-										</div>
+										<br />
 										<button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
 										<hr className="my-4" />
 										<button className="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i className="fab fa-google mr-2"></i> Sign in with Google</button>

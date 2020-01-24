@@ -34,13 +34,13 @@ export default class LoginRegisterRoute extends Component<Props, any> {
             <>
                 {this.state.standAlone ? (<>
                     <div style={{
-                        backgroundImage:"url('assets/img/cover.jpg')",
-                        backgroundRepeat:"no-repeat",
-                        backgroundSize:"cover"
-                    }}>
+                        backgroundImage: "url('assets/img/cover.jpg')",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        height: "100vh"}}>
                         {/* Decoration Would be Done here.... */}
-                        {this.state.login ? <LoginPage /> : <RegisterPage />}
-                    </div>
+                    {this.state.login ? <LoginPage /> : <RegisterPage />}
+                </div>
                 </>) :
                     (this.state.login ? <LoginPage /> : <RegisterPage />)}
 

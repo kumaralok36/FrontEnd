@@ -15,28 +15,29 @@ import TemplateModal from 'utility/TemplateModal';
 import ModalContext from 'utility/ModalContext';
 import SessionBookingRoute from 'session/SessionBookingRoute';
 import LoginRegisterRoute from 'login-register/LoginRegisterRoute';
+import ProviderDashboardRoutes from 'providers/ProviderDashboardRoutes';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
 	// const [modalContainer, changeModal] = useState(TemplateModal);
 	state = {
 		loadingState: false,
-		showModal:false,
+		showModal: false,
 		modalContainer: undefined,
-		modalCallback:()=>{}
+		modalCallback: () => { }
 	}
-	setLoaderState = (b: boolean)=>{
+	setLoaderState = (b: boolean) => {
 		console.log("Loading : " + b);
 		// loadingFunc(b)
-		this.setState({loadingState:b})
+		this.setState({ loadingState: b })
 	}
-	showModal = (component, callback)=>{
+	showModal = (component, callback) => {
 		// changeModal(component)
 		console.log("Attempting to show Modal");
 		this.setState({
-			showModal:true,
-			modalContainer:component,
-			modalCallback:callback
+			showModal: true,
+			modalContainer: component,
+			modalCallback: callback
 		})
 	}
 	render() {
@@ -46,26 +47,24 @@ class App extends React.Component {
 					{/* <div className="loading">Loading...</div> */}
 					{this.state.loadingState && <div className="loading">Loading...</div>}
 				</div>
-				
+
 				<LoaderContext.Provider value={this.setLoaderState}>
 					<ModalContext.Provider value={this.showModal}>
-						{this.state.showModal && <this.state.modalContainer callback={this.state.modalCallback}/>}
+						{this.state.showModal && <this.state.modalContainer callback={this.state.modalCallback} />}
 						<Router history={history}>
-							<div>
-								<Switch>
-									<Route path="/home"><HomePage /></Route>
-									<Route path="/login"><LoginRegisterRoute login={true}/></Route>
-									<Route path="/register"><LoginRegisterRoute login={false}/></Route>
-									<Route path="/book"><SessionBookingRoute /></Route>
-									<Route path="/user">
-										<UserDahboardRoutes />
-									</Route>
-									<Route path="/admin"></Route>
-									<Route path="/hr"></Route>
-									<Route path="/provider"></Route>
-									<Redirect from="/" to="/home" />
-								</Switch>
-							</div>
+							<Switch>
+								<Route path="/home"><HomePage /></Route>
+								<Route path="/login"><LoginRegisterRoute login={true} /></Route>
+								<Route path="/register"><LoginRegisterRoute login={false} /></Route>
+								<Route path="/book"><SessionBookingRoute /></Route>
+								<Route path="/user">
+									<UserDahboardRoutes />
+								</Route>
+								<Route path="/admin"></Route>
+								<Route path="/hr"></Route>
+								<Route path="/provider"><ProviderDashboardRoutes /></Route>
+								<Redirect from="/" to="/home" />
+							</Switch>
 						</Router>
 					</ModalContext.Provider>
 				</LoaderContext.Provider>
