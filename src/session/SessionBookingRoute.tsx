@@ -3,7 +3,7 @@ import SessionType from './SessionType';
 import SessionTypeComponent from './components/SessionTypeComponent';
 import SessionSubTypeComponent from './components/SessionSubTypeComponent';
 import ProviderSelectionComponent from './components/ProviderSelectionComponent';
-import LoginPage from 'login/LoginPage';
+import LoginPage from 'login-register/login/LoginPage';
 import PaymentComponent from './components/PaymentComponent';
 import Utility from 'utility/Utility';
 

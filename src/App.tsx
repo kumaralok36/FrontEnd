@@ -6,14 +6,15 @@ import { Link } from 'react-router-dom';
 import history from "./mHistory";
 import UserDahboardRoutes from './users/UserDashboardRoutes';
 import HomePage from 'home/HomePage';
-import LoginPage from 'login/LoginPage';
-import RegisterPage from 'register/RegisterPage';
+import LoginPage from 'login-register/login/LoginPage';
+import RegisterPage from 'login-register/register/RegisterPage';
 import LoaderContext from 'utility/LoaderContext';
 
 import "./assets/css/css-loader.css"
 import TemplateModal from 'utility/TemplateModal';
 import ModalContext from 'utility/ModalContext';
 import SessionBookingRoute from 'session/SessionBookingRoute';
+import LoginRegisterRoute from 'login-register/LoginRegisterRoute';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
@@ -53,8 +54,8 @@ class App extends React.Component {
 							<div>
 								<Switch>
 									<Route path="/home"><HomePage /></Route>
-									<Route path="/login"><LoginPage /></Route>
-									<Route path="/register"><RegisterPage /></Route>
+									<Route path="/login"><LoginRegisterRoute login={true}/></Route>
+									<Route path="/register"><LoginRegisterRoute login={false}/></Route>
 									<Route path="/book"><SessionBookingRoute /></Route>
 									<Route path="/user">
 										<UserDahboardRoutes />

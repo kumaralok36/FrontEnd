@@ -19,10 +19,6 @@ export default class LoginPage extends Component {
 			loginForm: { ...this.state.loginForm, [event.target.name]: event.target.value }
 		})
 	}
-
-	componentDidMount() {
-		Utility.redirectToCorrectUrl();
-	}
 	
 
 	submitLogin = (event) => {
