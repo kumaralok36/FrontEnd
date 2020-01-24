@@ -16,6 +16,8 @@ import ModalContext from 'utility/ModalContext';
 import SessionBookingRoute from 'session/SessionBookingRoute';
 import LoginRegisterRoute from 'login-register/LoginRegisterRoute';
 import ProviderDashboardRoutes from 'providers/ProviderDashboardRoutes';
+import AdminDahboardRoutes from 'admins/super/AdminDashboardRoutes';
+import HRDahboardRoutes from 'admins/hr/HRDashboardRoutes';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
@@ -57,11 +59,9 @@ class App extends React.Component {
 								<Route path="/login"><LoginRegisterRoute login={true} /></Route>
 								<Route path="/register"><LoginRegisterRoute login={false} /></Route>
 								<Route path="/book"><SessionBookingRoute /></Route>
-								<Route path="/user">
-									<UserDahboardRoutes />
-								</Route>
-								<Route path="/admin"></Route>
-								<Route path="/hr"></Route>
+								<Route path="/user"><UserDahboardRoutes /></Route>
+								<Route path="/admin"><AdminDahboardRoutes /></Route>
+								<Route path="/hr"><HRDahboardRoutes /></Route>
 								<Route path="/provider"><ProviderDashboardRoutes /></Route>
 								<Redirect from="/" to="/home" />
 							</Switch>

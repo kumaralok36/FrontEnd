@@ -1,5 +1,8 @@
 import HttpCall from "./HttpCall";
 import userCalls from "./subCalls/UserCalls";
+import AdminCalls from "./subCalls/AdminCalls";
+import ProviderCalls from "./subCalls/ProviderCalls";
+import HRCalls from "./subCalls/HRCalls";
 
 
 export class BackendUrls {
@@ -12,7 +15,10 @@ export class BackendUrls {
     static URLS = {
         Login: "/web/login",
         Register: "/web/register",
-        User:userCalls
+        User:userCalls,
+        Provider:ProviderCalls,
+        Admin:AdminCalls,
+        HR:HRCalls
     }
 
     public static formUrl(path: string): string {

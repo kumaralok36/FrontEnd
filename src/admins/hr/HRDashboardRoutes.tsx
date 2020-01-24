@@ -1,25 +1,25 @@
 import React from "react";
-import ProviderNavBar from "./components/ProviderNavBar";
-import ProviderSideBar from "./components/ProviderSideBar";
+import HRNavBar from "./components/HRNavBar";
+import HRSideBar from "./components/HRSideBar";
 import { Switch, Router, Route, Redirect } from "react-router";
 
 import history from "mHistory";
-import ProviderDashboard from "./body/ProviderDashboard";
+import HRDashboard from "./body/HRDashboard";
 import routes from "./routes";
 import Utility from "utility/Utility";
 import mHistory from "mHistory";
 
-export default class ProviderDashboardRoutes extends React.Component {
+export default class HRDahboardRoutes extends React.Component {
     state = {
         activeIndex:1,
-        activeBody:ProviderDashboard
+        activeBody:HRDashboard
     }
     constructor(props:any) {
         super(props)    
     }
 
     componentWillMount(){
-        if(Utility.getUserType()!=Utility.userTypes.provider){
+        if(Utility.getUserType()!=Utility.userTypes.hr){
             Utility.signOut();
             mHistory.push("/");
         }
@@ -41,9 +41,9 @@ export default class ProviderDashboardRoutes extends React.Component {
     render() {
         return (
             <div className="wrapper ">
-                <ProviderSideBar changeSelection={this.changeSelection} activeIndex={this.state.activeIndex}/>
+                <HRSideBar changeSelection={this.changeSelection} activeIndex={this.state.activeIndex}/>
                 <div className="main-panel">
-                    <ProviderNavBar changeSelection={this.changeSelection}/>
+                    <HRNavBar changeSelection={this.changeSelection}/>
                     <div className="content">
                         <div className="container-fluid">
                             {<this.state.activeBody />}

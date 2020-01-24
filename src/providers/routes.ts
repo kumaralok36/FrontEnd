@@ -4,11 +4,6 @@ import ProviderPastSessions from "./body/ProviderPastSessions";
 
 let routes=[
     {
-        name:"Book New Session",
-        icon:"dashboard",
-        component:""
-    },
-    {
         name:"Dashboard",
         icon:"dashboard",
         component:ProviderDashboard
