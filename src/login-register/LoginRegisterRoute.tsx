@@ -37,10 +37,19 @@ export default class LoginRegisterRoute extends Component<Props, any> {
                         backgroundImage: "url('assets/img/cover.jpg')",
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
-                        height: "100vh"}}>
-                        {/* Decoration Would be Done here.... */}
-                    {this.state.login ? <LoginPage /> : <RegisterPage />}
-                </div>
+                        minHeight: "100vh"
+                    }}>
+                        <div>
+                            <nav className="navbar navbar-light navbar-expand-sm">
+                                <div className="container">
+                                    <span className="navbar-text">
+                                        Therapy on Demand
+    </span>
+                                </div>
+                            </nav>
+                            {this.state.login ? <LoginPage /> : <RegisterPage />}
+                        </div>
+                    </div>
                 </>) :
                     (this.state.login ? <LoginPage /> : <RegisterPage />)}
 
