@@ -36,7 +36,7 @@ export default class HttpCall {
                 
             });
 
-            console.log(formData);
+            // console.log(formData);
             oReq.send(formData);
             return;
         } else {
