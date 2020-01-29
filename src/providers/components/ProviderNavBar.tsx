@@ -37,7 +37,7 @@ export default class ProviderNavBar extends Component<Props, any> {
                         <div className="collapse navbar-collapse justify-content-end">
                             <ul className="navbar-nav">
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a className="nav-link" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i className="material-icons">notifications</i>
                                         {this.state.notifications.length>0&&<span className="notification">{this.state.notifications.length}</span>}
                                         <p className="d-lg-none d-md-block">

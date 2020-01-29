@@ -24,6 +24,10 @@ export default class ProviderDashboardRoutes extends React.Component {
             mHistory.push("/");
         }
     }
+
+    componentDidMount(){
+        
+    }
     
     changeSelection = (n:number)=>{
         if(n<routes.length-1){

@@ -21,7 +21,7 @@ export default class ProviderSideBar extends Component<Props, any>{
             <>
                 <div className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
                     <div className="logo">
-                        <a href="http://www.creative-tim.com" className="simple-text logo-normal">
+                        <a href="/" className="simple-text logo-normal">
                             Therapy on Demand
                         </a>
                     </div>
