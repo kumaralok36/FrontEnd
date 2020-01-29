@@ -28,8 +28,9 @@ export default class UserDashboard extends Component {
         })
     }
     componentWillUnmount() {
-        console.log("Un Mounting");
+        
     }
+
     showModal:any;
     render() {
         return (

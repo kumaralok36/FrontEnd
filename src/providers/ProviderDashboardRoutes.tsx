@@ -11,7 +11,7 @@ import mHistory from "mHistory";
 
 export default class ProviderDashboardRoutes extends React.Component {
     state = {
-        activeIndex:1,
+        activeIndex:0,
         activeBody:ProviderDashboard
     }
     constructor(props:any) {

@@ -18,17 +18,10 @@ export default class ProviderDashboard extends Component {
     setLoaderState: any;
     componentDidMount(){
         // console.log("Mounting");
-        this.setLoaderState(true);
-        HttpCall.callUrl(BackendUrls.URLS.User.Sessions.Get.url, "POST", undefined, data=>{
-            this.setLoaderState(false);       
-            console.log(data);
-        }, error=>{
-            this.setLoaderState(false);
-            Utility.showNotification("danger", "Something Went Wrong!!");
-        })
+
     }
     componentWillUnmount() {
-        console.log("Un Mounting");
+        
     }
     showModal:any;
     render() {

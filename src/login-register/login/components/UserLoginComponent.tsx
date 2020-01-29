@@ -28,6 +28,7 @@ export default class UserLoginComponent extends LoginComponent {
         super(props)
 
         this.loginPingLink = BackendUrls.URLS.User.Login.url;
+        this.forgotPasswordLink = BackendUrls.URLS.User.Password.Reset.url;
     }
 
 }

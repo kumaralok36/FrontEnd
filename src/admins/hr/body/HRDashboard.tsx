@@ -28,7 +28,7 @@ export default class HRDashboard extends Component {
         })
     }
     componentWillUnmount() {
-        console.log("Un Mounting");
+        
     }
     showModal:any;
     render() {

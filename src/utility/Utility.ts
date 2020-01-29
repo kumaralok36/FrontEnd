@@ -70,16 +70,10 @@ export default class Utility{
         // location.href = "/";
     }
     
-    static signIn(sessionToken:string, userType:number, userName:string) {
+    static signIn(sessionToken:string, userType:string, userName:string) {
         Utility.setCookie("sessiontoken", sessionToken);
         Utility.setCookie("userType", ""+userType)
         Utility.setCookie("userName", userName)
-        
-        if(userType===1){
-            // location.href = "/admins";
-        }else if(userType){
-            // location.href = "/clients";
-        }
     }
     
     

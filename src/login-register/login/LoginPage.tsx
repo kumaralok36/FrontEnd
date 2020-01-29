@@ -10,13 +10,17 @@ import ProviderLoginComponent from './components/ProviderLoginComponent';
 import HRLoginComponent from './components/HRLoginComponent';
 import AdminLoginComponent from './components/AdminLoginComponent';
 
-export default class LoginPage extends Component {
+interface Props{
+	callbackToSignUp:()=>void
+}
+export default class LoginPage extends Component<Props, any> {
 	state={
 		loginType:0
 	}
 	changeType=(n)=>{
 		this.setState({loginType:n})
 	}
+
 	render() {
 		return (
 			<>
@@ -53,10 +57,11 @@ export default class LoginPage extends Component {
 									</div>
 									<br />
 									<br />
-									{this.state.loginType==0&&<UserLoginComponent />}
-									{this.state.loginType==1&&<ProviderLoginComponent />}
-									{this.state.loginType==2&&<HRLoginComponent />}
-									{this.state.loginType==3&&<AdminLoginComponent />}
+
+									{this.state.loginType==0&&<UserLoginComponent callbackToSignUp={this.props.callbackToSignUp}/>}
+									{this.state.loginType==1&&<ProviderLoginComponent callbackToSignUp={this.props.callbackToSignUp}/>}
+									{this.state.loginType==2&&<HRLoginComponent callbackToSignUp={this.props.callbackToSignUp}/>}
+									{this.state.loginType==3&&<AdminLoginComponent callbackToSignUp={this.props.callbackToSignUp}/>}
 								</div>
 							</div>
 						</div>

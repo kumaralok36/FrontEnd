@@ -6,45 +6,63 @@ import Utility from 'utility/Utility';
 import mHistory from 'mHistory';
 import MessageUtility from 'utility/MessageUtility';
 import LoginComponentInterface, { LoginStateInterface } from './login-interface';
+import ForgotPasswordComponent from './forgot-password-component';
 
-export default abstract class LoginComponent extends Component<any, LoginStateInterface> implements LoginComponentInterface {
+interface Props{
+    callbackToSignUp:()=>void
+}
 
-    abstract loginPingLink:string;
-    abstract forgotPasswordLink:string;
+export default abstract class LoginComponent extends Component<Props, LoginStateInterface> implements LoginComponentInterface {
 
-    abstract afterSuccessLogin:(data:any)=>any
-    abstract changeToRegister:(data:any)=>any
-    
-    
-    protected afterErrorLogin(error:any){
+    abstract loginPingLink: string;
+    abstract forgotPasswordLink: string;
+
+    abstract afterSuccessLogin: (data: any) => any
+    abstract changeToRegister: (data: any) => any
+
+
+    protected afterErrorLogin(error: any) {
         Utility.showNotification("danger", MessageUtility.messages.ERROR_GENERAL);
     }
 
-    protected successPasswordSent(data:any){
-        
+    protected successPasswordSent(data: any) {
+
     }
-    protected errorSendingPassword(error:any){
-        
+    protected errorSendingPassword(error: any) {
+
     }
 
     state = {
         loginForm: {
             email: "",
             password: ""
-        }
+        },
+        state: 0
     }
-    
+
     constructor(props) {
         super(props)
-    
+
         this.afterErrorLogin.bind(this);
     }
-    
-    
+
+
     setLoaderState: any
     changeLoginFormData = (event) => {
         this.setState({
             loginForm: { ...this.state.loginForm, [event.target.name]: event.target.value }
+        })
+    }
+
+    private switchToForgotPassword = ()=>{
+        this.setState({
+            state:1
+        })
+    }
+
+    private callbackFromForgotPassword = (success:boolean)=>{
+        this.setState({
+            state:success?2:0
         })
     }
 
@@ -77,29 +95,39 @@ export default abstract class LoginComponent extends Component<any, LoginStateIn
                         }
                     }
                 </LoaderContext.Consumer>
-                <form className="form-signin" onSubmit={(event) => { this.submitLogin(event) }}>
-                    <div className="form-group label-floating">
-                        <label className="control-label bmd-label-floating">Email Address</label>
-                        <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={(event) => { this.changeLoginFormData(event) }} required />
-                    </div>
-                    <div className="form-group label-floating">
-                        <label className="control-label bmd-label-floating">Password</label>
-                        <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={(event) => { this.changeLoginFormData(event) }} required />
-                    </div>
+                {
+                    this.state.state == 0 &&
+                    <form className="form-signin" onSubmit={(event) => { this.submitLogin(event) }}>
+                        <div className="form-group label-floating">
+                            <label className="control-label bmd-label-floating">Email Address</label>
+                            <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={(event) => { this.changeLoginFormData(event) }} required />
+                        </div>
+                        <div className="form-group label-floating">
+                            <label className="control-label bmd-label-floating">Password</label>
+                            <input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={(event) => { this.changeLoginFormData(event) }} required />
+                        </div>
 
-                    <br />
+                        <br />
 
-                    <button className="btn btn-sm btn-secondary text-uppercase">Forgot password?</button>
-                    <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-                    <hr className="my-4" />
-                    <div className="text-center">
-                    Not Signed in?
+                        <button className="btn btn-sm btn-secondary text-uppercase" type="button" onClick={this.switchToForgotPassword}>Forgot password?</button>
+                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                        <hr className="my-4" />
+                        <div className="text-center">
+                            Not Signed in?
                     </div>
-                    <button className="btn btn-lg btn-seconday btn-block text-uppercase" type="submit">Sign up Now</button>
-                    {/* <hr className="my-4" />
+                        <button className="btn btn-lg btn-seconday btn-block text-uppercase" type="button" onClick={()=>{
+                            this.props.callbackToSignUp();
+                        }}>Sign up Now</button>
+                        {/* <hr className="my-4" />
                     <button className="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i className="fab fa-google mr-2"></i> Sign in with Google</button>
                     <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> */}
-                </form>
+                    </form>
+                }
+                {
+                    this.state.state == 1 &&
+                    <ForgotPasswordComponent setLoaderState={this.setLoaderState} callback={this.callbackFromForgotPassword} forgotPassLink={this.forgotPasswordLink}/>
+                }
+
             </>
         )
     }

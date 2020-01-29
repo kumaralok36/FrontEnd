@@ -28,7 +28,7 @@ export default class AdminDashboard extends Component {
         })
     }
     componentWillUnmount() {
-        console.log("Un Mounting");
+        
     }
     showModal:any;
     render() {

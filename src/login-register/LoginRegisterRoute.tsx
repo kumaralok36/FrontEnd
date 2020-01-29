@@ -25,6 +25,15 @@ export default class LoginRegisterRoute extends Component<Props, any> {
     onActionComplete = (params: any) => {
 
     }
+
+    callbackToSignUp = ()=>{
+        this.setState({login:false});
+    }
+
+    callbackToLogin = ()=>{
+        this.setState({login:true});
+    }
+    
     componentWillMount() {
         Utility.redirectToCorrectUrl();
     }
@@ -47,11 +56,11 @@ export default class LoginRegisterRoute extends Component<Props, any> {
     </span>
                                 </div>
                             </nav>
-                            {this.state.login ? <LoginPage /> : <RegisterPage />}
+                            {this.state.login ? <LoginPage callbackToSignUp={this.callbackToSignUp}/> : <RegisterPage callbackToLogin={this.callbackToLogin}/>}
                         </div>
                     </div>
                 </>) :
-                    (this.state.login ? <LoginPage /> : <RegisterPage />)}
+                    (this.state.login ? <LoginPage callbackToSignUp={this.callbackToSignUp}/> : <RegisterPage callbackToLogin={this.callbackToLogin}/>)}
 
             </>
         )
