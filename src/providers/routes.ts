@@ -1,5 +1,5 @@
 import ProviderDashboard from "./body/ProviderDashboard";
-import ProfileProfile from "./body/ProviderProfile";
+import ProviderProfile from "./body/ProviderProfile";
 import ProviderPastSessions from "./body/ProviderPastSessions";
 
 let routes=[
@@ -11,7 +11,7 @@ let routes=[
     {
         name:"Profile",
         icon:"dashboard",
-        component:ProfileProfile
+        component:ProviderProfile
     },
     {
         name:"Past Sessions",

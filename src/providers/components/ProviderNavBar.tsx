@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import routes from 'users/routes';
-import UserProfile from 'users/body/UserProfile';
+import ProviderProfile from 'providers/body/ProviderProfile';
+import routes from 'providers/routes';
 
 interface Props{
     changeSelection:(n:number)=>any
@@ -11,7 +11,7 @@ export default class ProviderNavBar extends Component<Props, any> {
     }
     goToProfile = ()=>{
         for(let i=0;i<routes.length;i++){
-            if(routes[i].component==UserProfile){
+            if(routes[i].component==ProviderProfile){
                 this.props.changeSelection(i);
                 break;
             }

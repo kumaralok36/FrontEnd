@@ -3,7 +3,7 @@ import LoaderContext from 'utility/LoaderContext';
 import HttpCall from 'utility/HttpCall';
 import BackendUrls from 'utility/BackendUrls';
 
-export default class ProfileProfile extends Component {
+export default class ProviderProfile extends Component {
     setLoaderState:any;
 
     componentDidMount(){
