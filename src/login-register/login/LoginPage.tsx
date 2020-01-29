@@ -5,48 +5,21 @@ import BackendUrls from 'utility/BackendUrls';
 import Utility from 'utility/Utility';
 import MessageUtility from 'utility/MessageUtility';
 import mHistory from 'mHistory';
+import UserLoginComponent from './components/UserLoginComponent';
+import ProviderLoginComponent from './components/ProviderLoginComponent';
+import HRLoginComponent from './components/HRLoginComponent';
+import AdminLoginComponent from './components/AdminLoginComponent';
 
 export default class LoginPage extends Component {
-	state = {
-		loginForm: {
-			email: "",
-			password: ""
-		}
+	state={
+		loginType:0
 	}
-	setLoaderState: any
-	changeLoginFormData = (event) => {
-		this.setState({
-			loginForm: { ...this.state.loginForm, [event.target.name]: event.target.value }
-		})
+	changeType=(n)=>{
+		this.setState({loginType:n})
 	}
-
-
-	submitLogin = (event) => {
-		this.setLoaderState(true);
-
-		HttpCall.callUrl(BackendUrls.formUrl(BackendUrls.URLS.User.Login.url), "POST", this.state.loginForm, data => {
-			this.setLoaderState(false);
-			console.log(data.data);
-			Utility.signIn(data.data.sessionToken, data.data.userType, data.data.userName);
-			mHistory.push("/user")
-		}, error => {
-			this.setLoaderState(false);
-			Utility.showNotification("danger", MessageUtility.messages.ERROR_GENERAL);
-		})
-		event.preventDefault();
-	}
-
 	render() {
 		return (
 			<>
-				<LoaderContext.Consumer>
-					{
-						value => {
-							this.setLoaderState = value;
-							return <></>
-						}
-					}
-				</LoaderContext.Consumer>
 				<div className="container">
 					<div className="row">
 						<div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -54,22 +27,36 @@ export default class LoginPage extends Component {
 								<div className="card-body">
 									<h5 className="card-title text-center">Sign In</h5>
 									<br />
-									<form className="form-signin" onSubmit={(event) => { this.submitLogin(event) }}>
-										<div className="form-group label-floating">
-											<label className="control-label bmd-label-floating">Email Address</label>
-											<input type="email" name="email" id="inputEmail" className="form-control" placeholder="Email address" value={this.state.loginForm.email} onChange={(event) => { this.changeLoginFormData(event) }} required />
+									<div className="container">
+										<div className="row">
+											<div className="col-md-6">
+												<button className={`btn ${this.state.loginType==0?'btn-primary':'btn-default'} btn-block`} onClick={()=>{this.changeType(0)}}>
+													<i className="material-icons">work</i> Users
+											  </button>
+											</div>
+											<div className="col-md-6">
+												<button className={`btn ${this.state.loginType==1?'btn-primary':'btn-default'} btn-block`} onClick={()=>{this.changeType(1)}}>
+													<i className="material-icons">work</i> Providers
+											  </button>
+											</div>
+											<div className="col-md-6">
+												<button className={`btn ${this.state.loginType==2?'btn-primary':'btn-default'} btn-block`} onClick={()=>{this.changeType(2)}}>
+													<i className="material-icons">work</i> HR
+											  </button>
+											</div>
+											<div className="col-md-6">
+												<button className={`btn ${this.state.loginType==3?'btn-primary':'btn-default'} btn-block`} onClick={()=>{this.changeType(3)}}>
+													<i className="material-icons">work</i> Admin
+											  </button>
+											</div>
 										</div>
-										<div className="form-group label-floating">
-											<label className="control-label bmd-label-floating">Password</label>
-											<input type="password" name="password" id="inputPassword" className="form-control" placeholder="Password" value={this.state.loginForm.password} onChange={(event) => { this.changeLoginFormData(event) }} required />
-										</div>
-
-										<br />
-										<button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-										<hr className="my-4" />
-										<button className="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i className="fab fa-google mr-2"></i> Sign in with Google</button>
-										<button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
-									</form>
+									</div>
+									<br />
+									<br />
+									{this.state.loginType==0&&<UserLoginComponent />}
+									{this.state.loginType==1&&<ProviderLoginComponent />}
+									{this.state.loginType==2&&<HRLoginComponent />}
+									{this.state.loginType==3&&<AdminLoginComponent />}
 								</div>
 							</div>
 						</div>
