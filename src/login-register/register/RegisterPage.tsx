@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import LoaderContext from 'utility/LoaderContext';
 import UserRegistrationForm from './components/UserRegistrationForm';
 import ProviderRegisterForm from './components/ProviderRegisterForm';
+import mHistory from 'mHistory';
 
 interface Props{
   callbackToLogin:()=>void
@@ -21,7 +22,10 @@ export default class RegisterPage extends Component<Props, any> {
     this.setLoaderState(false);
   }
   changeType = (n) => {
-    this.setState({ registerType: n })
+    if(n==1){
+      mHistory.push("/register-provider");
+    }else
+      this.setState({ registerType: n })
   }
 
   render() {

@@ -58,6 +58,10 @@ class App extends React.Component {
 								<Route path="/home"><HomePage /></Route>
 								<Route path="/login"><LoginRegisterRoute login={true} /></Route>
 								<Route path="/register"><LoginRegisterRoute login={false} /></Route>
+								
+								{/* TODO Shubham Work on this section */}
+								<Route path="/register-provider"><SessionBookingRoute /></Route>
+
 								<Route path="/book"><SessionBookingRoute /></Route>
 								<Route path="/user"><UserDahboardRoutes /></Route>
 								<Route path="/admin"><AdminDahboardRoutes /></Route>
