@@ -18,9 +18,10 @@ import LoginRegisterRoute from 'login-register/LoginRegisterRoute';
 import ProviderDashboardRoutes from 'providers/ProviderDashboardRoutes';
 import AdminDahboardRoutes from 'admins/super/AdminDashboardRoutes';
 import HRDahboardRoutes from 'admins/hr/HRDashboardRoutes';
-import FirstPageProviderRegister from 'login-register/register/components/FirstPageProviderRegister';
-import SecondPageProviderRegister from 'login-register/register/components/SecondPageProviderRegister';
-import ThirdPageProviderRegister from 'login-register/register/components/ThirdPageProviderRegister';
+import FirstPageProviderRegister from 'login-register/register/components/pages/FirstPageProviderRegister';
+import SecondPageProviderRegister from 'login-register/register/components/pages/SecondPageProviderRegister';
+import ThirdPageProviderRegister from 'login-register/register/components/pages/ThirdPageProviderRegister';
+import ProviderRegisterForm from 'login-register/register/ProviderRegisterForm';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
@@ -63,9 +64,9 @@ class App extends React.Component {
 								<Route path="/register"><LoginRegisterRoute login={false} /></Route>
 								
 								{/* TODO Shubham Work on this section */}
-								<Route path="/register-provider"><FirstPageProviderRegister/></Route>
-								<Route path="/register-provider-form"><SecondPageProviderRegister/></Route>
-                                <Route  path="/register-provider-secondform"><ThirdPageProviderRegister/></Route>
+								<Route path="/register-provider"><ProviderRegisterForm/></Route>
+								<Route path="/register-provider-2"><ThirdPageProviderRegister/></Route>
+
 								<Route path="/book"><SessionBookingRoute /></Route>
 								<Route path="/user"><UserDahboardRoutes /></Route>
 								<Route path="/admin"><AdminDahboardRoutes /></Route>

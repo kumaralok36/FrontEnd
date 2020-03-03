@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LoaderContext from 'utility/LoaderContext';
 import UserRegistrationForm from './components/UserRegistrationForm';
-import ProviderRegisterForm from './components/ProviderRegisterForm';
+// import ProviderRegisterForm from './components/ProviderRegisterForm';
 import mHistory from 'mHistory';
 
 interface Props{
@@ -73,7 +73,7 @@ export default class RegisterPage extends Component<Props, any> {
                   <br />
                   <br />
                   {this.state.registerType == 0 && <UserRegistrationForm />}
-                  {this.state.registerType == 1 && <ProviderRegisterForm />}
+                  {/* {this.state.registerType == 1 && <ProviderRegisterForm />} */}
 
                   <hr className="my-4" />
                   <div className="text-center">
