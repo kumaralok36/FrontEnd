@@ -1,6 +1,8 @@
 import React from 'react'
-
-export default class FirstPageProviderRegister extends React.Component {
+interface props{
+    handleChangePage(i:number);
+}
+export default class FirstPageProviderRegister extends React.Component<props,any> {
     constructor(props) {
         super(props);
 
@@ -37,7 +39,7 @@ export default class FirstPageProviderRegister extends React.Component {
                         <label style={{ marginLeft: "2%" }}>Check this custom checkbox</label>
                     </div>
                 </form>
-                <a href="/register-provider-form" className="btn btn-info">Next</a>
+                <button onClick={()=>{this.props.handleChangePage(2)}} className="btn btn-info">Next</button>
 
                 <ul className="pagination" style={{ marginTop: "10%", marginLeft: "40%" }}>
                     <li className="page-item active"><a className="page-link" href="#" style={{ background: "pink" }}>1</a></li>

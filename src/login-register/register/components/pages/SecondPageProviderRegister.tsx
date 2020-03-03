@@ -1,6 +1,9 @@
 import React from 'react';
-
-export default class SecondPageProviderRegister extends React.Component {
+import ProviderPastSessions from 'providers/body/ProviderPastSessions';
+interface props{
+    handleChangePage(i:number);
+}
+export default class SecondPageProviderRegister extends React.Component <props,any> {
     constructor(props) {
         super(props);
 
@@ -104,7 +107,7 @@ export default class SecondPageProviderRegister extends React.Component {
                         </form>
                     </div>
                 </div>
-                <a href="/register-provider-secondform" className="btn btn-info" role="button" style={{ background: "green" }}>Submit</a>
+                <a className="btn btn-info" role="button" style={{ background: "green" }} onClick={()=>{this.props.handleChangePage(3)}}>Submit</a>
             </div>
         )
     }
