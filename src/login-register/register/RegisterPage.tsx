@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import LoaderContext from 'utility/LoaderContext';
 import UserRegistrationForm from './components/UserRegistrationForm';
 import ProviderRegisterForm from './components/ProviderRegisterForm';
