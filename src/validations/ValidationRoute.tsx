@@ -3,9 +3,13 @@ import Utility from 'utility/Utility'
 import { ValidationUtility } from 'utility/ValidationUtility'
 import mHistory from 'mHistory'
 
-const USERTYPE = "type",
+const VALIDATION_TYPE = "type",
 EMAIL = "email",
 TOKEN = "token"
+
+const emailValidationType={
+    userValidation:1,
+}
 
 
 export default class EmailValidation extends Component {
@@ -17,7 +21,7 @@ export default class EmailValidation extends Component {
     constructor(props) {
         super(props)
 
-        let type = ValidationUtility.validateNumber(Utility.getUrlParameter(USERTYPE));
+        let type = ValidationUtility.validateNumber(Utility.getUrlParameter(VALIDATION_TYPE));
         let email = ValidationUtility.validateEmail(Utility.getUrlParameter(EMAIL));
         console.log(Utility.getUrlParameter(EMAIL));
         if(type==NaN || !email){
@@ -31,6 +35,14 @@ export default class EmailValidation extends Component {
             }
         }
         
+    }
+
+    componentDidMount(){
+        if(this.state.type==emailValidationType.userValidation){
+            //TODO Call the URL for getting details on user type
+        }else{
+            mHistory.push("/")
+        }
     }
     
     render() {

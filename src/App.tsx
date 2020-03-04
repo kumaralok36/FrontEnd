@@ -22,7 +22,7 @@ import FirstPageProviderRegister from 'login-register/register/components/pages/
 import SecondPageProviderRegister from 'login-register/register/components/pages/SecondPageProviderRegister';
 import ThirdPageProviderRegister from 'login-register/register/components/pages/ThirdPageProviderRegister';
 import ProviderRegisterForm from 'login-register/register/ProviderRegisterForm';
-import EmailValidation from 'email-validations/EmailValidation';
+import ValidationRoute from 'validations/ValidationRoute';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
@@ -74,7 +74,7 @@ class App extends React.Component {
 								<Route path="/hr"><HRDashboardRoutes /></Route>
 								<Route path="/provider"><ProviderDashboardRoutes /></Route>
 
-								<Route path="/email-validation"><EmailValidation /></Route>
+								<Route path="/validation"><ValidationRoute /></Route>
 
 								<Redirect from="/" to="/home" />
 							</Switch>
