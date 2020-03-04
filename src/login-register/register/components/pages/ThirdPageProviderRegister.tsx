@@ -1,5 +1,6 @@
 
 import React from 'react';
+import UploadFile from '../UploadFile';
 
 export default class ThirdPageProviderRegister extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class ThirdPageProviderRegister extends React.Component {
 
     render() {
         return (
-            <div className="container col-sm-6">
+            <div className="container col-sm-7">
                 <div className="card">
                     <div className="card-body">
                         <div><h3>Futura.Health - Provider Enrollment Form</h3></div>
@@ -76,7 +77,7 @@ export default class ThirdPageProviderRegister extends React.Component {
                 <div className="card">
                     <div className="card-body">
                         <div>Upload your signature. To sign using your device, visit: <a href="https://www.mylivesignature.com/draw-signature ">https://www.mylivesignature.com/draw-signature </a> *</div>
-                        <a className="btn btn-info" style={{ background: "white" }}> Add File</a>
+                        <UploadFile/>
                     </div>
                 </div>
                 <div className="card">
@@ -91,30 +92,79 @@ export default class ThirdPageProviderRegister extends React.Component {
                 </div>
                 <div className="card">
                     <div className="card-body">
+                        <form>
+                            <div className="form-group">
+                                <div><label style={{ color: "black" }}>Please list your active and valid healthcare license(s) and/or coaching certificates. Include the contact information for primary-source validation of each document. *</label></div><br />
+                                <input className="form-control" type="text" placeholder="Your answer" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-body">
                         <div>Upload a copy of your government-issued ID (for example: national identity card). Your current mailing address must be listed. [FRONT] *</div>
-                        <a className="btn btn-info" style={{ background: "white" }}> Add File</a>
+                        <UploadFile/>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
                         <div>Upload a copy of your government-issued ID [BACK] *</div>
-                        <a className="btn btn-info" style={{ background: "white" }}> Add File</a>
+                        <UploadFile/>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
                         <div>Please upload a copy (front and back) of each license/certification listed above. *</div>
-                        <a className="btn btn-info" style={{ background: "white" }}> Add File</a>
+                        <UploadFile/>
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
-                        <form>
-                            <div className="form-group">
-                                <div> <label style={{ color: "black" }}>Please list your active and valid healthcare license(s) and/or coaching certificates. Include the contact information for primary-source validation of each document. *</label></div><br />
-                                <input className="form-control" type="text" placeholder="Your answer" style={{ marginTop: "2%" }} />
-                            </div>
-                        </form>
+                        <table className="table">
+                            <tr style={{textAlign:"center"}}>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label className="checkbox-inline" style={{ color: "black" }}>Clinical/Telehealth (only choose this option if you have an active and valid healthcare or counseling license. For example, OT, PT, ST, RN, MD, RD, Psy.D, Licensed Counselor)</label></td>
+                            </tr>
+                        
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>Wellness Coaching (providers are approved and trained on a case-by-case basis)</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>Health Coaching (providers are approved and trained on a case-by-case basis)</label></td>
+                             </tr>
+                        </table>     
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-body">
+                        <table className="table">
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>Futura.Health (subscription-based app for telehealth therapies and coaching)</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>TherapyonDemand.io (simple drop-in telehealth therapy & health and wellness coaching online services)</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>InsightHealth.io (telemedicine marketplace for health and medical providers</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>CareonDemand.co (in-home and on-site services (healthcare & coaching)</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>Evolvr.App (VR tele-rehabiltation and coaching (hardware required))</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" style={{ marginRight: "1%" }} /></td>
+                                <td><label style={{ color: "black" }}>Other</label></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
