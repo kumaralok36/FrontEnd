@@ -17,11 +17,12 @@ import SessionBookingRoute from 'session/SessionBookingRoute';
 import LoginRegisterRoute from 'login-register/LoginRegisterRoute';
 import ProviderDashboardRoutes from 'providers/ProviderDashboardRoutes';
 import AdminDahboardRoutes from 'admins/super/AdminDashboardRoutes';
-import HRDahboardRoutes from 'admins/hr/HRDashboardRoutes';
+import HRDashboardRoutes from 'admins/hr/HRDashboardRoutes';
 import FirstPageProviderRegister from 'login-register/register/components/pages/FirstPageProviderRegister';
 import SecondPageProviderRegister from 'login-register/register/components/pages/SecondPageProviderRegister';
 import ThirdPageProviderRegister from 'login-register/register/components/pages/ThirdPageProviderRegister';
 import ProviderRegisterForm from 'login-register/register/ProviderRegisterForm';
+import EmailValidation from 'email-validations/EmailValidation';
 
 class App extends React.Component {
 	// const [loadingState, loadingFunc] = useState(false);
@@ -70,8 +71,11 @@ class App extends React.Component {
 								<Route path="/book"><SessionBookingRoute /></Route>
 								<Route path="/user"><UserDahboardRoutes /></Route>
 								<Route path="/admin"><AdminDahboardRoutes /></Route>
-								<Route path="/hr"><HRDahboardRoutes /></Route>
+								<Route path="/hr"><HRDashboardRoutes /></Route>
 								<Route path="/provider"><ProviderDashboardRoutes /></Route>
+
+								<Route path="/email-validation"><EmailValidation /></Route>
+
 								<Redirect from="/" to="/home" />
 							</Switch>
 						</Router>
