@@ -4,6 +4,7 @@ export const ProviderRegistrationQuestions = [
     {
         inputType:ProviderQuestionTypes.EmailField,
         formName:"email",
+        heading:"Enter your email",
         canSkip:false,
     },
     {
