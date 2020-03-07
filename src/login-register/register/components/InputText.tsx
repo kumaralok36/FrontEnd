@@ -1,5 +1,5 @@
 import React from 'react';
-interface props{handleAdd,page,label,type,arr}
+interface props{handleAdd,page,label,arr}
 export default class InputText extends React.Component<props,any>{
     state={
         data:""
@@ -25,7 +25,7 @@ export default class InputText extends React.Component<props,any>{
                     <form>
                         <div className="form-group">
                             <label style={{color:"black"}}>{this.props.label}</label><br/>
-                            <input type={this.props.type} className="form-control" placeholder="Your answer" value={this.arr[this.props.page]===""?this.state.data:this.arr[this.props.page]} onChange={(e)=>this.handleChange(e)}/>
+                            <input type="text" className="form-control" placeholder="Your answer" value={this.arr[this.props.page]===""?this.state.data:this.arr[this.props.page]} onChange={(e)=>this.handleChange(e)}/><br/>
                             <input type="button"  value="next" className="btn btn-info" onClick={this.handleClick}/>
                         </div>
                     </form>

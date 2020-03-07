@@ -32,7 +32,7 @@ export default class InputGoogleAddress extends React.Component <props,any>{
                             country={'country:in|country:us'}
                             coordinates={true}
                             onChange={(e)=>{this.setState({data:e})}}/>
-                        </div>
+                        </div><br/>
                         <input type="button" className="btn btn-info" value="next" onClick={this.handleClick}/>
                     </div>   
                 </form>

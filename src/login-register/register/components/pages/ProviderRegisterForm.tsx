@@ -4,6 +4,8 @@ import { ProviderRegistrationQuestions } from 'utility/provider-onboard/Provider
 import { ProviderQuestionTypes } from 'utility/provider-onboard/ProviderQuestionTypes';
 import InputCheckbox from '../InputCheckbox';
 import InputGoogleAddress from '../InputGoogleAddress';
+import InputEmail from '../InputEmail';
+import InputTextList from '../InputTextList';
 
 export default class ProviderRegisterForm extends React.Component{
     constructor(props){
@@ -39,17 +41,17 @@ getComponent=()=>{
     // if(question.inputType===ProviderQuestionTypes.EmailField)
     //    return <InputText handleAdd={this.handleAdd} type="email" label={question.heading} page={this.state.page} arr={this.arr}/>
   if(this.state.page===0)
-  return <InputText handleAdd={this.handleAdd} type="email" label="Enter your email *" page={this.state.page} arr={this.arr}/>
+  return <InputEmail handleAdd={this.handleAdd} label="Enter your email *" page={this.state.page} arr={this.arr}/>
   else if(this.state.page===1)
-  return <InputText handleAdd={this.handleAdd} type="text" label="Full name and title *" page={this.state.page} arr={this.arr}/>
+  return <InputText handleAdd={this.handleAdd}  label="Full name and title *" page={this.state.page} arr={this.arr}/>
   else if(this.state.page===2)
-  return <InputText handleAdd={this.handleAdd} type="tel" label="Phone number *" page={this.state.page} arr={this.arr}/>
+  return <InputText handleAdd={this.handleAdd} label="Phone number *" page={this.state.page} arr={this.arr}/>
   else if(this.state.page===3)
-  return <InputText handleAdd={this.handleAdd} type="text" label="Language(s) spoken / skill level *" page={this.state.page} arr={this.arr}/>
+  return <InputTextList handleAdd={this.handleAdd} label="Language(s) spoken / skill level *" page={this.state.page} arr={this.arr}/>
   else if(this.state.page===4)
-  return <InputText handleAdd={this.handleAdd} type="text" label="Please list your license and/or certification type(s) by location(s) for telehealth & geographic service areas if you plan to opt-in to provide on-site services." page={this.state.page} arr={this.arr}/>
+  return <InputText handleAdd={this.handleAdd}  label="Please list your license and/or certification type(s) by location(s) for telehealth & geographic service areas if you plan to opt-in to provide on-site services." page={this.state.page} arr={this.arr}/>
   else if(this.state.page===5)
-  return <InputText handleAdd={this.handleAdd} type="text" label="Please list your active and valid healthcare license(s) and/or coaching certificates. Include the contact information for primary-source validation of each document.*" page={this.state.page} arr={this.arr}/>
+  return <InputText handleAdd={this.handleAdd} label="Please list your active and valid healthcare license(s) and/or coaching certificates. Include the contact information for primary-source validation of each document.*" page={this.state.page} arr={this.arr}/>
   else if(this.state.page===6)
   return <InputCheckbox handleAdd={this.handleAdd} type="checkbox" label="Accept terms and conditions*" page={this.state.page} arr={this.arr}/>
   else if(this.state.page===7)
