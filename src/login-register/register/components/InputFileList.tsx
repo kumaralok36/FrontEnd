@@ -4,14 +4,15 @@ interface props{handleAdd,arr,label,page,handlePrevPage}
 export default class InputFileList extends React.Component <props,any>{
     constructor(props){
         super(props);
-
+        this.state={
+            data:"",
+            list:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][1],
+            files:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][0],
+        }
+        console.log(this.state);
     }
     
-    state={
-        data:"",
-        list:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][1],
-        files:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][0],
-    }
+   
     handleChange=(e)=>{
         let files=e.target.files;
         let reader=new FileReader();

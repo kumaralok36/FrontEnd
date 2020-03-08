@@ -1,6 +1,7 @@
 import React from 'react';
+import { timingSafeEqual } from 'crypto';
 
-interface props{handleAdd,page,label,type,arr,handlePrevPage}
+interface props{handleAdd,page,label,type,arr,handlePrevPage,values}
 export default class InputCheckbox extends React.Component <props,any>{
     constructor(props){
         super(props);
@@ -8,32 +9,61 @@ export default class InputCheckbox extends React.Component <props,any>{
     }
     arr=this.props.arr
     state={
-        data:false
+        data:this.props.arr[this.props.page]===""?[{formvalue:0,status:false},{formvalue:1,status:true},{formvalue:2,status:false},{formvalue:3,status:false},{formvalue:4,status:false}]:this.props.arr[this.props.page],
+        
+    }
+    getCheckBoxes=()=>{
+       return(
+           <div>
+               {this.props.values.map((value,index)=>(
+                    <tr>
+                            <td style={{textAlign:"center",margin:"2%"}}><input style={{marginRight:"1%"}} className="checkbox" type={this.props.type} checked={this.checkStatus(value.formValue)} onClick={()=>this.handleChange(value.formValue)}/></td>
+                            <td style={{textAlign:"left"}}><label style={{color:"black",marginLeft:"1%"}}>{value.name}</label></td><br/><br/>
+                    </tr>                  
+               ))}
+           </div>
+       )
+    }
+    checkStatus=(formvalue)=>{
+        var i=this.getIndex(formvalue);
+        return this.state.data[i].status
+    }
+    getIndex=(formvalue)=>{
+        for(var i=0;i<this.props.values.length;i++)
+        {
+            if(this.props.values[i].formValue===formvalue)
+            return i;
+        }
     }
 
-    handleChange=(e)=>{
-        this.setState({
-            data:!(this.state.data)
+    handleChange=(formvalue)=>{
+        var i=this.getIndex(formvalue);
+        var datan=this.state.data;
+        datan[i].status=!(datan[i].status);
+        this.setState({data:datan},()=>{
+            console.log(this.state.data);
         });
     }
 
     handleClick=()=>{
-        var datan=this.state.data;
-        this.setState({data:""},()=>{
-            this.props.handleAdd(datan);
-        })
+        this.props.handleAdd(this.state.data);
     }
 
     render(){
         return(
             <div className="card-body">
-                
-                <div className="custom-control custom-checkbox">
-                     <input style={{marginRight:"1%"}} className="checkbox" type={this.props.type} checked={this.arr[this.props.page]===false||this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onClick={this.handleChange}/>
-                    <label style={{color:"black",marginLeft:"1%"}}>{this.props.label}</label><br/><br/>
-                    <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
-                    <input  style={{marginLeft:"1%"}} type="button"  value="next" className="btn btn-info" onClick={this.handleClick}/>
-                </div>
+                <form>
+                    <div className="form-group">
+                        <label style={{color:"black"}}>{this.props.label}</label>
+                        <div className="custom-control custom-checkbox">
+                            <table>
+                            {this.getCheckBoxes()}
+                            </table>
+                            <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
+                            <input  style={{marginLeft:"1%"}} type="button"  value="next" className="btn btn-info" onClick={this.handleClick}/>
+                        </div>
+                    </div>
+                </form>
             </div>
         )
     }
