@@ -9,7 +9,7 @@ export default class InputCheckbox extends React.Component <props,any>{
     }
     arr=this.props.arr
     state={
-        data:this.props.arr[this.props.page]===""?[{formvalue:0,status:false},{formvalue:1,status:true},{formvalue:2,status:false},{formvalue:3,status:false},{formvalue:4,status:false}]:this.props.arr[this.props.page],
+        data:this.props.arr[this.props.page]===""?[{formvalue:0,status:false},{formvalue:1,status:false},{formvalue:2,status:false},{formvalue:3,status:false},{formvalue:4,status:false}]:this.props.arr[this.props.page],
         
     }
     getCheckBoxes=()=>{
@@ -59,7 +59,7 @@ export default class InputCheckbox extends React.Component <props,any>{
                             <table>
                             {this.getCheckBoxes()}
                             </table>
-                            <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
+                            <input type="button" value="prev" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
                             <input  style={{marginLeft:"1%"}} type="button"  value="next" className="btn btn-info" onClick={this.handleClick}/>
                         </div>
                     </div>

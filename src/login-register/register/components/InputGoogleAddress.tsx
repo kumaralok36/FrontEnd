@@ -2,7 +2,7 @@ import React from 'react';
 import {GoogleComponent} from 'react-google-location';
 import ProviderPastSessions from 'providers/body/ProviderPastSessions';
 
-interface props{handleAdd,label,page,arr}
+interface props{handleAdd,label,page,arr,handlePrevPage}
 export default class InputGoogleAddress extends React.Component <props,any>{
     constructor(props){
         super(props);
@@ -60,6 +60,7 @@ export default class InputGoogleAddress extends React.Component <props,any>{
                             onChange={(e)=>{this.setState({data:e})}}/>
                         </div><br/>
                         <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
+                        <input  style={{marginLeft:"1%"}} type="button" className="btn btn-info" value="prev" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
                         <input  style={{marginLeft:"1%"}} type="button" className="btn btn-info" value="next" onClick={this.handleClick}/>
                     </div>   
                 </form>

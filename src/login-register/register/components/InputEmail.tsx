@@ -32,7 +32,7 @@ export default class InputEmail extends React.Component <props,any>{
                     <div className="form-group">
                         <label style={{color:"black"}}>{this.props.label}</label><br/><br/> 
                         <input type="email" className="form-control" value={this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onChange={this.handleChange}/><br/>
-                        <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
+                        <input type="button" value="prev" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
                         <input type="button" style={{marginLeft:"1%"}} value="next" className="btn btn-info" onClick={this.handleClick}/>
                     </div>
                 </form>

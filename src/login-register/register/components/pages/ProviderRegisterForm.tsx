@@ -10,6 +10,8 @@ import InputTextArea from '../InputTextArea';
 import InputFile from '../InputFile';
 import InputFileList from '../InputFileList';
 import InputInformation from '../InputInformation';
+import Progress from 'react-progressbar'
+import InputRadio from '../InputRadio';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -24,7 +26,7 @@ export default class ProviderRegisterForm extends React.Component {
     arr = ["", "", "", "", "", "", "", "", "", "", "", "", ""];
     arrQuestion = [];
     handleAdd = (data1) => {
-        var mpage=this.state.page;
+        var mpage = this.state.page;
         this.setState({
             page: this.state.page !== 11 ? this.state.page + 1 : this.state.page,
             data: data1
@@ -59,8 +61,11 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
 
         else if (question.inputType === ProviderQuestionTypes.MapAddress)
-            return <InputGoogleAddress handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} />
-
+            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
+        
+        else if (question.inputType === ProviderQuestionTypes.RadioButton)
+            return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage}  label={question.heading} page={this.state.page} arr={this.arr} />
+        
         else if (question.inputType === ProviderQuestionTypes.File)
             return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} />
 
@@ -68,6 +73,7 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} />
         else if (question.inputType === ProviderQuestionTypes.CheckBox)
             return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.arr} />
+
 
 
         //   if(this.state.page===0)
@@ -97,7 +103,7 @@ export default class ProviderRegisterForm extends React.Component {
     render() {
         return (
             <div className="container col-sm-7" style={{ background: "white", padding: "1%", marginTop: "2%" }}>
-                <div className="card" style={{ background: "blue", color: "white" }}>
+                <div className="card" style={{ background: "#33a8ff", color: "white" }}>
                     <div className="card-header">
                         <h3><b>Futura Health Registration</b></h3>
                         <div>Sign up to receive more information about becoming a provider in the Futura.Health ecosysteming, including Therapy on Demand</div>
@@ -108,6 +114,10 @@ export default class ProviderRegisterForm extends React.Component {
                     {this.getComponent()}
                 </div>
                 <div className="card-footer">
+                    <div>
+                        <Progress completed={9*(this.state.page)} />
+                    </div>
+
                     <ul className="pagination">
                         <li className={this.state.page === 0 ? "disabled" : ""}><a href="#" onClick={() => this.handleChangePage(this.state.page - 1)}>Previous</a></li>
                         <li style={{ marginLeft: "2%" }}><a href="#" onClick={() => this.handleChangePage(1)}>1</a></li>

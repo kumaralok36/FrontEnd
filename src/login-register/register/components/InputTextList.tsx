@@ -63,7 +63,7 @@ export default class InputTextList extends React.Component <props,any>{
                         <label style={{color:"black"}} >{this.props.label}</label><br/><br/>
                         <input type="text"  className="form-control" value={this.state.data} onChange={this.handleChange}/><br/>
                         <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
-                        <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)} style={{marginLeft:"1%"}} />
+                        <input type="button" value="prev" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)} style={{marginLeft:"1%"}} />
                         <input type="button" className="btn btn-info" value="Next" onClick={this.handleClick} style={{marginLeft:"1%"}}/>
                      </div>
                  </form>
