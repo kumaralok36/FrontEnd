@@ -1,6 +1,6 @@
 
 import React from 'react';
-import UploadFile from '../UploadFile';
+import InputFile from '../InputFile';
 
 export default class ThirdPageProviderRegister extends React.Component {
     constructor(props) {
@@ -77,7 +77,7 @@ export default class ThirdPageProviderRegister extends React.Component {
                 <div className="card">
                     <div className="card-body">
                         <div>Upload your signature. To sign using your device, visit: <a href="https://www.mylivesignature.com/draw-signature ">https://www.mylivesignature.com/draw-signature </a> *</div>
-                        <UploadFile/>
+                        
                     </div>
                 </div>
                 <div className="card">
@@ -103,19 +103,19 @@ export default class ThirdPageProviderRegister extends React.Component {
                 <div className="card">
                     <div className="card-body">
                         <div>Upload a copy of your government-issued ID (for example: national identity card). Your current mailing address must be listed. [FRONT] *</div>
-                        <UploadFile/>
+                        {/* <UploadFile/> */}
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
                         <div>Upload a copy of your government-issued ID [BACK] *</div>
-                        <UploadFile/>
+                        {/* <UploadFile/> */}
                     </div>
                 </div>
                 <div className="card">
                     <div className="card-body">
                         <div>Please upload a copy (front and back) of each license/certification listed above. *</div>
-                        <UploadFile/>
+                        {/* <UploadFile/> */}
                     </div>
                 </div>
                 <div className="card">

@@ -1,5 +1,5 @@
 import React from 'react';
-interface props{handleAdd,page,label,arr}
+interface props{handleAdd,page,label,arr,handlePrevPage}
 export default class InputText extends React.Component<props,any>{
     state={
         data:""
@@ -24,9 +24,10 @@ export default class InputText extends React.Component<props,any>{
                 <div className="card-body">
                     <form>
                         <div className="form-group">
-                            <label style={{color:"black"}}>{this.props.label}</label><br/>
-                            <input type="text" className="form-control" placeholder="Your answer" value={this.arr[this.props.page]===""?this.state.data:this.arr[this.props.page]} onChange={(e)=>this.handleChange(e)}/><br/>
-                            <input type="button"  value="next" className="btn btn-info" onClick={this.handleClick}/>
+                            <label style={{color:"black"}}>{this.props.label}</label><br/><br/>
+                            <input type="text" className="form-control" placeholder="Your answer" value={this.arr[this.props.page]===""?this.state.data:this.arr[this.props.page]} onChange={(e)=>this.handleChange(e)}/><br/><br/>
+                            <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
+                            <input type="button"  style={{marginLeft:"1%"}} value="next" className="btn btn-info" onClick={this.handleClick}/>
                         </div>
                     </form>
                 </div>

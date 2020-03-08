@@ -1,5 +1,5 @@
 import React from 'react';
-interface props{handleAdd,page,arr,label}
+interface props{handleAdd,page,arr,label,handlePrevPage}
 export default class InputEmail extends React.Component <props,any>{
 
     constructor(props){
@@ -30,9 +30,10 @@ export default class InputEmail extends React.Component <props,any>{
             <div className="card-body">
                 <form>
                     <div className="form-group">
-                        <label style={{color:"black"}}>{this.props.label}</label> 
+                        <label style={{color:"black"}}>{this.props.label}</label><br/><br/> 
                         <input type="email" className="form-control" value={this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onChange={this.handleChange}/><br/>
-                        <input type="button" value="next" className="btn btn-info" onClick={this.handleClick}/>
+                        <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
+                        <input type="button" style={{marginLeft:"1%"}} value="next" className="btn btn-info" onClick={this.handleClick}/>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface props{label,arr, handleAdd,page}
+interface props{label,arr, handleAdd,page,handlePrevPage}
 export default class InputTextList extends React.Component <props,any>{
 
     constructor(props){
@@ -17,8 +17,8 @@ export default class InputTextList extends React.Component <props,any>{
          return(
              <div>
              {this.state.list.map(list=>(
-                <div>{list}
-                <input type="button" style={{background:"white",margin:"1%",height:"26px"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})})}}/>
+                <div style={{}}>{list}
+                <input type="button" style={{margin:"1%",height:"26px",border:"1px solid white",borderRadius:"4px"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})})}}/>
                 </div>
              ))}
              </div>
@@ -40,7 +40,7 @@ export default class InputTextList extends React.Component <props,any>{
          {
              this.state.list.push(data);
        this.setState({
-           data:""
+           data:this.state.data
        })
       }
      }
@@ -58,11 +58,12 @@ export default class InputTextList extends React.Component <props,any>{
          return(
              <div className="card-body">
                  {this.getList()}
-                 <form> 
+                 <form style={{marginTop:"4%"}}> 
                      <div className="form-group">
-                        <label style={{color:"black"}} >{this.props.label}</label>
+                        <label style={{color:"black"}} >{this.props.label}</label><br/><br/>
                         <input type="text"  className="form-control" value={this.state.data} onChange={this.handleChange}/><br/>
                         <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
+                        <input type="button" value="previous" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)} style={{marginLeft:"1%"}} />
                         <input type="button" className="btn btn-info" value="Next" onClick={this.handleClick} style={{marginLeft:"1%"}}/>
                      </div>
                  </form>

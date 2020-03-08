@@ -9,19 +9,45 @@ export default class InputGoogleAddress extends React.Component <props,any>{
 
     }
     state={
-        data:null
+        data:null,
+        list:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page]
     }
     arr=this.props.arr;
     handleClick=()=>{
-        var datan=this.state.data;
         this.setState({data:null},()=>{
-            this.props.handleAdd(datan);
+            this.props.handleAdd(this.state.list);
         })
     }
-
+    
+    getList=()=>{
+        return(
+            <div>
+            {this.state.list.map(list=>(
+               <div>{list.place}
+               <input type="button" style={{background:"white",margin:"1%",height:"26px"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})})}}/>
+               </div>
+            ))}
+            </div>
+        )
+    }
+    addToList=(data)=>{
+     if(data!=null)
+     {
+         this.state.list.push(data);
+         this.setState({
+             data:null
+         },()=>{
+            console.log(this.state.data);
+         })
+         
+     }   
+     
+    }
     render(){
+        console.log("list address "+this.state.list.place);
         return(
             <div className="card-body">
+                {this.getList()}
                 <form>
                     <div className="form-group">
                         <label style={{color:"black"}}>{this.props.label}</label>
@@ -33,7 +59,8 @@ export default class InputGoogleAddress extends React.Component <props,any>{
                             coordinates={true}
                             onChange={(e)=>{this.setState({data:e})}}/>
                         </div><br/>
-                        <input type="button" className="btn btn-info" value="next" onClick={this.handleClick}/>
+                        <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
+                        <input  style={{marginLeft:"1%"}} type="button" className="btn btn-info" value="next" onClick={this.handleClick}/>
                     </div>   
                 </form>
             </div>
