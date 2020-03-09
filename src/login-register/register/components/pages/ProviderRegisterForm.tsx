@@ -56,12 +56,19 @@ export default class ProviderRegisterForm extends React.Component {
             </div>
         )
     }
+
+    myCallback:(skip:boolean)=>any;
+
+    callBackNav= (callback:(skip:boolean)=>any) =>{
+        this.myCallback=callback;
+    }
+
     getComponent = () => {
 
         var question = this.arrQuestion[this.state.page];
 
         if (question.inputType === ProviderQuestionTypes.EmailField)
-            return <InputEmail handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputEmail handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav}/>
 
         else if (question.inputType === ProviderQuestionTypes.Information)
             return <InputInformation handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} information={question.value} />
@@ -198,8 +205,12 @@ export default class ProviderRegisterForm extends React.Component {
                     padding: "15px"
                 }}>
                     <div className="container">
-                        <button className="btn btn-info pull-right">Next</button>
-                        <button className="btn btn-btn-default pull-right">Skip</button>
+                        <button className="btn btn-info pull-right" onClick={()=>{
+                            this.myCallback(false);
+                        }}>Next</button>
+                        <button className="btn btn-btn-default pull-right" onClick={()=>{
+                            this.myCallback(true);
+                        }}>Skip</button>
                     </div>
                 </div>
 

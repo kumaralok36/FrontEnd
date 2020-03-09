@@ -1,11 +1,18 @@
 import React from 'react';
-interface props{handleAdd,page,arr,label,handlePrevPage}
+interface props{
+    handleAdd,page,arr,label,handlePrevPage,
+    callbackNav:(callback:(skip:boolean)=>any)=>any
+}
 export default class InputEmail extends React.Component <props,any>{
 
     constructor(props){
         super(props);
     }
-    
+
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
+    }
+
     state={
         data:""
     }
@@ -25,6 +32,16 @@ export default class InputEmail extends React.Component <props,any>{
             this.props.handleAdd(datan);
         })
     }
+
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
+    }
+    
     render(){
         return(
             <div className="card-body">
