@@ -12,6 +12,7 @@ import InputFileList from '../InputFileList';
 import InputInformation from '../InputInformation';
 import Progress from 'react-progressbar'
 import InputRadio from '../InputRadio';
+import { timingSafeEqual } from 'crypto';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -34,16 +35,27 @@ export default class ProviderRegisterForm extends React.Component {
             this.arr[mpage] = data1;
             console.log(this.arr);
         })
+        this.setState({data:this.state.data})
     }
     handlePrevPage = (i) => {
         if (i > 0)
             this.setState({ page: i - 1 });
     }
     handleChangePage = (i) => {
-        if (i >= 0 && i < 11)
+        if (i >= 0 && i < 13)
             this.setState({ page: i });
     }
 
+    getSidebarList = (arr) => {
+        var arrQuest = this.arrQuestion;
+        return (
+            <div>
+                {this.arrQuestion.map((value, index) => (
+                    <li className={arr[index]==""?"btn btn-info":"btn btn-success"} onClick={() => this.handleChangePage(index)} style={{ marginTop: "2%", color:"black", width: "100%" }}><b>{value.formName}</b></li>
+                ))}
+            </div>
+        )
+    }
     getComponent = () => {
 
         var question = this.arrQuestion[this.state.page];
@@ -103,7 +115,7 @@ export default class ProviderRegisterForm extends React.Component {
     render() {
         return (
             <>
-            {/* <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+                {/* <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                     <div className="container-fluid">
                         <div className="navbar-wrapper">
                             <a className="navbar-brand" href="#pablo">Dashboard</a>
@@ -116,12 +128,13 @@ export default class ProviderRegisterForm extends React.Component {
                         </button>
                     </div>
                 </nav> */}
+
                 <nav className="navbar navbar-light navbar-expand-lg navbar-absolute fixed-top">
                     <div className="container">
                         <span className="navbar-text">
                             Therapy on Demand
     </span>
-    <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="sr-only">Toggle navigation</span>
                             <span className="navbar-toggler-icon icon-bar"></span>
                             <span className="navbar-toggler-icon icon-bar"></span>
@@ -130,7 +143,7 @@ export default class ProviderRegisterForm extends React.Component {
                     </div>
                 </nav>
 
-                <div className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
+                <div style={{ background: "#f1f1f1" }} className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
                     <div className="logo">
                         <a href="/" className="simple-text logo-normal">
                             Therapy on Demand
@@ -147,6 +160,11 @@ export default class ProviderRegisterForm extends React.Component {
                                 </a>
                             </li>
                         </ul>
+                        <ul className="nav nav-pills nav-stacked ">
+                            <div className="row-contents" style={{ padding: "6%" }}>
+                                {this.getSidebarList(this.arr)}
+                            </div>
+                        </ul><br></br>
                     </div>
                 </div>
 
@@ -167,15 +185,6 @@ export default class ProviderRegisterForm extends React.Component {
                             <Progress completed={9 * (this.state.page)} />
                         </div>
 
-                        <ul className="pagination">
-                            <li className={this.state.page === 0 ? "disabled" : ""}><a href="#" onClick={() => this.handleChangePage(this.state.page - 1)}>Previous</a></li>
-                            <li style={{ marginLeft: "2%" }}><a href="#" onClick={() => this.handleChangePage(1)}>1</a></li>
-                            <li style={{ marginLeft: "1%" }}><a href="#" onClick={() => this.handleChangePage(2)}>2</a></li>
-                            <li style={{ marginLeft: "1%" }}><a href="#" onClick={() => this.handleChangePage(3)}>3</a></li>
-                            <li style={{ marginLeft: "1%" }}><a href="#" onClick={() => this.handleChangePage(4)}>4</a></li>
-                            <li style={{ marginLeft: "1%" }}><a href="#" onClick={() => this.handleChangePage(5)}>5</a></li>
-                            <li style={{ marginLeft: "2%" }}><a href="#" onClick={() => this.handleChangePage(this.state.page + 1)}>Next</a></li>
-                        </ul>
                     </div>
                 </div>
 
@@ -193,14 +202,10 @@ export default class ProviderRegisterForm extends React.Component {
                         <button className="btn btn-btn-default pull-right">Skip</button>
                     </div>
                 </div>
-                {/* <nav className="navbar navbar-light fixed-bottom">
-                                <div className="container">
-                                    <span className="navbar-text">
-                                        Therapy on Demand
-    </span>
-                                </div>
-                            </nav> */}
+
             </>
+
+
         )
     }
 }

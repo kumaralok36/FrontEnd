@@ -9,6 +9,7 @@ export const ProviderRegistrationQuestions = [
     },
     {
         inputType:ProviderQuestionTypes.Information,
+        formName:"info",
         canSkip:false,
         heading:"Futura.Health Registration",
         value:"Thanks for taking the first step toward becoming a Therapy on Demand Provider. You can learn more about the provider role by downloading our PDF brochure using this link:"
