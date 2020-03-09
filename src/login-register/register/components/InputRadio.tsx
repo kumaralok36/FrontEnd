@@ -1,6 +1,7 @@
 import React from 'react';
 
-interface props { values, handleAdd, handlePrevPage, page, arr, label }
+interface props { values, handleAdd, handlePrevPage, page, arr, label,
+    callbackNav:(callback:(skip:boolean)=>any)=>any }
 export default class InputRadio extends React.Component<props, any>{
 
     constructor(props) {
@@ -11,6 +12,18 @@ export default class InputRadio extends React.Component<props, any>{
         }
     }
 
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
+    }
+    
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
+    }
     
     getButtons = () => {
         return (

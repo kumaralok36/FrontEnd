@@ -1,12 +1,18 @@
 import React from 'react';
 import { timingSafeEqual } from 'crypto';
 
-interface props{handleAdd,page,label,type,arr,handlePrevPage,values}
+interface props{handleAdd,page,label,type,arr,handlePrevPage,values,
+    callbackNav:(callback:(skip:boolean)=>any)=>any }
 export default class InputCheckbox extends React.Component <props,any>{
     constructor(props){
         super(props);
 
     }
+
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
+    }
+
     arr=this.props.arr
     state={
         data:this.props.arr[this.props.page]===""?[{formvalue:0,status:false},{formvalue:1,status:false},{formvalue:2,status:false},{formvalue:3,status:false},{formvalue:4,status:false}]:this.props.arr[this.props.page],
@@ -24,6 +30,16 @@ export default class InputCheckbox extends React.Component <props,any>{
            </div>
        )
     }
+    
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
+    }
+
     checkStatus=(formvalue)=>{
         var i=this.getIndex(formvalue);
         return this.state.data[i].status

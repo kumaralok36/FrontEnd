@@ -1,11 +1,16 @@
 import React from 'react';
 
-interface props{handleAdd,label,page,arr,handlePrevPage}
+interface props{handleAdd,label,page,arr,handlePrevPage,
+    callbackNav:(callback:(skip:boolean)=>any)=>any }
 export default class InputTextArea extends React.Component <props,any>{
 
     constructor(props){
         super(props);
 
+    }
+
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
     }
 
     state={
@@ -25,6 +30,15 @@ export default class InputTextArea extends React.Component <props,any>{
      },()=>{
          this.props.handleAdd(datan);
      })
+    }
+
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
     }
 
     render(){

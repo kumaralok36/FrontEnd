@@ -2,11 +2,15 @@ import React from 'react';
 import {GoogleComponent} from 'react-google-location';
 import ProviderPastSessions from 'providers/body/ProviderPastSessions';
 
-interface props{handleAdd,label,page,arr,handlePrevPage}
+interface props{handleAdd,label,page,arr,handlePrevPage,
+    callbackNav:(callback:(skip:boolean)=>any)=>any }
 export default class InputGoogleAddress extends React.Component <props,any>{
     constructor(props){
         super(props);
 
+    }
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
     }
     state={
         data:null,
@@ -17,6 +21,16 @@ export default class InputGoogleAddress extends React.Component <props,any>{
         this.setState({data:null},()=>{
             this.props.handleAdd(this.state.list);
         })
+    }
+    
+
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
     }
     
     getList=()=>{

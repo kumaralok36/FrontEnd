@@ -1,10 +1,15 @@
 import React from 'react'
 
-interface props{handleAdd,arr,label,page,handlePrevPage}
+interface props{handleAdd,arr,label,page,handlePrevPage,
+    callbackNav:(callback:(skip:boolean)=>any)=>any }
 export default class InputFile extends React.Component <props,any>{
     constructor(props){
         super(props);
 
+    }
+
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
     }
     
     state={
@@ -19,6 +24,16 @@ export default class InputFile extends React.Component <props,any>{
             this.setState({data:files[0].name});
         }
     }
+
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
+    }
+    
     getList=()=>{
         return(
             <div>

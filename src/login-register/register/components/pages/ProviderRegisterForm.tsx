@@ -33,9 +33,9 @@ export default class ProviderRegisterForm extends React.Component {
             data: data1
         }, () => {
             this.arr[mpage] = data1;
+            this.setState({data:this.state.data})
             console.log(this.arr);
         })
-        this.setState({data:this.state.data})
     }
     handlePrevPage = (i) => {
         if (i > 0)
@@ -71,27 +71,27 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputEmail handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav}/>
 
         else if (question.inputType === ProviderQuestionTypes.Information)
-            return <InputInformation handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} information={question.value} />
+            return <InputInformation handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} information={question.value} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.TextField)
-            return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.TextList)
-            return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.MapAddress)
-            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.RadioButton)
-            return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.File)
-            return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.FileList)
-            return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
         else if (question.inputType === ProviderQuestionTypes.CheckBox)
-            return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.arr} />
+            return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
 
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-interface props{label,arr, handleAdd,page,handlePrevPage}
+interface props{label,arr, handleAdd,page,handlePrevPage,
+    callbackNav:(callback:(skip:boolean)=>any)=>any }
 export default class InputTextList extends React.Component <props,any>{
 
     constructor(props){
@@ -8,6 +9,11 @@ export default class InputTextList extends React.Component <props,any>{
 
        // this.removeLanguage=this.removeLanguage.bind(this);
     }
+
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
+    } 
+
     state={
         data:[],
         list:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page]
@@ -24,6 +30,16 @@ export default class InputTextList extends React.Component <props,any>{
              </div>
          )
      }
+
+     callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
+    }
+    
      handleChange=(e)=>{
          this.setState({
              data:e.target.value

@@ -1,9 +1,30 @@
 import React from 'react';
-interface props{handleAdd,page,label,arr,handlePrevPage}
+interface props{handleAdd,page,label,arr,handlePrevPage,
+    callbackNav:(callback:(skip:boolean)=>any)=>any  }
 export default class InputText extends React.Component<props,any>{
+    constructor(props){
+        super(props);
+    }
+
+    componentDidMount(){
+        this.props.callbackNav(this.callback);
+        this.setState({data:""})
+    }
+
     state={
         data:""
     }
+    
+    callback=(skip:boolean)=>{
+        if(skip){
+            //
+            
+        }else{
+            this.handleClick();
+        }
+    }
+    
+
    arr=this.props.arr
     handleChange=(e)=>{
         this.setState({data:e.target.value});
@@ -16,9 +37,6 @@ export default class InputText extends React.Component<props,any>{
         this.props.handleAdd(datan);
       })
     }
-  componentDidMount(){
-      this.setState({data:""})
-  }
     render(){
         return(
                 <div className="card-body">
