@@ -1,5 +1,6 @@
 import React from 'react';
 import { timingSafeEqual } from 'crypto';
+import Progress from 'react-progressbar';
 
 interface props{handleAdd,page,label,type,arr,handlePrevPage,values,
     callbackNav:(callback:(skip:boolean)=>any)=>any }
@@ -67,6 +68,7 @@ export default class InputCheckbox extends React.Component <props,any>{
 
     render(){
         return(
+            <div>
             <div className="card-body">
                 <form>
                     <div className="form-group">
@@ -75,11 +77,10 @@ export default class InputCheckbox extends React.Component <props,any>{
                             <table>
                             {this.getCheckBoxes()}
                             </table>
-                            <input type="button" value="prev" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
-                            <input  style={{marginLeft:"1%"}} type="button"  value="next" className="btn btn-info" onClick={this.handleClick}/>
                         </div>
                     </div>
                 </form>
+            </div>
             </div>
         )
     }

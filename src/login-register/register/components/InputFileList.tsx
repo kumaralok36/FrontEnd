@@ -60,7 +60,10 @@ export default class InputFileList extends React.Component <props,any>{
         this.setState({
             data:""
         },()=>{
+            if(filesn.length>0)
             this.props.handleAdd(listfinal);
+            else
+            this.props.handleAdd("");
         })
     }
     render(){

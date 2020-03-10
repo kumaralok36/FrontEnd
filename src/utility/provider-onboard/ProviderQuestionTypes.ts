@@ -8,5 +8,6 @@ export enum ProviderQuestionTypes{
     TextList,
     File,
     FileList,
-    MapAddress
+    MapAddress,
+    PhoneField
 }

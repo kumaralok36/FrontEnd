@@ -22,7 +22,7 @@ export const ProviderRegistrationQuestions = [
         regex:undefined
     },
     {
-        inputType:ProviderQuestionTypes.TextField,
+        inputType:ProviderQuestionTypes.PhoneField,
         formName:"phone",
         canSkip:false,
         heading:"Give your Mobile Number",

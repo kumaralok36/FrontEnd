@@ -1,4 +1,5 @@
 import React from 'react';
+import Utility from 'utility/Utility';
 
 interface props{label,arr, handleAdd,page,handlePrevPage,
     callbackNav:(callback:(skip:boolean)=>any)=>any }
@@ -63,11 +64,15 @@ export default class InputTextList extends React.Component <props,any>{
  
     handleClick=()=>{
      var listn=this.state.list;
-     this.setState({
+     if(listn.length>0)
+     {this.setState({
          data:""
      },()=>{
          this.props.handleAdd(listn);
      })
+    }
+    else
+    Utility.showNotification("danger","List cannot be empty");
     }
      render(){
          console.log(this.state.list)
@@ -79,8 +84,6 @@ export default class InputTextList extends React.Component <props,any>{
                         <label style={{color:"black"}} >{this.props.label}</label><br/><br/>
                         <input type="text"  className="form-control" value={this.state.data} onChange={this.handleChange}/><br/>
                         <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
-                        <input type="button" value="prev" className="btn btn-info" onClick={()=>this.props.handlePrevPage(this.props.page)} style={{marginLeft:"1%"}} />
-                        <input type="button" className="btn btn-info" value="Next" onClick={this.handleClick} style={{marginLeft:"1%"}}/>
                      </div>
                  </form>
              </div>

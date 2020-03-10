@@ -13,6 +13,8 @@ import InputInformation from '../InputInformation';
 import Progress from 'react-progressbar'
 import InputRadio from '../InputRadio';
 import { timingSafeEqual } from 'crypto';
+import Utility from 'utility/Utility';
+import InputPhone from '../InputPhone';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -27,7 +29,11 @@ export default class ProviderRegisterForm extends React.Component {
     arr = ["", "", "", "", "", "", "", "", "", "", "", "", ""];
     arrQuestion = [];
     handleAdd = (data1) => {
-        var mpage = this.state.page;
+        if(data1==="" || data1===[])
+        //alert("Cannot be empty");
+        Utility.showNotification("danger","Field cannot be empty.")
+        else
+        {var mpage = this.state.page;
         this.setState({
             page: this.state.page !== 11 ? this.state.page + 1 : this.state.page,
             data: data1
@@ -36,6 +42,7 @@ export default class ProviderRegisterForm extends React.Component {
             this.setState({data:this.state.data})
             console.log(this.arr);
         })
+    }
     }
     handlePrevPage = (i) => {
         if (i > 0)
@@ -51,10 +58,17 @@ export default class ProviderRegisterForm extends React.Component {
         return (
             <div>
                 {this.arrQuestion.map((value, index) => (
-                    <li className={arr[index]==""?"btn btn-info":"btn btn-success"} onClick={() => this.handleChangePage(index)} style={{ marginTop: "2%", color:"black", width: "100%" }}><b>{value.formName}</b></li>
+                    <li className={(arr[index]=="" || arr[index]==[] ||arr[index][0]===[])?"btn btn-info":"btn btn-success"} onClick={() => this.handleChangePage(index)} style={{ marginTop: "2%", color:"black", width: "100%" }}><b>{value.formName}</b></li>
                 ))}
             </div>
         )
+    }
+    handleSkipButton=()=>{
+       if(this.arrQuestion[this.state.page].canSkip)
+        this.handleChangePage(this.state.page + 1);
+       else
+       //alert("This page can't be skipped.");
+       Utility.showNotification("danger","This page can't be skipped.");
     }
 
     myCallback:(skip:boolean)=>any;
@@ -72,6 +86,9 @@ export default class ProviderRegisterForm extends React.Component {
 
         else if (question.inputType === ProviderQuestionTypes.Information)
             return <InputInformation handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} information={question.value} callbackNav={this.callBackNav} />
+        
+        else if (question.inputType === ProviderQuestionTypes.PhoneField)
+            return <InputPhone handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />    
 
         else if (question.inputType === ProviderQuestionTypes.TextField)
             return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
@@ -95,46 +112,13 @@ export default class ProviderRegisterForm extends React.Component {
 
 
 
-        //   if(this.state.page===0)
-        //   return <InputEmail handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label="Enter your email *" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===1)
-        //   return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label="Full name and title *" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===2)
-        //   return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label="Phone number *" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===3)
-        //   return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage}  label="Language(s) spoken / skill level *" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===4)
-        //   return <InputTextArea handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label="Please list your license and/or certification type(s) by location(s) for telehealth & geographic service areas if you plan to opt-in to provide on-site services." page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===5)
-        //   return <InputTextArea handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label="Please list your active and valid healthcare license(s) and/or coaching certificates. Include the contact information for primary-source validation of each document.*" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===6)
-        //   return <InputCheckbox handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label="Accept terms and conditions*" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===7)
-        //   return <InputGoogleAddress handleAdd={this.handleAdd} label="Enter your address" page={this.state.page} arr={this.arr}/>
-        //   else if(this.state.page===8)
-        //   return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label="Enter your address" page={this.state.page} arr={this.arr} />
-        //   else if(this.state.page===9)
-        //   return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label="Enter your address" page={this.state.page} arr={this.arr} />
-        //   else if(this.state.page===10)
-        //   return <InputInformation handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label="Enter your address" page={this.state.page} information="Thanks for registering."  />
+        
     }
 
     render() {
+        console.log("percent comp"+9 * (this.state.page));
         return (
             <>
-                {/* <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-                    <div className="container-fluid">
-                        <div className="navbar-wrapper">
-                            <a className="navbar-brand" href="#pablo">Dashboard</a>
-                        </div>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="navbar-toggler-icon icon-bar"></span>
-                            <span className="navbar-toggler-icon icon-bar"></span>
-                            <span className="navbar-toggler-icon icon-bar"></span>
-                        </button>
-                    </div>
-                </nav> */}
 
                 <nav className="navbar navbar-light navbar-expand-lg navbar-absolute fixed-top">
                     <div className="container">
@@ -207,10 +191,8 @@ export default class ProviderRegisterForm extends React.Component {
                     <div className="container">
                         <button className="btn btn-info pull-right" onClick={()=>{
                             this.myCallback(false);
-                        }}>Next</button>
-                        <button className="btn btn-btn-default pull-right" onClick={()=>{
-                            this.myCallback(true);
-                        }}>Skip</button>
+                        }}>Submit</button>
+                        <button className="btn btn-btn-default pull-right" onClick={this.handleSkipButton}>Skip</button>
                     </div>
                 </div>
 

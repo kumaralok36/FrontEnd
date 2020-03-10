@@ -1,7 +1,7 @@
 import React from 'react';
 interface props{handleAdd,page,label,arr,handlePrevPage,
     callbackNav:(callback:(skip:boolean)=>any)=>any  }
-export default class InputText extends React.Component<props,any>{
+export default class InputPhone extends React.Component<props,any>{
     constructor(props){
         super(props);
         this.state={
@@ -44,7 +44,7 @@ export default class InputText extends React.Component<props,any>{
                     <form>
                         <div className="form-group">
                             <label style={{color:"black"}}>{this.props.label}</label><br/><br/>
-                            <input type="text" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e)=>this.handleChange(e)}/><br/><br/>
+                            <input type="tel" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e)=>this.handleChange(e)}/><br/><br/>
                         </div>
                     </form>
                 </div>

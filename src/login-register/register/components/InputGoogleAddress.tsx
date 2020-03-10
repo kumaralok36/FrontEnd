@@ -74,8 +74,6 @@ export default class InputGoogleAddress extends React.Component <props,any>{
                             onChange={(e)=>{this.setState({data:e})}}/>
                         </div><br/>
                         <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
-                        <input  style={{marginLeft:"1%"}} type="button" className="btn btn-info" value="prev" onClick={()=>this.props.handlePrevPage(this.props.page)}/>
-                        <input  style={{marginLeft:"1%"}} type="button" className="btn btn-info" value="next" onClick={this.handleClick}/>
                     </div>   
                 </form>
             </div>

@@ -61,8 +61,6 @@ export default class InputRadio extends React.Component<props, any>{
                     </form>
 
                 </div>
-                <input type="button" value="prev" className="btn btn-info" onClick={() => this.props.handlePrevPage(this.props.page)} />
-                <input style={{marginLeft:"1%"}} type="button" value="next" className="btn btn-info" onClick={this.handleClick} />
             </div>
         )
     }
