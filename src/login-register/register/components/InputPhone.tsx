@@ -1,4 +1,5 @@
 import React from 'react';
+import Utility from 'utility/Utility';
 interface props{handleAdd,page,label,arr,handlePrevPage,
     callbackNav:(callback:(skip:boolean)=>any)=>any  }
 export default class InputPhone extends React.Component<props,any>{
@@ -33,9 +34,12 @@ export default class InputPhone extends React.Component<props,any>{
 
     handleClick=()=>{
         var datan=this.state.data;
-      
+        var regex=/[0-9]{10}$/;
       this.setState({},()=>{
-        this.props.handleAdd(datan);
+        if(!regex.test(datan))
+            Utility.showNotification("danger","Mobile number should be of 10 digits.");
+            else
+            this.props.handleAdd(datan);
       })
     }
     render(){

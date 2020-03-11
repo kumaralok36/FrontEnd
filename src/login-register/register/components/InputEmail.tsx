@@ -1,4 +1,5 @@
 import React from 'react';
+import Utility from 'utility/Utility';
 interface props{
     handleAdd,page,arr,label,handlePrevPage,
     callbackNav:(callback:(skip:boolean)=>any)=>any
@@ -14,7 +15,7 @@ export default class InputEmail extends React.Component <props,any>{
     }
 
     state={
-        data:""
+        data:this.props.arr[this.props.page]
     }
     
     arr=this.props.arr;
@@ -26,11 +27,18 @@ export default class InputEmail extends React.Component <props,any>{
 
     handleClick=()=>{
         var datan=this.state.data;
+        var regex=/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+        
         this.setState({
-            data:""
+            data:this.state.data
         },()=>{
+            if(!regex.test(datan))
+            Utility.showNotification("danger","Improper format of an email");
+            else
             this.props.handleAdd(datan);
         })
+       
+       
     }
 
     callback=(skip:boolean)=>{
@@ -48,7 +56,7 @@ export default class InputEmail extends React.Component <props,any>{
                 <form onSubmit={this.handleClick} >
                     <div className="form-group">
                         <label style={{color:"black"}}>{this.props.label}</label><br/><br/> 
-                        <input type="email" className="form-control" value={this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onChange={this.handleChange}/><br/>
+                        <input type="text" className="form-control" value={this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onChange={this.handleChange}/><br/>
                     </div>
                 </form>
             </div>
