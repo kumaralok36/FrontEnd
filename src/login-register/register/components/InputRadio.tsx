@@ -1,4 +1,5 @@
 import React from 'react';
+import Utility from 'utility/Utility';
 
 interface props { values, handleAdd, handlePrevPage, page, arr, label,
     callbackNav:(callback:(skip:boolean)=>any)=>any }
@@ -44,9 +45,20 @@ export default class InputRadio extends React.Component<props, any>{
             data:datan
         })
     }
-
+     
     handleClick = () => {
+        var count=0;
+        for(var i=0;i<this.state.data.length;i++)
+        if(this.state.data[i]===true)
+        count++;
+        console.log(count);
+        if(count>0)
         this.props.handleAdd(this.state.data);
+        else
+        this.props.handleAdd("");
+        
+        
+        
     }
 
     render() {
@@ -54,7 +66,7 @@ export default class InputRadio extends React.Component<props, any>{
             <div className="card-body">
                 <label style={{ color: "black" }}>{this.props.label}</label><br /><br />
                 <div className="radio">
-                    <form>
+                    <form onSubmit={this.handleClick}>
                         <table>
                             {this.getButtons()}
                         </table>

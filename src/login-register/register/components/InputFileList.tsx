@@ -6,7 +6,7 @@ export default class InputFileList extends React.Component <props,any>{
     constructor(props){
         super(props);
         this.state={
-            data:"",
+            data:"File Name",
             list:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][1],
             files:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][0],
         }
@@ -71,10 +71,10 @@ export default class InputFileList extends React.Component <props,any>{
             
             <div className="card-body">
                 {this.getList()}
+                <form onSubmit={this.handleClick}>
                 <label style={{color:"black"}}>{this.props.label}</label><br/>
-                <input type="file"  className="btn btn-info" onChange={(e)=>this.handleChange(e)} style={{background:"white",color:"blue"}}/><br/><br/>
-                <input type="button" className="btn btn-info" value="prev" onClick={()=>this.props.handlePrevPage(this.props.page)}></input>
-                <input style={{marginLeft:"1%"}} type="button" className="btn btn-info" value="next" onClick={this.handleClick}/>
+                <input type="file"  className="btn btn-info"  onChange={(e)=>this.handleChange(e)} style={{background:"white",color:"blue"}}/><br/><br/>
+                </form>
             </div>
         )
     }

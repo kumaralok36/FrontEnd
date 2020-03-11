@@ -61,16 +61,24 @@ export default class InputCheckbox extends React.Component <props,any>{
             console.log(this.state.data);
         });
     }
-
+    
     handleClick=()=>{
+        var count=0;
+        for(var i=0;i<this.state.data.length;i++)
+        if(this.state.data[i].status===true)
+        count++;
+        console.log(count);
+        if(count>0)
         this.props.handleAdd(this.state.data);
+        else
+        this.props.handleAdd("");
     }
 
     render(){
         return(
             <div>
             <div className="card-body">
-                <form>
+                <form onSubmit={this.handleClick}>
                     <div className="form-group">
                         <label style={{color:"black"}}>{this.props.label}</label>
                         <div className="custom-control custom-checkbox">

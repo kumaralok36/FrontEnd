@@ -41,7 +41,7 @@ export default class InputText extends React.Component<props,any>{
     render(){
         return(
                 <div className="card-body">
-                    <form>
+                    <form onSubmit={this.handleClick}>
                         <div className="form-group">
                             <label style={{color:"black"}}>{this.props.label}</label><br/><br/>
                             <input type="text" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e)=>this.handleChange(e)}/><br/><br/>

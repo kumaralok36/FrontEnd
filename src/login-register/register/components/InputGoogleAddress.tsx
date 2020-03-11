@@ -18,9 +18,14 @@ export default class InputGoogleAddress extends React.Component <props,any>{
     }
     arr=this.props.arr;
     handleClick=()=>{
+        if(this.state.list.length>0)
+        {
         this.setState({data:null},()=>{
             this.props.handleAdd(this.state.list);
         })
+    }
+    else
+    this.props.handleAdd("");
     }
     
 
@@ -62,7 +67,7 @@ export default class InputGoogleAddress extends React.Component <props,any>{
         return(
             <div className="card-body">
                 {this.getList()}
-                <form>
+                <form onSubmit={()=>this.addToList(this.state.data)} >
                     <div className="form-group">
                         <label style={{color:"black"}}>{this.props.label}</label>
                         <div>

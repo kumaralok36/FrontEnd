@@ -57,7 +57,7 @@ export default class InputTextList extends React.Component <props,any>{
          {
              this.state.list.push(data);
        this.setState({
-           data:this.state.data
+           data:""
        })
       }
      }
@@ -79,7 +79,7 @@ export default class InputTextList extends React.Component <props,any>{
          return(
              <div className="card-body">
                  {this.getList()}
-                 <form style={{marginTop:"4%"}}> 
+                 <form style={{marginTop:"4%"}} onSubmit={()=>this.addToList(this.state.data)}> 
                      <div className="form-group">
                         <label style={{color:"black"}} >{this.props.label}</label><br/><br/>
                         <input type="text"  className="form-control" value={this.state.data} onChange={this.handleChange}/><br/>
