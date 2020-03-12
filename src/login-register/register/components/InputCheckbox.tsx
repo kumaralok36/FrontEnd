@@ -25,7 +25,7 @@ export default class InputCheckbox extends React.Component <props,any>{
                {this.props.values.map((value,index)=>(
                     <tr>
                             <td style={{textAlign:"center",margin:"2%"}}><input style={{marginRight:"1%"}} className="checkbox" type={this.props.type} checked={this.checkStatus(value.formValue)} onClick={()=>this.handleChange(value.formValue)}/></td>
-                            <td style={{textAlign:"left"}}><label style={{color:"black",marginLeft:"1%"}}>{value.name}</label></td><br/><br/>
+                            <td style={{textAlign:"left"}}><label style={{color:"black",marginLeft:"1%"}}><b>{value.name}</b></label></td><br/><br/>
                     </tr>                  
                ))}
            </div>
@@ -80,7 +80,7 @@ export default class InputCheckbox extends React.Component <props,any>{
             <div className="card-body">
                 <form onSubmit={this.handleClick}>
                     <div className="form-group">
-                        <label style={{color:"black"}}>{this.props.label}</label>
+                        <label style={{color:"black"}}><b>{this.props.label}</b></label>
                         <div className="custom-control custom-checkbox">
                             <table>
                             {this.getCheckBoxes()}

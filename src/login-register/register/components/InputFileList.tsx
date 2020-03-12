@@ -42,13 +42,21 @@ export default class InputFileList extends React.Component <props,any>{
     getList=()=>{
         return(
             <div>
-            {this.state.list.map(list=>(
+            {this.state.list.map((list,index)=>(
                <div style={{}}>{list.name}
-               <input type="button" style={{margin:"1%",height:"26px",border:"1px solid white"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})})}}/>
+               <input type="button" style={{margin:"1%",height:"26px",border:"1px solid white"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})});
+            var filesnew=this.state.files;
+            filesnew.splice(index,1);
+            this.setState({files:filesnew})}}/>
                </div>
             ))}
             </div>
         )
+    }
+    getBrowseAgainLine=()=>{
+        if(this.state.files.length>0)
+        return <p style={{color:"red"}}>Browse again to add different file.</p>
+
     }
 
     handleClick=()=>{
@@ -60,7 +68,7 @@ export default class InputFileList extends React.Component <props,any>{
         this.setState({
             data:""
         },()=>{
-            if(filesn.length>0)
+            if(listn.length>0)
             this.props.handleAdd(listfinal);
             else
             this.props.handleAdd("");
@@ -72,9 +80,10 @@ export default class InputFileList extends React.Component <props,any>{
             <div className="card-body">
                 {this.getList()}
                 <form onSubmit={this.handleClick}>
-                <label style={{color:"black"}}>{this.props.label}</label><br/>
+                <label style={{color:"black"}}><b>{this.props.label}</b></label><br/>
                 <input type="file"  className="btn btn-info"  onChange={(e)=>this.handleChange(e)} style={{background:"white",color:"blue"}}/><br/><br/>
                 </form>
+                {this.getBrowseAgainLine()}
             </div>
         )
     }

@@ -47,7 +47,7 @@ export default class InputPhone extends React.Component<props,any>{
                 <div className="card-body">
                     <form onSubmit={this.handleClick} >
                         <div className="form-group">
-                            <label style={{color:"black"}}>{this.props.label}</label><br/><br/>
+                            <label style={{color:"black"}}><b>{this.props.label}</b></label><br/><br/>
                             <input type="tel" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e)=>this.handleChange(e)}/><br/><br/>
                         </div>
                     </form>

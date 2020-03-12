@@ -26,6 +26,11 @@ export default class InputFile extends React.Component<props, any>{
             this.setState({ data: files[0].name });
         }
     }
+    getBrowseAgainLine=()=>{
+        if(this.state.data!=="")
+        return <p style={{color:"red"}}>Browse again to add different file.</p>
+
+    }
 
     callback = (skip: boolean) => {
         if (skip) {
@@ -62,9 +67,10 @@ export default class InputFile extends React.Component<props, any>{
             <div className="card-body">
                 {this.getList()}
                 <form  onSubmit={this.handleClick}>
-                <label style={{ color: "black" }}>{this.props.label}</label><br />
+                <label style={{ color: "black" }}><b>{this.props.label}</b></label><br />
                 <input type="file" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} /><br /><br />
                 </form>
+                {this.getBrowseAgainLine()}
             </div>
         )
     }

@@ -32,7 +32,7 @@ export default class InputRadio extends React.Component<props, any>{
                 {this.props.values.map((value, index) => (
                     <tr>
                         <td><input type="radio" checked={this.state.data[index]} onClick={() => { this.handleStatus(index) }} /></td>
-                        <td><label style={{ marginLeft: "2%", color: "black" }}>{value.name}</label></td>
+                        <td><label style={{ marginLeft: "2%", color: "black" }}><b>{value.name}</b></label></td>
                     </tr>
                 ))}
             </div>
@@ -64,7 +64,7 @@ export default class InputRadio extends React.Component<props, any>{
     render() {
         return (
             <div className="card-body">
-                <label style={{ color: "black" }}>{this.props.label}</label><br /><br />
+                <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
                 <div className="radio">
                     <form onSubmit={this.handleClick}>
                         <table>
