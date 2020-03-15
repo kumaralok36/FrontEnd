@@ -1,10 +1,16 @@
 let ProviderCalls={
-    Register:{
-        url:"/provider/signup",
-        type:"POST"
+    OnBoard:{
+        Get:{
+            url:"/providers/onboard/register",
+            type:"GET"
+        },
+        Set:{
+            url:"/providers/onboard/register",
+            type:"POST"
+        }
     },
     Login:{
-        url:"/provider/login",
+        url:"/provider/onboard/login",
         type:"POST"
     },
     Notification:{
