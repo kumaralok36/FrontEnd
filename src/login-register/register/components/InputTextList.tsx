@@ -24,9 +24,9 @@ export default class InputTextList extends React.Component <props,any>{
          return(
              <div>
              {this.state.list.map(list=>(
-                <div style={{}}>{list}
+                <span style={{margin:"2%"}}>{list}
                 <input type="button" style={{margin:"1%",height:"26px",border:"1px solid white",borderRadius:"4px"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})})}}/>
-                </div>
+                </span>
              ))}
              </div>
          )
@@ -81,7 +81,7 @@ export default class InputTextList extends React.Component <props,any>{
                  {this.getList()}
                  <form style={{marginTop:"4%"}} onSubmit={()=>this.addToList(this.state.data)}> 
                      <div className="form-group">
-                        <label style={{color:"black"}} >{this.props.label}</label><br/><br/>
+                        <label style={{color:"black"}} ><b>{this.props.label}</b></label><br/><br/>
                         <input type="text"  className="form-control" value={this.state.data} onChange={this.handleChange}/><br/>
                         <input type="button" className="btn btn-info" value="Add" onClick={()=>this.addToList(this.state.data)}/>
                      </div>

@@ -20,13 +20,14 @@ export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
         super(props);
         this.arrQuestion = ProviderRegistrationQuestions;
+        for(var i=0;i<this.arrQuestion.length;i++)
+        this.arr.push("");
     }
-
     state = {
         data: "",
         page: 0,
     }
-    arr = ["", "", "", "", "", "", "", "", "", "", "", "", ""];
+    arr=[];
     arrQuestion = [];
     handleAdd = (data1) => {
         if (data1 === "" || data1 === [])

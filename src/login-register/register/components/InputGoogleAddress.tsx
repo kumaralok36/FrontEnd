@@ -69,7 +69,7 @@ export default class InputGoogleAddress extends React.Component <props,any>{
                 {this.getList()}
                 <form onSubmit={()=>this.addToList(this.state.data)} >
                     <div className="form-group">
-                        <label style={{color:"black"}}>{this.props.label}</label>
+                        <label style={{color:"black"}}><b>{this.props.label}</b></label>
                         <div>
                             <GoogleComponent
                             apiKey={'AIzaSyDDGLzjJ_1MmXB_54zqHguerZQXGKicw8k'}

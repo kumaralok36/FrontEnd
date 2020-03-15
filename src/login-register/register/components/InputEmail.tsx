@@ -55,7 +55,7 @@ export default class InputEmail extends React.Component <props,any>{
             <div className="card-body">
                 <form onSubmit={this.handleClick} >
                     <div className="form-group">
-                        <label style={{color:"black"}}>{this.props.label}</label><br/><br/> 
+                        <label style={{color:"black"}}><b>{this.props.label}</b></label><br/><br/> 
                         <input type="text" className="form-control" value={this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onChange={this.handleChange}/><br/>
                     </div>
                 </form>

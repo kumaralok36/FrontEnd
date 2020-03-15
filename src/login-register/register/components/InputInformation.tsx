@@ -29,7 +29,7 @@ export default class InputInformation extends React.Component<props, any>{
         return (
             <div className="card-body">
                 <form onSubmit={this.handleClick}>
-                    <label style={{ color: "black" }}>{this.props.label}</label><br /><br />
+                    <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
                     <p>{this.props.information}</p>
                 </form>
             </div>
