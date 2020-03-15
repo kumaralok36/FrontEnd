@@ -68,7 +68,10 @@ export default class InputFile extends React.Component<props, any>{
                 {this.getList()}
                 <form  onSubmit={this.handleClick}>
                 <label style={{ color: "black" }}><b>{this.props.label}</b></label><br />
-                <input type="file" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} /><br /><br />
+                <button type="button" className="btn btn-info" onClick={()=>{
+                    document.getElementById("fileSelect").click()
+                }}>Add File</button>
+                <input type="file" id="fileSelect" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} hidden/><br /><br />
                 </form>
                 {this.getBrowseAgainLine()}
             </div>
