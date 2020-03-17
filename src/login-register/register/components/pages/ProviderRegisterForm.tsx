@@ -20,14 +20,14 @@ export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
         super(props);
         this.arrQuestion = ProviderRegistrationQuestions;
-        for(var i=0;i<this.arrQuestion.length;i++)
-        this.arr.push("");
+        for (var i = 0; i < this.arrQuestion.length; i++)
+            this.arr.push("");
     }
     state = {
         data: "",
         page: 0,
     }
-    arr=[];
+    arr = [];
     arrQuestion = [];
     handleAdd = (data1) => {
         if (data1 === "" || data1 === [])
@@ -138,7 +138,7 @@ export default class ProviderRegisterForm extends React.Component {
 
                 <div className="wrapper ">
                     {/* style={{ background: "#f1f1f1" }} */}
-                    <div  className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
+                    <div className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
                         <div className="logo">
                             <a href="/" className="simple-text logo-normal">
                                 Therapy on Demand

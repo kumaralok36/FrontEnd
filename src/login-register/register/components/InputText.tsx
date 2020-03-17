@@ -1,54 +1,56 @@
 import React from 'react';
-interface props{handleAdd,page,label,arr,handlePrevPage,
-    callbackNav:(callback:(skip:boolean)=>any)=>any  }
-export default class InputText extends React.Component<props,any>{
-    constructor(props){
+interface props {
+    handleAdd, page, label, arr, handlePrevPage,
+    callbackNav: (callback: (skip: boolean) => any) => any
+}
+export default class InputText extends React.Component<props, any>{
+    constructor(props) {
         super(props);
-        this.state={
-            data:this.props.arr[this.props.page]
+        this.state = {
+            data: this.props.arr[this.props.page]
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.callbackNav(this.callback);
     }
 
     // state={
     //     data:this.props.arr[this.props.page]===""?"":this.props.arr[this.props.page]
     // }
-    
-    callback=(skip:boolean)=>{
-        if(skip){
+
+    callback = (skip: boolean) => {
+        if (skip) {
             //
-            
-        }else{
+
+        } else {
             this.handleClick();
         }
     }
-    
 
-    handleChange=(e)=>{
-        this.setState({data:e.target.value});
+
+    handleChange = (e) => {
+        this.setState({ data: e.target.value });
     }
 
-    handleClick=()=>{
-        var datan=this.state.data;
-      
-      this.setState({},()=>{
-        this.props.handleAdd(datan);
-      })
+    handleClick = () => {
+        var datan = this.state.data;
+
+        this.setState({}, () => {
+            this.props.handleAdd(datan);
+        })
     }
-    render(){
-        return(
-                <div className="card-body">
-                    <form onSubmit={this.handleClick}>
-                        <div className="form-group">
-                            <label style={{color:"black"}}><b>{this.props.label}</b></label><br/><br/>
-                            <input type="text" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e)=>this.handleChange(e)}/><br/><br/>
-                        </div>
-                    </form>
-                </div>
-        
+    render() {
+        return (
+            <div className="card-body">
+                <form onSubmit={this.handleClick}>
+                    <div className="form-group">
+                        <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
+                        <input type="text" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e) => this.handleChange(e)} /><br /><br />
+                    </div>
+                </form>
+            </div>
+
         )
     }
 }

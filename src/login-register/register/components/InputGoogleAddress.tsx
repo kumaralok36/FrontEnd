@@ -54,7 +54,7 @@ export default class InputGoogleAddress extends React.Component<props, any>{
         if (data != null) {
             //  this.state.list.push(data);
             this.setState((prevState) => {
-                prevState.list.push({...data});
+                prevState.list.push({ ...data });
                 prevState.data = undefined;
                 return prevState
             })

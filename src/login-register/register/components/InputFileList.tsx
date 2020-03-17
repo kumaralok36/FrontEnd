@@ -1,90 +1,94 @@
 import React from 'react'
 
-interface props{handleAdd,arr,label,page,handlePrevPage,
-    callbackNav:(callback:(skip:boolean)=>any)=>any }
-export default class InputFileList extends React.Component <props,any>{
-    constructor(props){
+interface props {
+    handleAdd, arr, label, page, handlePrevPage,
+    callbackNav: (callback: (skip: boolean) => any) => any
+}
+export default class InputFileList extends React.Component<props, any>{
+    constructor(props) {
         super(props);
-        this.state={
-            data:"File Name",
-            list:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][1],
-            files:this.props.arr[this.props.page]===""?[]:this.props.arr[this.props.page][0],
+        this.state = {
+            data: "File Name",
+            list: this.props.arr[this.props.page] === "" ? [] : this.props.arr[this.props.page][1],
+            files: this.props.arr[this.props.page] === "" ? [] : this.props.arr[this.props.page][0],
         }
         console.log(this.state);
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         this.props.callbackNav(this.callback);
     }
 
-   
-    handleChange=(e)=>{
-        let files=e.target.files;
-        let reader=new FileReader();
+
+    handleChange = (e) => {
+        let files = e.target.files;
+        let reader = new FileReader();
         reader.readAsDataURL(files[0]);
-        reader.onload=(e)=>{
+        reader.onload = (e) => {
             console.log(e.target.result);
             this.state.list.push(files[0]);
             this.state.files.push(e.target.result)
-            this.setState({data:""});
+            this.setState({ data: "" });
         }
     }
 
-    callback=(skip:boolean)=>{
-        if(skip){
+    callback = (skip: boolean) => {
+        if (skip) {
             //
-            
-        }else{
+
+        } else {
             this.handleClick();
         }
     }
-    
-    getList=()=>{
-        return(
+
+    getList = () => {
+        return (
             <div>
-            {this.state.list.map((list,index)=>(
-               <div style={{}}>{list.name}
-               <input type="button" style={{margin:"1%",height:"26px",border:"1px solid white"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})});
-            var filesnew=this.state.files;
-            filesnew.splice(index,1);
-            this.setState({files:filesnew})}}/>
-               </div>
-            ))}
+                {this.state.list.map((list, index) => (
+                    <div style={{}}>{list.name}
+                        <input type="button" style={{ margin: "1%", height: "26px", border: "1px solid white" }} value="x" onClick={() => {
+                            this.setState({ list: this.state.list.filter(li => { return (li !== list) }) });
+                            var filesnew = this.state.files;
+                            filesnew.splice(index, 1);
+                            this.setState({ files: filesnew })
+                        }} />
+                    </div>
+                ))}
             </div>
         )
     }
-    getBrowseAgainLine=()=>{
-        if(this.state.files.length>0)
-        return <p style={{color:"red"}}>Browse again to add different file.</p>
+    getBrowseAgainLine = () => {
+        if (this.state.files.length > 0)
+            return <p style={{ color: "red" }}>Browse again to add different file.</p>
 
     }
 
-    handleClick=()=>{
-        var filesn=this.state.files;
-        var listn=this.state.list;
-        var listfinal=[];
+    handleClick = () => {
+        var filesn = this.state.files;
+        var listn = this.state.list;
+        var listfinal = [];
         listfinal.push(filesn);
         listfinal.push(listn);
         this.setState({
-            data:""
-        },()=>{
-            if(listn.length>0)
-            this.props.handleAdd(listfinal);
+            data: ""
+        }, () => {
+            if (listn.length > 0)
+                this.props.handleAdd(listfinal);
             else
-            this.props.handleAdd("");
+                this.props.handleAdd("");
         })
     }
-    render(){
-        return(
-            
+    render() {
+        return (
+
             <div className="card-body">
                 <form onSubmit={this.handleClick}>
-                <label style={{color:"black"}}><b>{this.props.label}</b></label><br/>
-                {this.getList()}
-                <button type="button" className="btn btn-info" onClick={()=>{
-                    document.getElementById("fileSelect").click()
-                }}>Add File</button>
-                <input type="file" id="fileSelect"  className="btn btn-info"  onChange={(e)=>this.handleChange(e)} style={{background:"white",color:"blue"}} hidden/><br/><br/>
+                    <label style={{ color: "black" }}><b>{this.props.label}</b></label><br />
+                    {this.getList()}
+                    <button type="button" className="btn btn-info" onClick={() => {
+                        document.getElementById("fileSelect").click()
+                    }}>Add File</button>
+                    <input type="file" id="fileSelect" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} hidden /><br /><br />
                 </form>
                 {this.getBrowseAgainLine()}
             </div>

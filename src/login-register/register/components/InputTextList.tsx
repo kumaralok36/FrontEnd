@@ -82,7 +82,7 @@ export default class InputTextList extends React.Component<props, any>{
                 <form style={{ marginTop: "4%" }} onSubmit={(event) => {
                     event.preventDefault();
                     this.addToList(this.state.data)
-                    }}>
+                }}>
                     <div className="form-group">
                         <label style={{ color: "black" }} ><b>{this.props.label}</b></label><br /><br />
                         {this.getList()}

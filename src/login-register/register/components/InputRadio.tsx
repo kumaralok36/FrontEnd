@@ -1,31 +1,33 @@
 import React from 'react';
 import Utility from 'utility/Utility';
 
-interface props { values, handleAdd, handlePrevPage, page, arr, label,
-    callbackNav:(callback:(skip:boolean)=>any)=>any }
+interface props {
+    values, handleAdd, handlePrevPage, page, arr, label,
+    callbackNav: (callback: (skip: boolean) => any) => any
+}
 export default class InputRadio extends React.Component<props, any>{
 
     constructor(props) {
         super(props);
-     
+
         this.state = {
             data: this.props.arr[this.props.page] === "" ? [false, false, false] : this.props.arr[this.props.page]
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.callbackNav(this.callback);
     }
-    
-    callback=(skip:boolean)=>{
-        if(skip){
+
+    callback = (skip: boolean) => {
+        if (skip) {
             //
-            
-        }else{
+
+        } else {
             this.handleClick();
         }
     }
-    
+
     getButtons = () => {
         return (
             <div>
@@ -38,27 +40,27 @@ export default class InputRadio extends React.Component<props, any>{
             </div>
         )
     }
-    handleStatus=(index)=>{
-        var datan=this.state.data;
-        datan[index]=!datan[index];
+    handleStatus = (index) => {
+        var datan = this.state.data;
+        datan[index] = !datan[index];
         this.setState({
-            data:datan
+            data: datan
         })
     }
-     
+
     handleClick = () => {
-        var count=0;
-        for(var i=0;i<this.state.data.length;i++)
-        if(this.state.data[i]===true)
-        count++;
+        var count = 0;
+        for (var i = 0; i < this.state.data.length; i++)
+            if (this.state.data[i] === true)
+                count++;
         console.log(count);
-        if(count>0)
-        this.props.handleAdd(this.state.data);
+        if (count > 0)
+            this.props.handleAdd(this.state.data);
         else
-        this.props.handleAdd("");
-        
-        
-        
+            this.props.handleAdd("");
+
+
+
     }
 
     render() {

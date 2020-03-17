@@ -1,62 +1,62 @@
 import React from 'react';
 import Utility from 'utility/Utility';
-interface props{
-    handleAdd,page,arr,label,handlePrevPage,
-    callbackNav:(callback:(skip:boolean)=>any)=>any
+interface props {
+    handleAdd, page, arr, label, handlePrevPage,
+    callbackNav: (callback: (skip: boolean) => any) => any
 }
-export default class InputEmail extends React.Component <props,any>{
+export default class InputEmail extends React.Component<props, any>{
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.callbackNav(this.callback);
     }
 
-    state={
-        data:this.props.arr[this.props.page]
-    }
-    
-    arr=this.props.arr;
-    handleChange=(e)=>{
-        this.setState({
-            data:e.target.value
-                });
+    state = {
+        data: this.props.arr[this.props.page]
     }
 
-    handleClick=()=>{
-        var datan=this.state.data;
-        var regex=/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-        
+    arr = this.props.arr;
+    handleChange = (e) => {
         this.setState({
-            data:this.state.data
-        },()=>{
-            if(!regex.test(datan))
-            Utility.showNotification("danger","Improper format of an email");
+            data: e.target.value
+        });
+    }
+
+    handleClick = () => {
+        var datan = this.state.data;
+        var regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+        this.setState({
+            data: this.state.data
+        }, () => {
+            if (!regex.test(datan))
+                Utility.showNotification("danger", "Improper format of an email");
             else
-            this.props.handleAdd(datan);
+                this.props.handleAdd(datan);
         })
-       
-       
+
+
     }
 
-    callback=(skip:boolean)=>{
-        if(skip){
+    callback = (skip: boolean) => {
+        if (skip) {
             //
-            
-        }else{
+
+        } else {
             this.handleClick();
         }
     }
-    
-    render(){
-        return(
+
+    render() {
+        return (
             <div className="card-body">
                 <form onSubmit={this.handleClick} >
                     <div className="form-group">
-                        <label style={{color:"black"}}><b>{this.props.label}</b></label><br/><br/> 
-                        <input type="text" className="form-control" value={this.arr[this.props.page]===""?this.state.data : this.arr[this.props.page]} onChange={this.handleChange}/><br/>
+                        <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
+                        <input type="text" className="form-control" value={this.arr[this.props.page] === "" ? this.state.data : this.arr[this.props.page]} onChange={this.handleChange} /><br />
                     </div>
                 </form>
             </div>

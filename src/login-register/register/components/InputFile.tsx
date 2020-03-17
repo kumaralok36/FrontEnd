@@ -26,9 +26,9 @@ export default class InputFile extends React.Component<props, any>{
             this.setState({ data: files[0].name });
         }
     }
-    getBrowseAgainLine=()=>{
-        if(this.state.data!=="")
-        return <p style={{color:"red"}}>Browse again to select different file.</p>
+    getBrowseAgainLine = () => {
+        if (this.state.data !== "")
+            return <p style={{ color: "red" }}>Browse again to select different file.</p>
 
     }
 
@@ -65,14 +65,14 @@ export default class InputFile extends React.Component<props, any>{
         return (
 
             <div className="card-body">
-                
-                <form  onSubmit={this.handleClick}>
-                <label style={{ color: "black" }}><b>{this.props.label}</b></label><br />
-                {this.getList()}
-                <button type="button" className="btn btn-info" onClick={()=>{
-                    document.getElementById("fileSelect").click()
-                }}>Browse File</button>
-                <input type="file" id="fileSelect" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} hidden/><br /><br />
+
+                <form onSubmit={this.handleClick}>
+                    <label style={{ color: "black" }}><b>{this.props.label}</b></label><br />
+                    {this.getList()}
+                    <button type="button" className="btn btn-info" onClick={() => {
+                        document.getElementById("fileSelect").click()
+                    }}>Browse File</button>
+                    <input type="file" id="fileSelect" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} hidden /><br /><br />
                 </form>
                 {this.getBrowseAgainLine()}
             </div>
