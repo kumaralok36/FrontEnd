@@ -28,7 +28,7 @@ export default class InputFile extends React.Component<props, any>{
     }
     getBrowseAgainLine=()=>{
         if(this.state.data!=="")
-        return <p style={{color:"red"}}>Browse again to add different file.</p>
+        return <p style={{color:"red"}}>Browse again to select different file.</p>
 
     }
 
@@ -71,7 +71,7 @@ export default class InputFile extends React.Component<props, any>{
                 {this.getList()}
                 <button type="button" className="btn btn-info" onClick={()=>{
                     document.getElementById("fileSelect").click()
-                }}>Add File</button>
+                }}>Browse File</button>
                 <input type="file" id="fileSelect" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} hidden/><br /><br />
                 </form>
                 {this.getBrowseAgainLine()}
