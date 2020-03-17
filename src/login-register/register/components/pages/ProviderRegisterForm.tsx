@@ -15,20 +15,43 @@ import InputRadio from '../InputRadio';
 import { timingSafeEqual } from 'crypto';
 import Utility from 'utility/Utility';
 import InputPhone from '../InputPhone';
+import LoaderContext from 'utility/LoaderContext';
+import HttpCall from 'utility/HttpCall';
+import BackendUrls from 'utility/BackendUrls';
+import ProviderCalls from 'utility/subCalls/ProviderCalls';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
         super(props);
-        this.arrQuestion = ProviderRegistrationQuestions;
-        for (var i = 0; i < this.arrQuestion.length; i++)
-            this.arr.push("");
     }
+
     state = {
         data: "",
-        page: 0,
+        page: -1,
     }
     arr = [];
     arrQuestion = [];
+
+    setLoaderState: (b: boolean) => any;
+
+    componentDidMount() {
+        this.setLoaderState(true);
+        HttpCall.callUrl(ProviderCalls.OnBoard.Get.url
+            , "GET", undefined, (data) => {
+                this.setLoaderState(false);
+                this.arrQuestion = data.data;
+                for (var i = 0; i < this.arrQuestion.length; i++)
+                    this.arr.push("");
+                this.setState({
+                    page:0
+                })
+            }, (err) => {
+                console.log(err)
+                this.setLoaderState(false);
+            });
+
+    }
+
     handleAdd = (data1) => {
         if (data1 === "" || data1 === [])
             //alert("Cannot be empty");
@@ -58,9 +81,14 @@ export default class ProviderRegisterForm extends React.Component {
         var arrQuest = this.arrQuestion;
         return (
             <div>
-                {this.arrQuestion.map((value, index) => (
-                    <li className={(arr[index] == "" || arr[index] == [] || arr[index][0] === []) ? "btn btn-info" : "btn btn-success"} onClick={() => this.handleChangePage(index)} style={{ marginTop: "2%", color: "black", width: "100%" }}><b>{value.formName}</b></li>
-                ))}
+                {this.arrQuestion.map((value, index) => {
+                    let ansStatus = (arr[index] == "" || arr[index] == [] || arr[index][0] === []);
+                    return <li className={ansStatus ? "btn btn-info" : "btn btn-success"} 
+                            onClick={() => {
+                                if(!ansStatus)
+                                    this.handleChangePage(index)
+                            }} style={{ marginTop: "2%", color: "black", width: "100%" }}><b>{value.formName}</b></li>
+                })}
             </div>
         )
     }
@@ -79,6 +107,9 @@ export default class ProviderRegisterForm extends React.Component {
     }
 
     getComponent = () => {
+        if(this.state.page>=this.arrQuestion.length || this.state.page<0){
+            return <></>
+        }
 
         var question = this.arrQuestion[this.state.page];
 
@@ -110,10 +141,6 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
         else if (question.inputType === ProviderQuestionTypes.CheckBox)
             return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.arr} callbackNav={this.callBackNav} />
-
-
-
-
     }
 
     render() {
@@ -121,6 +148,14 @@ export default class ProviderRegisterForm extends React.Component {
         return (
             <>
 
+                <LoaderContext.Consumer>
+                    {
+                        (loader) => {
+                            this.setLoaderState = loader;
+                            return <></>
+                        }
+                    }
+                </LoaderContext.Consumer>
                 <nav className="navbar navbar-light navbar-expand-lg navbar-absolute fixed-top">
                     <div className="container">
                         <span className="navbar-text">
