@@ -78,9 +78,9 @@ export default class InputFileList extends React.Component <props,any>{
         return(
             
             <div className="card-body">
-                {this.getList()}
                 <form onSubmit={this.handleClick}>
                 <label style={{color:"black"}}><b>{this.props.label}</b></label><br/>
+                {this.getList()}
                 <button type="button" className="btn btn-info" onClick={()=>{
                     document.getElementById("fileSelect").click()
                 }}>Add File</button>
