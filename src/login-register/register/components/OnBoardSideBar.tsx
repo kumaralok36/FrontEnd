@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Utility from 'utility/Utility'
 
 interface Props {
+    page:number,
     formOutputs: any[]
     questions: any[]
     handleChangePage: (n: number) => any
@@ -12,7 +13,7 @@ export default class OnBoardSideBar extends Component<Props, any> {
         return (
             <div>
                 {this.props.questions.map((value, index) => {
-                    let color = (arr[index] === undefined || (arr[index] === [] || arr[index][0] === []) ? "cyan" : arr[index]==10E15? "orange" : "green")
+                    let color = index==this.props.page?"green":((arr[index] === undefined || (arr[index] === [] || arr[index][0] === []) ? "blue" : arr[index]==10E15? "orange" : "magenta"))
                     let pageChangeStatus = (arr[index] === undefined || (arr[index] === [] || arr[index][0] === []) ? false : arr[index]==10E15? true : false)
 
                     return <div style={{

@@ -214,7 +214,7 @@ export default class ProviderRegisterForm extends React.Component {
                 {this.state.page >= 2 ?
                     <div className="wrapper ">
                         {/* style={{ background: "#f1f1f1" }} */}
-                        <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} />
+                        <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} page={this.state.page}/>
                         <div className="main-panel">
                             <OnBoardNavBar page={this.state.page} />
                             <div className="content">
