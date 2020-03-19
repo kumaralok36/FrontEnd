@@ -1,4 +1,5 @@
 import React from 'react'
+import { isNumber } from 'util';
 
 interface props {
     handleAdd, arr, label, page, handlePrevPage,
@@ -9,8 +10,8 @@ export default class InputFileList extends React.Component<props, any>{
         super(props);
         this.state = {
             data: "File Name",
-            list: this.props.arr[this.props.page] === undefined ? [] : this.props.arr[this.props.page][1],
-            files: this.props.arr[this.props.page] === undefined ? [] : this.props.arr[this.props.page][0],
+            list: this.props.arr[this.props.page] === undefined || isNumber(this.props.arr[this.props.page])? [] : this.props.arr[this.props.page][1],
+            files: this.props.arr[this.props.page] === undefined || isNumber(this.props.arr[this.props.page])? [] : this.props.arr[this.props.page][0],
         }
         console.log(this.state);
     }

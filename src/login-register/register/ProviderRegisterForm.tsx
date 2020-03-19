@@ -82,9 +82,10 @@ export default class ProviderRegisterForm extends React.Component {
 
 
     handleSkipButton = () => {
-        if (this.questions[this.state.page].canSkip)
+        if (this.questions[this.state.page].canSkip){
+            this.formOutputs[this.state.page]=10E15
             this.handleChangePage(this.state.page + 1);
-        else
+        }else
             //alert("This page can't be skipped.");
             Utility.showNotification("danger", "This page can't be skipped.");
     }

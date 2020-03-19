@@ -1,4 +1,5 @@
 import React from 'react'
+import { isNumber } from 'util';
 
 interface props {
     handleAdd, arr, label, page, handlePrevPage,
@@ -15,7 +16,7 @@ export default class InputFile extends React.Component<props, any>{
     }
 
     state = {
-        data: this.props.arr[this.props.page] === undefined ? undefined : this.props.arr[this.props.page]
+        data: this.props.arr[this.props.page] === undefined || isNumber(this.props.arr[this.props.page])? undefined : this.props.arr[this.props.page]
     }
     handleChange = (e) => {
         let files = e.target.files;
