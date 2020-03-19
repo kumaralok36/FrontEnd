@@ -22,6 +22,7 @@ import ProviderCalls from 'utility/subCalls/ProviderCalls';
 import OnBoardSideBar from './components/OnBoardSideBar';
 import OnBoardFooter from './components/OnBoardFooter';
 import OnBoardNavBar from './components/OnBoardNavBar';
+import mHistory from 'mHistory';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -31,6 +32,7 @@ export default class ProviderRegisterForm extends React.Component {
     state = {
         data: undefined,
         page: -1,
+        lastQuestion:false
     }
     formOutputs = [];
     questions = [];
@@ -48,6 +50,7 @@ export default class ProviderRegisterForm extends React.Component {
                 this.setState({
                     page: 0
                 })
+                console.log("Total Questions : ", this.questions.length, (11 + 1) % 12)
             }, (err) => {
                 console.log(err)
                 this.setLoaderState(false);
@@ -61,31 +64,71 @@ export default class ProviderRegisterForm extends React.Component {
             Utility.showNotification("danger", "Field cannot be empty.")
         else {
             var mpage = this.state.page;
-            this.setState({
-                page: this.state.page !== 11 ? this.state.page + 1 : this.state.page,
-                data: data1
-            }, () => {
-                this.formOutputs[mpage] = data1;
-                this.setState({ data: this.state.data })
-                console.log(this.formOutputs);
-            })
+            this.formOutputs[mpage] = data1;
+            this.updateIsLastInput();
+            let nextPage = this.lookForNextEditablePage(this.state.page);
+            if (nextPage != undefined) {
+                this.setState({
+                    page: nextPage,
+                }, () => {
+
+                })
+            } else {
+                this.saveAllAndRedirect();
+            }
         }
     }
+
+    saveAllAndRedirect = () => {
+        mHistory.push("/login");
+    }
+
     handlePrevPage = (i) => {
-        if (i > 0)
-            this.setState({ page: i - 1 });
+        // if (i > 0)
+        //     this.setState({ page: i - 1 });
     }
     handleChangePage = (i) => {
-        if (i >= 0 && i < 13)
+        if (i >= 0 && i < this.questions.length)
             this.setState({ page: i });
     }
 
 
+    lookForNextEditablePage = (index: number) => {
+        let n = this.questions.length;
+        let i = (index + 1) % n;
+        while (!(this.formOutputs[i] === undefined || this.formOutputs[i] === 10E15)) {
+            if (i == index)
+                break;
+            i = (i + 1) % n;
+        }
+        console.log("Next Page : ", (i == index) ? undefined : i);
+        return (i == index) ? undefined : i;
+    }
+
+    updateIsLastInput = ()=>{
+        let n = this.questions.length;
+        let i = 0;
+        let c = 0;
+        while (i<n) {
+            if(this.formOutputs[i] === undefined || this.formOutputs[i] === 10E15){
+                c++;
+            }
+            i = i + 1;
+        }
+        let b = (c <= 1) ? true : false;
+        this.setState({
+            lastQuestion:b
+        })
+    }
+
     handleSkipButton = () => {
-        if (this.questions[this.state.page].canSkip){
-            this.formOutputs[this.state.page]=10E15
-            this.handleChangePage(this.state.page + 1);
-        }else
+        if (this.questions[this.state.page].canSkip) {
+            this.formOutputs[this.state.page] = 10E15
+            let nextPage = this.lookForNextEditablePage(this.state.page);
+            if (nextPage != undefined) {
+                this.handleChangePage(nextPage);
+            }
+        } else
             //alert("This page can't be skipped.");
             Utility.showNotification("danger", "This page can't be skipped.");
     }
@@ -139,17 +182,17 @@ export default class ProviderRegisterForm extends React.Component {
 
     getMainRenderCard = () => {
         return <>
-        <div className="container col-sm-7">
-            <div className="card">
-                <div className="card-body">
-                    {this.getMainRenderComponent()}
-                </div>
+            <div className="container col-sm-7">
+                <div className="card">
+                    <div className="card-body">
+                        {this.getMainRenderComponent()}
+                    </div>
 
-                <div className="card-footer">
-                    <Progress completed={9 * (this.state.page)} />
+                    <div className="card-footer">
+                        <Progress completed={9 * (this.state.page)} />
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     }
     render() {
@@ -166,27 +209,27 @@ export default class ProviderRegisterForm extends React.Component {
                     }
                 </LoaderContext.Consumer>
 
-                
+
 
                 {this.state.page >= 2 ?
                     <div className="wrapper ">
                         {/* style={{ background: "#f1f1f1" }} */}
                         <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} />
                         <div className="main-panel">
-                        <OnBoardNavBar page={this.state.page} />
+                            <OnBoardNavBar page={this.state.page} />
                             <div className="content">
                                 <div className="container-fluid">
                                     {this.getMainRenderCard()}
                                 </div>
                             </div>
-                            <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} />
+                            <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion}/>
                         </div>
                     </div>
                     :
                     <>
                         <OnBoardNavBar page={this.state.page} />
                         <div className="wrapper"><br /> <br /><br />{this.getMainRenderCard()}</div>
-                        <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} />
+                        <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion}/>
                     </>
                 }
             </>

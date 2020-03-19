@@ -12,8 +12,8 @@ export default class OnBoardSideBar extends Component<Props, any> {
         return (
             <div>
                 {this.props.questions.map((value, index) => {
-                    let color = (arr[index] == undefined || (arr[index] == [] || arr[index][0] === []) ? "cyan" : arr[index]==10E15? "orange" : "green")
-                    let pageChangeStatus = (arr[index] == undefined || (arr[index] == [] || arr[index][0] === []) ? false : arr[index]==10E15? true : false)
+                    let color = (arr[index] === undefined || (arr[index] === [] || arr[index][0] === []) ? "cyan" : arr[index]==10E15? "orange" : "green")
+                    let pageChangeStatus = (arr[index] === undefined || (arr[index] === [] || arr[index][0] === []) ? false : arr[index]==10E15? true : false)
 
                     return <div style={{
                         cursor: "pointer"
