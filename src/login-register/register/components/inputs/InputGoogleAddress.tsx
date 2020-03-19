@@ -19,7 +19,8 @@ export default class InputGoogleAddress extends React.Component<props, any>{
         list: this.props.arr[this.props.page] === undefined ? [] : this.props.arr[this.props.page]
     }
     arr = this.props.arr;
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         if (this.state.list.length > 0) {
             this.setState({ data: null }, () => {
                 this.props.handleAdd(this.state.list);

@@ -22,7 +22,8 @@ export default class InputInformation extends React.Component<props, any>{
         }
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         this.props.handleAdd("read");
     }
     render() {

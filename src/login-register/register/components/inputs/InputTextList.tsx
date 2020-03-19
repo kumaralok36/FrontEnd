@@ -64,7 +64,8 @@ export default class InputTextList extends React.Component<props, any>{
         }
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         var listn = this.state.list;
         if (listn.length > 0) {
             this.setState({

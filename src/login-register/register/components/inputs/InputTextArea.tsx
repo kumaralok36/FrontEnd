@@ -25,7 +25,8 @@ export default class InputTextArea extends React.Component<props, any>{
         });
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         var datan = this.state.data;
         this.setState({
             data: undefined

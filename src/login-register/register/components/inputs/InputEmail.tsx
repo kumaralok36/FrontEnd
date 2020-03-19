@@ -27,7 +27,8 @@ export default class InputEmail extends React.Component<props, any>{
         });
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         var datan = this.state.data;
         var regex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 

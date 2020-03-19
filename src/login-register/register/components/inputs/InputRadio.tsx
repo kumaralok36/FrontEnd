@@ -48,7 +48,8 @@ export default class InputRadio extends React.Component<props, any>{
         })
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         var count = 0;
         for (var i = 0; i < this.state.data.length; i++)
             if (this.state.data[i] === true)

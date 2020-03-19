@@ -35,7 +35,8 @@ export default class InputText extends React.Component<props, any>{
         this.setState({ data: e.target.value });
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         var datan = this.state.data;
 
         this.setState({}, () => {

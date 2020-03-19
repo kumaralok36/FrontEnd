@@ -63,7 +63,8 @@ export default class InputFileList extends React.Component<props, any>{
 
     }
 
-    handleClick = () => {
+    handleClick = (event=undefined) => {
+        if(event) event.preventDefault();
         var filesn = this.state.files;
         var listn = this.state.list;
         var listfinal = [];
