@@ -18,9 +18,9 @@ import LoginRegisterRoute from 'login-register/LoginRegisterRoute';
 import ProviderDashboardRoutes from 'providers/ProviderDashboardRoutes';
 import AdminDahboardRoutes from 'admins/super/AdminDashboardRoutes';
 import HRDashboardRoutes from 'admins/hr/HRDashboardRoutes';
-import FirstPageProviderRegister from 'login-register/register/components/pages/FirstPageProviderRegister';
-import SecondPageProviderRegister from 'login-register/register/components/pages/SecondPageProviderRegister';
-import ThirdPageProviderRegister from 'login-register/register/components/pages/ThirdPageProviderRegister';
+import FirstPageProviderRegister from 'login-register/register/components/old-pages/FirstPageProviderRegister';
+import SecondPageProviderRegister from 'login-register/register/components/old-pages/SecondPageProviderRegister';
+import ThirdPageProviderRegister from 'login-register/register/components/old-pages/ThirdPageProviderRegister';
 import ProviderRegisterForm from 'login-register/register/ProviderRegisterForm';
 import ValidationRoute from 'validations/ValidationRoute';
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import FirstPageProviderRegister from './components/pages/FirstPageProviderRegister'
-import SecondPageProviderRegister from './components/pages/SecondPageProviderRegister'
-import ThirdPageProviderRegister from './components/pages/ThirdPageProviderRegister'
+import FirstPageProviderRegister from './components/old-pages/FirstPageProviderRegister'
+import SecondPageProviderRegister from './components/old-pages/SecondPageProviderRegister'
+import ThirdPageProviderRegister from './components/old-pages/ThirdPageProviderRegister'
 
 export default class ProviderRegisterForm extends Component {
     constructor(props){
