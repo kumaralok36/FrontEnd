@@ -21,7 +21,7 @@ import HRDashboardRoutes from 'admins/hr/HRDashboardRoutes';
 import FirstPageProviderRegister from 'login-register/register/components/pages/FirstPageProviderRegister';
 import SecondPageProviderRegister from 'login-register/register/components/pages/SecondPageProviderRegister';
 import ThirdPageProviderRegister from 'login-register/register/components/pages/ThirdPageProviderRegister';
-import ProviderRegisterForm from 'login-register/register/components/pages/ProviderRegisterForm';
+import ProviderRegisterForm from 'login-register/register/ProviderRegisterForm';
 import ValidationRoute from 'validations/ValidationRoute';
 
 class App extends React.Component {
