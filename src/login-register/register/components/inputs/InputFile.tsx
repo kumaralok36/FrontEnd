@@ -15,7 +15,7 @@ export default class InputFile extends React.Component<props, any>{
     }
 
     state = {
-        data: this.props.arr[this.props.page] === "" ? "" : this.props.arr[this.props.page]
+        data: this.props.arr[this.props.page] === undefined ? undefined : this.props.arr[this.props.page]
     }
     handleChange = (e) => {
         let files = e.target.files;
@@ -27,7 +27,7 @@ export default class InputFile extends React.Component<props, any>{
         }
     }
     getBrowseAgainLine = () => {
-        if (this.state.data !== "")
+        if (this.state.data !== undefined)
             return <p style={{ color: "red" }}>Browse again to select different file.</p>
 
     }
@@ -56,7 +56,7 @@ export default class InputFile extends React.Component<props, any>{
     handleClick = () => {
         var datan = this.state.data;
         this.setState({
-            data: ""
+            data: undefined
         }, () => {
             this.props.handleAdd(datan);
         })

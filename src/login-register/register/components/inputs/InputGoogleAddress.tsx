@@ -16,7 +16,7 @@ export default class InputGoogleAddress extends React.Component<props, any>{
     }
     state = {
         data: null,
-        list: this.props.arr[this.props.page] === "" ? [] : this.props.arr[this.props.page]
+        list: this.props.arr[this.props.page] === undefined ? [] : this.props.arr[this.props.page]
     }
     arr = this.props.arr;
     handleClick = () => {
@@ -26,7 +26,7 @@ export default class InputGoogleAddress extends React.Component<props, any>{
             })
         }
         else
-            this.props.handleAdd("");
+            this.props.handleAdd(undefined);
     }
 
 

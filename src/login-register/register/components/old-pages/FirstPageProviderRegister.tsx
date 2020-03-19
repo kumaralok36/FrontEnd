@@ -11,7 +11,7 @@ export default class FirstPageProviderRegister extends React.Component<props,any
 
     }
     state = {
-        email: "",
+        email: undefined,
         checked: "false"
     }
 

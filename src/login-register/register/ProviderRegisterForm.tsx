@@ -29,7 +29,7 @@ export default class ProviderRegisterForm extends React.Component {
     }
 
     state = {
-        data: "",
+        data: undefined,
         page: -1,
     }
     formOutputs = [];
@@ -44,7 +44,7 @@ export default class ProviderRegisterForm extends React.Component {
                 this.setLoaderState(false);
                 this.questions = data.data;
                 for (var i = 0; i < this.questions.length; i++)
-                    this.formOutputs.push("");
+                    this.formOutputs.push(undefined);
                 this.setState({
                     page: 0
                 })
@@ -56,7 +56,7 @@ export default class ProviderRegisterForm extends React.Component {
     }
 
     handleAdd = (data1) => {
-        if (data1 === "" || data1 === [])
+        if (data1 === undefined || data1 === [])
             //alert("Cannot be empty");
             Utility.showNotification("danger", "Field cannot be empty.")
         else {

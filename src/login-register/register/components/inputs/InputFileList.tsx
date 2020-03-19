@@ -9,8 +9,8 @@ export default class InputFileList extends React.Component<props, any>{
         super(props);
         this.state = {
             data: "File Name",
-            list: this.props.arr[this.props.page] === "" ? [] : this.props.arr[this.props.page][1],
-            files: this.props.arr[this.props.page] === "" ? [] : this.props.arr[this.props.page][0],
+            list: this.props.arr[this.props.page] === undefined ? [] : this.props.arr[this.props.page][1],
+            files: this.props.arr[this.props.page] === undefined ? [] : this.props.arr[this.props.page][0],
         }
         console.log(this.state);
     }
@@ -28,7 +28,7 @@ export default class InputFileList extends React.Component<props, any>{
             console.log(e.target.result);
             this.state.list.push(files[0]);
             this.state.files.push(e.target.result)
-            this.setState({ data: "" });
+            this.setState({ data: undefined });
         }
     }
 
@@ -70,12 +70,12 @@ export default class InputFileList extends React.Component<props, any>{
         listfinal.push(filesn);
         listfinal.push(listn);
         this.setState({
-            data: ""
+            data: undefined
         }, () => {
             if (listn.length > 0)
                 this.props.handleAdd(listfinal);
             else
-                this.props.handleAdd("");
+                this.props.handleAdd(undefined);
         })
     }
     render() {

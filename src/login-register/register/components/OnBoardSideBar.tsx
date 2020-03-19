@@ -12,7 +12,7 @@ export default class OnBoardSideBar extends Component<Props, any> {
         return (
             <div>
                 {this.props.questions.map((value, index) => {
-                    let ansStatus = (arr[index] == "" || arr[index] == [] || arr[index][0] === []);
+                    let ansStatus = (arr[index] == undefined || arr[index] == [] || arr[index][0] === []);
                     return <li className={ansStatus ? "btn btn-info" : "btn btn-success"} 
                             onClick={() => {
                                 if(ansStatus)

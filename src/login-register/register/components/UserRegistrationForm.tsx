@@ -7,12 +7,12 @@ import LoaderContext from 'utility/LoaderContext';
 export default class UserRegistrationForm extends Component {
     state = {
         registerForm: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
+            firstName: undefined,
+            lastName: undefined,
+            email: undefined,
+            password: undefined,
             gender: 0,
-            phone: "",
+            phone: undefined,
             debug: false
         }
     }

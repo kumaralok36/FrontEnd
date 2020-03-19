@@ -18,7 +18,7 @@ export default class InputText extends React.Component<props, any>{
     }
 
     // state={
-    //     data:this.props.arr[this.props.page]===""?"":this.props.arr[this.props.page]
+    //     data:this.props.arr[this.props.page]===undefined?undefined:this.props.arr[this.props.page]
     // }
 
     callback = (skip: boolean) => {

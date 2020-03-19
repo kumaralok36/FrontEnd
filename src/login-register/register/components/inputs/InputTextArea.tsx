@@ -16,7 +16,7 @@ export default class InputTextArea extends React.Component<props, any>{
     }
 
     state = {
-        data: ""
+        data: undefined
     }
 
     handleChange = (e) => {
@@ -28,7 +28,7 @@ export default class InputTextArea extends React.Component<props, any>{
     handleClick = () => {
         var datan = this.state.data;
         this.setState({
-            data: ""
+            data: undefined
         }, () => {
             this.props.handleAdd(datan);
         })
@@ -50,7 +50,7 @@ export default class InputTextArea extends React.Component<props, any>{
                     <div className="form-group">
                         <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
                         <textarea ref={(input)=>{this.input=input}}
-                        className="form-control" value={this.props.arr[this.props.page] === "" ? this.state.data : this.props.arr[this.props.page]} onChange={this.handleChange}></textarea>
+                        className="form-control" value={this.props.arr[this.props.page] === undefined ? this.state.data : this.props.arr[this.props.page]} onChange={this.handleChange}></textarea>
                     </div>
                 </form>
 

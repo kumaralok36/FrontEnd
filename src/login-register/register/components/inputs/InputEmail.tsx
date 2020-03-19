@@ -5,7 +5,7 @@ interface props {
     callbackNav: (callback: (skip: boolean) => any) => any
 }
 export default class InputEmail extends React.Component<props, any>{
-    
+
     input:any;
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ export default class InputEmail extends React.Component<props, any>{
                     <div className="form-group">
                         <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
                         <input ref={(input)=>{this.input=input}}
-                        type="text" className="form-control" value={this.arr[this.props.page] === "" ? this.state.data : this.arr[this.props.page]} onChange={this.handleChange} /><br />
+                        type="text" className="form-control" value={this.arr[this.props.page] === undefined ? this.state.data : this.arr[this.props.page]} onChange={this.handleChange} /><br />
                     </div>
                 </form>
             </div>

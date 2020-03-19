@@ -11,7 +11,7 @@ export default class InputRadio extends React.Component<props, any>{
         super(props);
 
         this.state = {
-            data: this.props.arr[this.props.page] === "" ? [false, false, false] : this.props.arr[this.props.page]
+            data: this.props.arr[this.props.page] === undefined ? [false, false, false] : this.props.arr[this.props.page]
         }
     }
 
@@ -57,7 +57,7 @@ export default class InputRadio extends React.Component<props, any>{
         if (count > 0)
             this.props.handleAdd(this.state.data);
         else
-            this.props.handleAdd("");
+            this.props.handleAdd(undefined);
 
 
 
