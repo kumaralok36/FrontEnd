@@ -15,7 +15,7 @@ export default class OnBoardSideBar extends Component<Props, any> {
                     let ansStatus = (arr[index] == "" || arr[index] == [] || arr[index][0] === []);
                     return <li className={ansStatus ? "btn btn-info" : "btn btn-success"} 
                             onClick={() => {
-                                if(!ansStatus)
+                                if(ansStatus)
                                     this.props.handleChangePage(index)
                             }} style={{ marginTop: "2%", color: "black", width: "100%" }}><b>{value.formName}</b></li>
                 })}

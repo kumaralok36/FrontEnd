@@ -5,6 +5,7 @@ interface props {
     callbackNav: (callback: (skip: boolean) => any) => any
 }
 export default class InputPhone extends React.Component<props, any>{
+    input:any;
     constructor(props) {
         super(props);
         this.state = {
@@ -14,6 +15,7 @@ export default class InputPhone extends React.Component<props, any>{
 
     componentDidMount() {
         this.props.callbackNav(this.callback);
+        this.input.focus();
     }
 
     // state={
@@ -50,7 +52,8 @@ export default class InputPhone extends React.Component<props, any>{
                 <form onSubmit={this.handleClick} >
                     <div className="form-group">
                         <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
-                        <input type="tel" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e) => this.handleChange(e)} /><br /><br />
+                        <input ref={(input)=>{this.input=input}}
+                        type="tel" className="form-control" placeholder="Your answer" value={this.state.data} onChange={(e) => this.handleChange(e)} /><br /><br />
                     </div>
                 </form>
             </div>

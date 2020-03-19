@@ -6,7 +6,7 @@ interface props {
     callbackNav: (callback: (skip: boolean) => any) => any
 }
 export default class InputTextList extends React.Component<props, any>{
-
+    input:any;
     constructor(props) {
         super(props);
 
@@ -15,6 +15,7 @@ export default class InputTextList extends React.Component<props, any>{
 
     componentDidMount() {
         this.props.callbackNav(this.callback);
+        this.input.focus();
     }
 
     state = {
@@ -86,7 +87,8 @@ export default class InputTextList extends React.Component<props, any>{
                     <div className="form-group">
                         <label style={{ color: "black" }} ><b>{this.props.label}</b></label><br /><br />
                         {this.getList()}
-                        <input type="text" className="form-control" value={this.state.data} onChange={this.handleChange} /><br />
+                        <input ref={(input)=>{this.input=input}}
+                        type="text" className="form-control" value={this.state.data} onChange={this.handleChange} /><br />
                         <input type="button" className="btn btn-info" value="Add" onClick={() => this.addToList(this.state.data)} />
                     </div>
                 </form>

@@ -5,14 +5,14 @@ interface props {
     callbackNav: (callback: (skip: boolean) => any) => any
 }
 export default class InputTextArea extends React.Component<props, any>{
-
+    input:any;
     constructor(props) {
         super(props);
-
     }
 
     componentDidMount() {
         this.props.callbackNav(this.callback);
+        this.input.focus();
     }
 
     state = {
@@ -49,7 +49,8 @@ export default class InputTextArea extends React.Component<props, any>{
                 <form onSubmit={this.handleClick}>
                     <div className="form-group">
                         <label style={{ color: "black" }}><b>{this.props.label}</b></label><br /><br />
-                        <textarea className="form-control" value={this.props.arr[this.props.page] === "" ? this.state.data : this.props.arr[this.props.page]} onChange={this.handleChange}></textarea>
+                        <textarea ref={(input)=>{this.input=input}}
+                        className="form-control" value={this.props.arr[this.props.page] === "" ? this.state.data : this.props.arr[this.props.page]} onChange={this.handleChange}></textarea>
                     </div>
                 </form>
 

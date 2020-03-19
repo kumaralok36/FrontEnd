@@ -20,6 +20,8 @@ import HttpCall from 'utility/HttpCall';
 import BackendUrls from 'utility/BackendUrls';
 import ProviderCalls from 'utility/subCalls/ProviderCalls';
 import OnBoardSideBar from './components/OnBoardSideBar';
+import OnBoardFooter from './components/OnBoardFooter';
+import OnBoardNavBar from './components/OnBoardNavBar';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -89,11 +91,15 @@ export default class ProviderRegisterForm extends React.Component {
 
     myCallback: (skip: boolean) => any;
 
+    callFromFooter = (skip: boolean) => {
+        this.myCallback(skip)
+    }
+
     callBackNav = (callback: (skip: boolean) => any) => {
         this.myCallback = callback;
     }
 
-    getComponent = () => {
+    getMainRenderComponent = () => {
         if (this.state.page >= this.questions.length || this.state.page < 0) {
             return <></>
         }
@@ -131,10 +137,11 @@ export default class ProviderRegisterForm extends React.Component {
     }
 
     getMainRenderCard = () => {
-        return <div className="container col-sm-7">
+        return <>
+        <div className="container col-sm-7">
             <div className="card">
                 <div className="card-body">
-                    {this.getComponent()}
+                    {this.getMainRenderComponent()}
                 </div>
 
                 <div className="card-footer">
@@ -142,6 +149,7 @@ export default class ProviderRegisterForm extends React.Component {
                 </div>
             </div>
         </div>
+        </>
     }
     render() {
         console.log("percent comp" + 9 * (this.state.page));
@@ -156,55 +164,30 @@ export default class ProviderRegisterForm extends React.Component {
                         }
                     }
                 </LoaderContext.Consumer>
-                <nav className="navbar navbar-light navbar-expand-lg navbar-absolute fixed-top">
-                    <div className="container">
-                        <span className="navbar-text">
-                            Therapy on Demand
-    </span>
-                        {this.state.page >= 2 &&
-                            <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="navbar-toggler-icon icon-bar"></span>
-                                <span className="navbar-toggler-icon icon-bar"></span>
-                                <span className="navbar-toggler-icon icon-bar"></span>
-                            </button>
-                        }
-                    </div>
-                </nav>
+
+                
 
                 {this.state.page >= 2 ?
                     <div className="wrapper ">
                         {/* style={{ background: "#f1f1f1" }} */}
                         <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} />
                         <div className="main-panel">
+                        <OnBoardNavBar page={this.state.page} />
                             <div className="content">
                                 <div className="container-fluid">
                                     {this.getMainRenderCard()}
                                 </div>
                             </div>
+                            <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} />
                         </div>
                     </div>
                     :
-                    <div className="wrapper"><br /> <br /><br />{this.getMainRenderCard()}</div>
+                    <>
+                        <OnBoardNavBar page={this.state.page} />
+                        <div className="wrapper"><br /> <br /><br />{this.getMainRenderCard()}</div>
+                        <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} />
+                    </>
                 }
-
-
-                <div style={{
-                    position: "fixed",
-                    left: 0,
-                    bottom: 0,
-                    width: "100%",
-                    backgroundColor: "white",
-                    padding: "15px"
-                }}>
-                    <div className="container">
-                        <button className="btn btn-info pull-right" onClick={() => {
-                            this.myCallback(false);
-                        }}>Submit</button>
-                        {(this.state.page >= 0 && this.questions[this.state.page]["canSkip"]) && <button className="btn btn-btn-default pull-right" onClick={this.handleSkipButton}>Skip</button>}
-                    </div>
-                </div>
-
             </>
 
 
