@@ -1,24 +1,25 @@
 import React from 'react';
-import InputText from './components/InputText';
+import InputText from './components/inputs/InputText';
 import { ProviderRegistrationQuestions } from 'utility/provider-onboard/ProviderRegistrationQuestions';
 import { ProviderQuestionTypes } from 'utility/provider-onboard/ProviderQuestionTypes';
-import InputCheckbox from './components/InputCheckbox';
-import InputGoogleAddress from './components/InputGoogleAddress';
-import InputEmail from './components/InputEmail';
-import InputTextList from './components/InputTextList';
-import InputTextArea from './components/InputTextArea';
-import InputFile from './components/InputFile';
-import InputFileList from './components/InputFileList';
-import InputInformation from './components/InputInformation';
+import InputCheckbox from './components/inputs/InputCheckbox';
+import InputGoogleAddress from './components/inputs/InputGoogleAddress';
+import InputEmail from './components/inputs/InputEmail';
+import InputTextList from './components/inputs/InputTextList';
+import InputTextArea from './components/inputs/InputTextArea';
+import InputFile from './components/inputs/InputFile';
+import InputFileList from './components/inputs/InputFileList';
+import InputInformation from './components/inputs/InputInformation';
 import Progress from 'react-progressbar'
-import InputRadio from './components/InputRadio';
+import InputRadio from './components/inputs/InputRadio';
 import { timingSafeEqual } from 'crypto';
 import Utility from 'utility/Utility';
-import InputPhone from './components/InputPhone';
+import InputPhone from './components/inputs/InputPhone';
 import LoaderContext from 'utility/LoaderContext';
 import HttpCall from 'utility/HttpCall';
 import BackendUrls from 'utility/BackendUrls';
 import ProviderCalls from 'utility/subCalls/ProviderCalls';
+import OnBoardSideBar from './components/OnBoardSideBar';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ export default class ProviderRegisterForm extends React.Component {
         data: "",
         page: -1,
     }
-    formOutput = [];
+    formOutputs = [];
     questions = [];
 
     setLoaderState: (b: boolean) => any;
@@ -41,9 +42,9 @@ export default class ProviderRegisterForm extends React.Component {
                 this.setLoaderState(false);
                 this.questions = data.data;
                 for (var i = 0; i < this.questions.length; i++)
-                    this.formOutput.push("");
+                    this.formOutputs.push("");
                 this.setState({
-                    page:0
+                    page: 0
                 })
             }, (err) => {
                 console.log(err)
@@ -62,9 +63,9 @@ export default class ProviderRegisterForm extends React.Component {
                 page: this.state.page !== 11 ? this.state.page + 1 : this.state.page,
                 data: data1
             }, () => {
-                this.formOutput[mpage] = data1;
+                this.formOutputs[mpage] = data1;
                 this.setState({ data: this.state.data })
-                console.log(this.formOutput);
+                console.log(this.formOutputs);
             })
         }
     }
@@ -77,21 +78,7 @@ export default class ProviderRegisterForm extends React.Component {
             this.setState({ page: i });
     }
 
-    getSidebarList = (arr) => {
-        var arrQuest = this.questions;
-        return (
-            <div>
-                {this.questions.map((value, index) => {
-                    let ansStatus = (arr[index] == "" || arr[index] == [] || arr[index][0] === []);
-                    return <li className={ansStatus ? "btn btn-info" : "btn btn-success"} 
-                            onClick={() => {
-                                if(!ansStatus)
-                                    this.handleChangePage(index)
-                            }} style={{ marginTop: "2%", color: "black", width: "100%" }}><b>{value.formName}</b></li>
-                })}
-            </div>
-        )
-    }
+
     handleSkipButton = () => {
         if (this.questions[this.state.page].canSkip)
             this.handleChangePage(this.state.page + 1);
@@ -107,42 +94,55 @@ export default class ProviderRegisterForm extends React.Component {
     }
 
     getComponent = () => {
-        if(this.state.page>=this.questions.length || this.state.page<0){
+        if (this.state.page >= this.questions.length || this.state.page < 0) {
             return <></>
         }
 
         var question = this.questions[this.state.page];
 
         if (question.inputType === ProviderQuestionTypes.EmailField)
-            return <InputEmail handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputEmail handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.Information)
             return <InputInformation handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} information={question.value} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.PhoneField)
-            return <InputPhone handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputPhone handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.TextField)
-            return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputText handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.TextList)
-            return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.MapAddress)
-            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.RadioButton)
-            return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.File)
-            return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.FileList)
-            return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
         else if (question.inputType === ProviderQuestionTypes.CheckBox)
-            return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.formOutput} callbackNav={this.callBackNav} />
+            return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
     }
 
+    getMainRenderCard = () => {
+        return <div className="container col-sm-7">
+            <div className="card">
+                <div className="card-body">
+                    {this.getComponent()}
+                </div>
+
+                <div className="card-footer">
+                    <Progress completed={9 * (this.state.page)} />
+                </div>
+            </div>
+        </div>
+    }
     render() {
         console.log("percent comp" + 9 * (this.state.page));
         return (
@@ -161,54 +161,34 @@ export default class ProviderRegisterForm extends React.Component {
                         <span className="navbar-text">
                             Therapy on Demand
     </span>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="navbar-toggler-icon icon-bar"></span>
-                            <span className="navbar-toggler-icon icon-bar"></span>
-                            <span className="navbar-toggler-icon icon-bar"></span>
-                        </button>
+                        {this.state.page >= 2 &&
+                            <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="navbar-toggler-icon icon-bar"></span>
+                                <span className="navbar-toggler-icon icon-bar"></span>
+                                <span className="navbar-toggler-icon icon-bar"></span>
+                            </button>
+                        }
                     </div>
                 </nav>
 
-
-                <div className="wrapper ">
-                    {/* style={{ background: "#f1f1f1" }} */}
-                    <div className="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar-3.jpg">
-                        <div className="logo">
-                            <a href="/" className="simple-text logo-normal">
-                                Therapy on Demand
-                        </a>
-                        </div>
-                        <div className="sidebar-wrapper">
-                            <ul className="nav nav-pills nav-stacked ">
-                                <div className="row-contents" style={{ padding: "6%" }}>
-                                    {this.getSidebarList(this.formOutput)}
+                {this.state.page >= 2 ?
+                    <div className="wrapper ">
+                        {/* style={{ background: "#f1f1f1" }} */}
+                        <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} />
+                        <div className="main-panel">
+                            <div className="content">
+                                <div className="container-fluid">
+                                    {this.getMainRenderCard()}
                                 </div>
-                            </ul><br></br>
-                        </div>
-                    </div>
-
-                    <div className="main-panel">
-                        <div className="content">
-                            <div className="container-fluid">
-                                <div className="container col-sm-7">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            {this.getComponent()}
-                                        </div>
-
-                                        <div className="card-footer">
-                                            <Progress completed={9 * (this.state.page)} />
-                                        </div>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
+                    :
+                    <div className="wrapper"><br /> <br /><br />{this.getMainRenderCard()}</div>
+                }
 
-                </div>
+
                 <div style={{
                     position: "fixed",
                     left: 0,
@@ -221,7 +201,7 @@ export default class ProviderRegisterForm extends React.Component {
                         <button className="btn btn-info pull-right" onClick={() => {
                             this.myCallback(false);
                         }}>Submit</button>
-                        <button className="btn btn-btn-default pull-right" onClick={this.handleSkipButton}>Skip</button>
+                        {(this.state.page >= 0 && this.questions[this.state.page]["canSkip"]) && <button className="btn btn-btn-default pull-right" onClick={this.handleSkipButton}>Skip</button>}
                     </div>
                 </div>
 

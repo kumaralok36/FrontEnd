@@ -1,6 +1,6 @@
 
 import React from 'react';
-import InputFile from '../InputFile';
+import InputFile from '../inputs/InputFile';
 
 export default class ThirdPageProviderRegister extends React.Component {
     constructor(props) {
