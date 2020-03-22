@@ -24,6 +24,7 @@ import OnBoardFooter from './components/OnBoardFooter';
 import OnBoardNavBar from './components/OnBoardNavBar';
 import mHistory from 'mHistory';
 import InputGoogleAaddess2 from './components/inputs/InputGoogleAddress2';
+import InputGoogleMap from './components/inputs/InputGoogleMap';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -168,8 +169,8 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.MapAddress)
-            // return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
-              return <InputGoogleAaddess2/>
+            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
+            //   return 
         else if (question.inputType === ProviderQuestionTypes.RadioButton)
             return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
