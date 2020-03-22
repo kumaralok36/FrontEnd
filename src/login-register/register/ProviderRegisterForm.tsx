@@ -23,6 +23,7 @@ import OnBoardSideBar from './components/OnBoardSideBar';
 import OnBoardFooter from './components/OnBoardFooter';
 import OnBoardNavBar from './components/OnBoardNavBar';
 import mHistory from 'mHistory';
+import InputGoogleAaddess2 from './components/inputs/InputGoogleAddress2';
 
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
@@ -41,20 +42,21 @@ export default class ProviderRegisterForm extends React.Component {
 
     componentDidMount() {
         this.setLoaderState(true);
-        HttpCall.callUrl(ProviderCalls.OnBoard.Get.url
-            , "GET", undefined, (data) => {
-                this.setLoaderState(false);
-                this.questions = data.data;
+        this.setLoaderState(false);
+                this.questions = ProviderRegistrationQuestions;
                 for (var i = 0; i < this.questions.length; i++)
                     this.formOutputs.push(undefined);
                 this.setState({
                     page: 0
                 })
                 console.log("Total Questions : ", this.questions.length, (11 + 1) % 12)
-            }, (err) => {
-                console.log(err)
-                this.setLoaderState(false);
-            });
+        // HttpCall.callUrl(ProviderCalls.OnBoard.Get.url
+        //     , "GET", undefined, (data) => {
+                
+        //     }, (err) => {
+        //         console.log(err)
+        //         this.setLoaderState(false);
+        //     });
 
     }
 
@@ -166,8 +168,8 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputTextList handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.MapAddress)
-            return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
-
+            // return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
+              return <InputGoogleAaddess2/>
         else if (question.inputType === ProviderQuestionTypes.RadioButton)
             return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
