@@ -81,7 +81,7 @@ export default class InputGoogleAddress extends React.Component<props, any>{
             <div className="card-body">
                 <form onSubmit={(event) => {
                     event.preventDefault();
-                    this.addToList();
+                    // this.addToList();
                 }} >
                     <div className="form-group">
                         <label style={{ color: "black" }}><b>{this.props.label}</b></label>

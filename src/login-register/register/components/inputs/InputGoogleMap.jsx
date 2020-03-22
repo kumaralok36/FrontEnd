@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Geocode from "react-geocode";
 import Autocomplete from 'react-google-autocomplete';
-Geocode.setApiKey( "AIzaSyDDGLzjJ_1MmXB_54zqHguerZQXGKicw8k" );
+
+const googleAPiKey="AIzaSyDDGLzjJ_1MmXB_54zqHguerZQXGKicw8k"
+Geocode.setApiKey( googleAPiKey );
 Geocode.enableDebug();
 
 class InputGoogleMap extends Component{
@@ -126,7 +128,9 @@ class InputGoogleMap extends Component{
 	 * @param event
 	 */
 	onChange = ( event ) => {
-		this.setState({ [event.target.name]: event.target.value });
+		this.setState({ [event.target.name]: event.target.value }, ()=>{
+			this.props.setCurrentAddress(this.state)
+		});
 	};
 	/**
 	 * This Event triggers when the marker window is closed
@@ -168,6 +172,8 @@ class InputGoogleMap extends Component{
 						lat: newLat,
 						lng: newLng
 					},
+				}, ()=>{
+					this.props.setCurrentAddress(this.state)
 				} )
 			},
 			error => {
@@ -252,9 +258,11 @@ class InputGoogleMap extends Component{
 		);
 		let map;
 		if( this.props.center.lat !== undefined ) {
+			//googleAPiKey
+			let googleMapUrl=`https://maps.googleapis.com/maps/api/js?key=${googleAPiKey}&libraries=places`
 			map = <div>
 				<AsyncMap
-					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGe5vjL8wBmilLzoJ0jNIwe9SAuH2xS_0&libraries=places"
+					googleMapURL={googleMapUrl}
 					loadingElement={
 						<div style={{ height: `100%` }} />
 					}
