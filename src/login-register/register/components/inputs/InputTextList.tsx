@@ -78,7 +78,7 @@ export default class InputTextList extends React.Component<props, any>{
             Utility.showNotification("danger", "List cannot be empty");
     }
     render() {
-        console.log(this.state.list)
+        //console.log(this.state.list)
         return (
             <div className="card-body">
                 <form style={{ marginTop: "4%" }} onSubmit={(event) => {

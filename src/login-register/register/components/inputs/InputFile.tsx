@@ -23,7 +23,7 @@ export default class InputFile extends React.Component<props, any>{
         let reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = (e) => {
-            console.log(e.target.result);
+            //console.log(e.target.result);
             this.setState({ data: files[0].name });
         }
     }

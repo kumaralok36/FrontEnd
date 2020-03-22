@@ -9,5 +9,6 @@ export enum ProviderQuestionTypes{
     File,
     FileList,
     MapAddress,
-    PhoneField
+    PhoneField,
+    Passwords
 }

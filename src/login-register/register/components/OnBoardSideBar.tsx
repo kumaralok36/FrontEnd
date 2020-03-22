@@ -31,7 +31,7 @@ export default class OnBoardSideBar extends Component<Props, any> {
                         <img src="/assets/img/d-side.png" style={{background: color, height:"45px", objectFit:"contain"}}/>
                         </div>
 
-                        <div className="col-9 h-45 my-auto text-capitalize">{value.formName}</div>
+                        <div className="col-9 h-45 my-auto">{value.shortName}</div>
                     </div>
                     // return <li className={ansStatus ? "btn btn-info" : "btn btn-success"} 
                     //         onClick={() => {

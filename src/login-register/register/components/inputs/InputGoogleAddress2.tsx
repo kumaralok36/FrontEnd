@@ -11,7 +11,7 @@ export default function InputGoogleAaddess2(){
     })
     const handleSelect=async (value)=>{
         const results =await geocodeByAddress(value);
-        console.log(results);
+        //console.log(results);
          const latLng=await getLatLng(results[0]);
          setAddress(value);
          setCoordinates(latLng);

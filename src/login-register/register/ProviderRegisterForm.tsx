@@ -1,4 +1,5 @@
 import React from 'react';
+import InputPassword from './components/inputs/InputPassword';
 import InputText from './components/inputs/InputText';
 import { ProviderRegistrationQuestions } from 'utility/provider-onboard/ProviderRegistrationQuestions';
 import { ProviderQuestionTypes } from 'utility/provider-onboard/ProviderQuestionTypes';
@@ -26,15 +27,17 @@ import mHistory from 'mHistory';
 import InputGoogleAaddess2 from './components/inputs/InputGoogleAddress2';
 import InputGoogleMap from './components/inputs/InputGoogleMap';
 
+
+const SESSION_TOKEN="onboardsessiontoken";
 export default class ProviderRegisterForm extends React.Component {
     constructor(props) {
         super(props);
     }
-
+    sessionToken:string
     state = {
         data: undefined,
         page: -1,
-        lastQuestion:false
+        lastQuestion: false
     }
     formOutputs = [];
     questions = [];
@@ -43,21 +46,20 @@ export default class ProviderRegisterForm extends React.Component {
 
     componentDidMount() {
         this.setLoaderState(true);
-        this.setLoaderState(false);
-                this.questions = ProviderRegistrationQuestions;
+        HttpCall.callUrl(ProviderCalls.OnBoard.Get.url
+            , "GET", undefined, (data) => {
+                this.setLoaderState(false);
+                this.questions = data.data;
                 for (var i = 0; i < this.questions.length; i++)
                     this.formOutputs.push(undefined);
                 this.setState({
                     page: 0
                 })
                 console.log("Total Questions : ", this.questions.length, (11 + 1) % 12)
-        // HttpCall.callUrl(ProviderCalls.OnBoard.Get.url
-        //     , "GET", undefined, (data) => {
-                
-        //     }, (err) => {
-        //         console.log(err)
-        //         this.setLoaderState(false);
-        //     });
+            }, (err) => {
+                console.log(err)
+                this.setLoaderState(false);
+            });
 
     }
 
@@ -69,16 +71,50 @@ export default class ProviderRegisterForm extends React.Component {
             var mpage = this.state.page;
             this.formOutputs[mpage] = data1;
             this.updateIsLastInput();
-            let nextPage = this.lookForNextEditablePage(this.state.page);
-            if (nextPage != undefined) {
-                this.setState({
-                    page: nextPage,
-                }, () => {
-
+            console.log("Updated Data", this.formOutputs)
+            if(this.state.page==0){
+                this.moveToNextPage()
+            }else if (this.state.page == 1) {
+                this.setLoaderState(true);
+                HttpCall.callUrl(ProviderCalls.OnBoard.Set.url, "POST", {
+                    email:this.formOutputs[0]
+                }, (data)=>{
+                    this.setLoaderState(false);
+                    console.log("Success Email : ", data)
+                    this.sessionToken = data.data[SESSION_TOKEN];
+                    this.moveToNextPage();
+                }, (err)=>{
+                    this.setLoaderState(false);
+                    Utility.showErrorMessage("Something Went Wrong!");
                 })
-            } else {
-                this.saveAllAndRedirect();
+            }else if(this.state.page > 1){
+                this.setLoaderState(true);
+                HttpCall.callUrl(ProviderCalls.OnBoard.Set.url, "POST", {
+                    [this.questions[this.state.page].formData]:this.formOutputs[this.state.page]
+                }, (data)=>{
+                    this.setLoaderState(false);
+                    console.log("Success Call : ", data)
+                    this.moveToNextPage();
+                }, (error)=>{
+                    this.setLoaderState(false);
+                    console.error("Error Call : ", error)
+                    Utility.showErrorMessage("Something Went Wrong!");
+                }, undefined, {
+                    [SESSION_TOKEN]:this.sessionToken
+                })
             }
+        }
+    }
+    moveToNextPage = () => {
+        let nextPage = this.lookForNextEditablePage(this.state.page);
+        if (nextPage != undefined) {
+            this.setState({
+                page: nextPage,
+            }, () => {
+
+            })
+        } else {
+            this.saveAllAndRedirect();
         }
     }
 
@@ -104,23 +140,23 @@ export default class ProviderRegisterForm extends React.Component {
                 break;
             i = (i + 1) % n;
         }
-        console.log("Next Page : ", (i == index) ? undefined : i);
+        // console.log("Next Page : ", (i == index) ? undefined : i);
         return (i == index) ? undefined : i;
     }
 
-    updateIsLastInput = ()=>{
+    updateIsLastInput = () => {
         let n = this.questions.length;
         let i = 0;
         let c = 0;
-        while (i<n) {
-            if(this.formOutputs[i] === undefined || this.formOutputs[i] === 10E15){
+        while (i < n) {
+            if (this.formOutputs[i] === undefined || this.formOutputs[i] === 10E15) {
                 c++;
             }
             i = i + 1;
         }
         let b = (c <= 1) ? true : false;
         this.setState({
-            lastQuestion:b
+            lastQuestion: b
         })
     }
 
@@ -170,7 +206,7 @@ export default class ProviderRegisterForm extends React.Component {
 
         else if (question.inputType === ProviderQuestionTypes.MapAddress)
             return <InputGoogleAddress handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
-            //   return 
+        //   return 
         else if (question.inputType === ProviderQuestionTypes.RadioButton)
             return <InputRadio values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
@@ -181,6 +217,8 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
         else if (question.inputType === ProviderQuestionTypes.CheckBox)
             return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
+        else if (question.inputType === ProviderQuestionTypes.Passwords)
+            return <InputPassword handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
     }
 
     getMainRenderCard = () => {
@@ -199,7 +237,7 @@ export default class ProviderRegisterForm extends React.Component {
         </>
     }
     render() {
-        console.log("percent comp" + 9 * (this.state.page));
+        // console.log("percent comp" + 9 * (this.state.page));
         return (
             <>
 
@@ -217,7 +255,7 @@ export default class ProviderRegisterForm extends React.Component {
                 {this.state.page >= 2 ?
                     <div className="wrapper ">
                         {/* style={{ background: "#f1f1f1" }} */}
-                        <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} page={this.state.page}/>
+                        <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} page={this.state.page} />
                         <div className="main-panel">
                             <OnBoardNavBar page={this.state.page} />
                             <div className="content">
@@ -225,14 +263,14 @@ export default class ProviderRegisterForm extends React.Component {
                                     {this.getMainRenderCard()}
                                 </div>
                             </div>
-                            <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion}/>
+                            <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion} />
                         </div>
                     </div>
                     :
                     <>
                         <OnBoardNavBar page={this.state.page} />
                         <div className="wrapper"><br /> <br /><br />{this.getMainRenderCard()}</div>
-                        <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion}/>
+                        <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion} />
                     </>
                 }
             </>

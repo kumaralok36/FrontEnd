@@ -6,7 +6,7 @@ export default class HttpCall {
         accountToken: 513,
         sessionToken: 552,
     }
-    static callUrl(path: string, method: string, body: any, successCallback: (data: any) => any, errorCallback: (data: any) => any, formData: FormData = undefined) {
+    static callUrl(path: string, method: string, body: any, successCallback: (data: any) => any, errorCallback: (data: any) => any, formData: FormData = undefined, externalHeaders:any = {}) {
         path = BackendUrls.formUrl(path);
         if (formData) {
             //"Content-Type": 'multipart/form-data',
@@ -42,8 +42,10 @@ export default class HttpCall {
         } else {
             var headers = {
                 ...Utility.getHeader(),
+                ...externalHeaders,
                 "Content-Type": "application/json; charset=UTF-8",
             };
+
         }
 
         fetch(path, {

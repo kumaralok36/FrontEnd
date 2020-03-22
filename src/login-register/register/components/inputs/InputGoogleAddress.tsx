@@ -70,13 +70,13 @@ export default class InputGoogleAddress extends React.Component<props, any>{
             //  this.setState({
             //      data:this.state.data
             //  },()=>{
-            //     console.log(this.state.data);
+            //     //console.log(this.state.data);
             //  })
 
         }
     }
     render() {
-        console.log("list address " + this.state.list.place);
+        //console.log("list address " + this.state.list.place);
         return (
             <div className="card-body">
                 <form onSubmit={(event) => {

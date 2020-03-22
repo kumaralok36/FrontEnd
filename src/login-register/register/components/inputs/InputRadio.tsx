@@ -54,7 +54,7 @@ export default class InputRadio extends React.Component<props, any>{
         for (var i = 0; i < this.state.data.length; i++)
             if (this.state.data[i] === true)
                 count++;
-        console.log(count);
+        //console.log(count);
         if (count > 0)
             this.props.handleAdd(this.state.data);
         else

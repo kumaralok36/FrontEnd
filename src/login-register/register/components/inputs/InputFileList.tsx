@@ -13,7 +13,7 @@ export default class InputFileList extends React.Component<props, any>{
             list: this.props.arr[this.props.page] === undefined || isNumber(this.props.arr[this.props.page])? [] : this.props.arr[this.props.page][1],
             files: this.props.arr[this.props.page] === undefined || isNumber(this.props.arr[this.props.page])? [] : this.props.arr[this.props.page][0],
         }
-        console.log(this.state);
+        //console.log(this.state);
     }
 
     componentDidMount() {
@@ -26,7 +26,7 @@ export default class InputFileList extends React.Component<props, any>{
         let reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = (e) => {
-            console.log(e.target.result);
+            //console.log(e.target.result);
             this.state.list.push(files[0]);
             this.state.files.push(e.target.result)
             this.setState({ data: undefined });

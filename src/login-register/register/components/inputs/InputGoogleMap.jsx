@@ -38,7 +38,7 @@ class InputGoogleMap extends Component{
 				      area = this.getArea( addressArray ),
 				      state = this.getState( addressArray );
 
-				console.log( 'city', city, area, state );
+				//console.log( 'city', city, area, state );
 
 				this.setState( {
 					address: ( address ) ? address : '',
@@ -187,7 +187,7 @@ class InputGoogleMap extends Component{
 	 * @param place
 	 */
 	onPlaceSelected = ( place ) => {
-		console.log( 'plc', place );
+		//console.log( 'plc', place );
 		const address = place.formatted_address,
 		      addressArray =  place.address_components,
 		      city = this.getCity( addressArray ),

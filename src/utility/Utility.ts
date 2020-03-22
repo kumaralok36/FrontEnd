@@ -94,6 +94,18 @@ export default class Utility{
             }
         }
     }
+    static showErrorMessage(text:string, lastTime=false) {
+        //'success', 'Data has been Reset!'
+        this.showNotification("danger", text, lastTime)
+    }
+    static showInfoMessage(text:string, lastTime=false) {
+        //'success', 'Data has been Reset!'
+        this.showNotification("info", text, lastTime)
+    }
+    static showSuccessMessage(text:string, lastTime=false) {
+        //'success', 'Data has been Reset!'
+        this.showNotification("success", text, lastTime)
+    }
 
     public static getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
