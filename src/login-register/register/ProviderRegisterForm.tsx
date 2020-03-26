@@ -26,6 +26,7 @@ import OnBoardNavBar from './components/OnBoardNavBar';
 import mHistory from 'mHistory';
 import InputGoogleAaddess2 from './components/inputs/InputGoogleAddress2';
 import InputGoogleMap from './components/inputs/InputGoogleMap';
+import OnBoardAllSetCard from './components/OnBoardAllSetCard';
 
 
 const SESSION_TOKEN="onboardsessiontoken";
@@ -37,7 +38,8 @@ export default class ProviderRegisterForm extends React.Component {
     state = {
         data: undefined,
         page: -1,
-        lastQuestion: false
+        lastQuestion: false,
+        allSet:false
     }
     formOutputs = [];
     questions = [];
@@ -125,7 +127,7 @@ export default class ProviderRegisterForm extends React.Component {
     }
 
     saveAllAndRedirect = () => {
-        mHistory.push("/login");
+        this.setState({allSet:true})
     }
 
     handlePrevPage = (i) => {
@@ -191,6 +193,9 @@ export default class ProviderRegisterForm extends React.Component {
     getMainRenderComponent = () => {
         if (this.state.page >= this.questions.length || this.state.page < 0) {
             return <></>
+        }
+        if(this.state.allSet){
+            return <OnBoardAllSetCard />
         }
 
         var question = this.questions[this.state.page];
@@ -259,7 +264,7 @@ export default class ProviderRegisterForm extends React.Component {
 
 
 
-                {this.state.page >= 2 ?
+                {(!this.state.allSet && this.state.page >= 2) ?
                     <div className="wrapper ">
                         {/* style={{ background: "#f1f1f1" }} */}
                         <OnBoardSideBar formOutputs={this.formOutputs} questions={this.questions} handleChangePage={this.handleChangePage} page={this.state.page} />
@@ -277,7 +282,7 @@ export default class ProviderRegisterForm extends React.Component {
                     <>
                         <OnBoardNavBar page={this.state.page} />
                         <div className="wrapper"><br /> <br /><br />{this.getMainRenderCard()}</div>
-                        <OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion} />
+                        {!this.state.allSet&&<OnBoardFooter handleSkipButton={this.handleSkipButton} myCallback={this.callFromFooter} page={this.state.page} questions={this.questions} isLastInput={this.state.lastQuestion} />}
                     </>
                 }
             </>
