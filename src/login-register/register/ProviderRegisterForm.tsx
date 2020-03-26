@@ -82,6 +82,12 @@ export default class ProviderRegisterForm extends React.Component {
                     this.setLoaderState(false);
                     console.log("Success Email : ", data)
                     this.sessionToken = data.data[SESSION_TOKEN];
+                    this.formOutputs=data.data.answers;
+                    for(let i in this.formOutputs){
+                        if(this.formOutputs[i]===null){
+                            this.formOutputs[i]=undefined
+                        }
+                    }
                     this.moveToNextPage();
                 }, (err)=>{
                     this.setLoaderState(false);
@@ -90,7 +96,7 @@ export default class ProviderRegisterForm extends React.Component {
             }else if(this.state.page > 1){
                 this.setLoaderState(true);
                 HttpCall.callUrl(ProviderCalls.OnBoard.Set.url, "POST", {
-                    [this.questions[this.state.page].formData]:this.formOutputs[this.state.page]
+                    [this.questions[this.state.page].formName]:this.formOutputs[this.state.page]
                 }, (data)=>{
                     this.setLoaderState(false);
                     console.log("Success Call : ", data)
@@ -214,7 +220,8 @@ export default class ProviderRegisterForm extends React.Component {
             return <InputFile handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
 
         else if (question.inputType === ProviderQuestionTypes.FileList)
-            return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
+            return <InputFileList handlePrevPage={this.handlePrevPage} handleAdd={this.handleAdd} label={question.heading} page={this.state.page} answers={this.formOutputs} callbackNav={this.callBackNav} 
+                    questions={this.questions}/>
         else if (question.inputType === ProviderQuestionTypes.CheckBox)
             return <InputCheckbox values={question.values} handleAdd={this.handleAdd} handlePrevPage={this.handlePrevPage} type="checkbox" label={question.heading} page={this.state.page} arr={this.formOutputs} callbackNav={this.callBackNav} />
         else if (question.inputType === ProviderQuestionTypes.Passwords)

@@ -16,6 +16,7 @@ export default class InputFile extends React.Component<props, any>{
     }
 
     state = {
+        name:"Select a File!",
         data: this.props.arr[this.props.page] === undefined || isNumber(this.props.arr[this.props.page])? undefined : this.props.arr[this.props.page]
     }
     handleChange = (e) => {
@@ -24,13 +25,8 @@ export default class InputFile extends React.Component<props, any>{
         reader.readAsDataURL(files[0]);
         reader.onload = (e) => {
             //console.log(e.target.result);
-            this.setState({ data: files[0].name });
+            this.setState({ name: files[0].name, data:e.target.result });
         }
-    }
-    getBrowseAgainLine = () => {
-        if (this.state.data !== undefined)
-            return <p style={{ color: "red" }}>Browse again to select different file.</p>
-
     }
 
     callback = (skip: boolean) => {
@@ -46,7 +42,7 @@ export default class InputFile extends React.Component<props, any>{
         return (
             <div>
 
-                <div style={{}}>{this.state.data}
+                <div style={{}}>{this.state.name}
                     {/* <input type="button" style={{margin:"1%",height:"26px",border:"1px solid white"}} value="x" onClick={()=>{this.setState({list:this.state.list.filter(li=>{return(li!==list)})})}}/> */}
                 </div>
 
@@ -56,18 +52,15 @@ export default class InputFile extends React.Component<props, any>{
 
     handleClick = (event=undefined) => {
         if(event) event.preventDefault();
-        var datan = this.state.data;
+        this.props.handleAdd(this.state);
         this.setState({
             data: undefined
-        }, () => {
-            this.props.handleAdd(datan);
         })
     }
     render() {
         return (
 
             <div className="card-body">
-
                 <form onSubmit={this.handleClick}>
                     <label style={{ color: "black" }}><b>{this.props.label}</b></label><br />
                     {this.getList()}
@@ -76,7 +69,6 @@ export default class InputFile extends React.Component<props, any>{
                     }}>Browse File</button>
                     <input type="file" id="fileSelect" className="btn btn-info" onChange={(e) => this.handleChange(e)} style={{ background: "white", color: "blue" }} hidden /><br /><br />
                 </form>
-                {this.getBrowseAgainLine()}
             </div>
         )
     }

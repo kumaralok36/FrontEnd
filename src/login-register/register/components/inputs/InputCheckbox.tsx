@@ -18,8 +18,7 @@ export default class InputCheckbox extends React.Component<props, any>{
 
     arr = this.props.arr
     state = {
-        data: this.props.arr[this.props.page] === undefined ? [{ formvalue: 0, status: false }, { formvalue: 1, status: false }, { formvalue: 2, status: false }, { formvalue: 3, status: false }, { formvalue: 4, status: false }] : this.props.arr[this.props.page],
-
+        data: this.props.arr[this.props.page] === undefined ? [{ formValue: 0, status: false }, { formValue: 1, status: false }, { formValue: 2, status: false }, { formValue: 3, status: false }, { formValue: 4, status: false }] : this.props.arr[this.props.page],
     }
     getCheckBoxes = () => {
         return (
@@ -43,19 +42,19 @@ export default class InputCheckbox extends React.Component<props, any>{
         }
     }
 
-    checkStatus = (formvalue) => {
-        var i = this.getIndex(formvalue);
+    checkStatus = (formValue) => {
+        var i = this.getIndex(formValue);
         return this.state.data[i].status
     }
-    getIndex = (formvalue) => {
+    getIndex = (formValue) => {
         for (var i = 0; i < this.props.values.length; i++) {
-            if (this.props.values[i].formValue === formvalue)
+            if (this.props.values[i].formValue === formValue)
                 return i;
         }
     }
 
-    handleChange = (formvalue) => {
-        var i = this.getIndex(formvalue);
+    handleChange = (formValue) => {
+        var i = this.getIndex(formValue);
         var datan = this.state.data;
         datan[i].status = !(datan[i].status);
         this.setState({ data: datan }, () => {
@@ -70,8 +69,14 @@ export default class InputCheckbox extends React.Component<props, any>{
             if (this.state.data[i].status === true)
                 count++;
         //console.log(count);
+        let mArray=[];
+        for(let i in this.state.data){
+            if(this.state.data[i].status){
+                mArray.push(this.state.data[i].formValue)
+            }
+        }
         if (count > 0)
-            this.props.handleAdd(this.state.data);
+            this.props.handleAdd(mArray);
         else
             this.props.handleAdd(undefined);
     }

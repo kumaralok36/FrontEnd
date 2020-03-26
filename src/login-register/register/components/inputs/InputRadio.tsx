@@ -55,13 +55,17 @@ export default class InputRadio extends React.Component<props, any>{
             if (this.state.data[i] === true)
                 count++;
         //console.log(count);
+        let mArray=undefined;
+        for(let i in this.state.data){
+            if(this.state.data[i]){
+                mArray=i;
+                break;
+            }
+        }
         if (count > 0)
-            this.props.handleAdd(this.state.data);
+            this.props.handleAdd(mArray);
         else
             this.props.handleAdd(undefined);
-
-
-
     }
 
     render() {
