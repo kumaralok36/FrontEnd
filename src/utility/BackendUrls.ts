@@ -4,11 +4,16 @@ import AdminCalls from "./subCalls/AdminCalls";
 import ProviderCalls from "./subCalls/ProviderCalls";
 import HRCalls from "./subCalls/HRCalls";
 
+let bUrl=""
+if(process.env.NODE_ENV=="production"){
+    bUrl="https://api.therapyondemand.io"
+}
 
 export class BackendUrls {
     //private static BackendUrl=HttpCall.backEndUrl;
     // private static backEndUrl = "https://api.therapyondemand.io"
-    private static backEndUrl = "http://localhost:3001"
+    
+    private static backEndUrl = bUrl
 
     static TokenUrl = "/token/web";
 
