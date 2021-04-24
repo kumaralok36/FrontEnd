@@ -1,0 +1,70 @@
+body{
+    
+    font-family:'Helvetica','Arial','sans-serif';
+    color:#333;
+    background-image: linear-gradient(to top right,rgb(245, 214, 245),white);
+    
+}
+.navbar{
+    top:0;
+}
+
+input{
+    height:24px;
+    padding: 6px 12px;
+    font-size:4px;
+    line-height:1.4285;
+    box-shadow:inset0px 1px 1px rgba(0,0,0,0.75);
+    transition: border-color ease-in-out .15s , box-shadow ease-in-out .15s;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+label{
+    display: inline-block;
+    margin-bottom: 20px;
+    color:black;
+}
+
+
+@media screen and (max-width:800px){
+    .welcomeCard {position:relative};
+    
+}
+@media screen and (max-width:1600px)and (min-width:800px){
+    .welcomeCard {position:fixed}
+}
+
+@media screen and (max-width:450px){
+    .thead {font-size: 2.7vw;}
+    .tdata {font-size:2.7vw}
+}
+
+@media screen and (min-width:800px){
+  .main {height:41vw}   
+}
+
+.thead{
+ font-weight: bold;
+
+}
+
+.tdata{
+color: black;
+margin-bottom: 4px;
+}
+
+.dropdown-item {
+    background: purple;
+}
+
+
+
+
+
+
+
+
+
+
+
